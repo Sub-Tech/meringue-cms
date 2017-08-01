@@ -3,3 +3,4 @@ node_modules/
 storage/*.key
 .env.*.php
 .env
+.idea
