@@ -3,7 +3,7 @@
 namespace App;
 
 
-class BasePlugin
+class PluginBase
 {
 
 

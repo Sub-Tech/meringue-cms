@@ -1,6 +1,8 @@
 <?php namespace Meringue\PhotoGallery;
 
 
+use App\PluginBase;
+
 class Plugin extends PluginBase
 {
 
@@ -18,6 +20,13 @@ class Plugin extends PluginBase
     {
         return [
             '\October\Demo\Components\Todo' => 'demoTodo'
+        ];
+    }
+
+    public function registerSideBarMenuItem()
+    {
+        return [
+           'name' => 'Photo Gallery'
         ];
     }
 }
