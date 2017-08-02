@@ -1,9 +1,9 @@
-<?php namespace Meringue\PhotoGallery;
+<?php namespace Plugins\Meringue\PhotoGallery;
 
 
 use App\PluginBase;
 
-class Plugin extends PluginBase
+class PhotoGallery extends PluginBase
 {
 
     public function pluginDetails()

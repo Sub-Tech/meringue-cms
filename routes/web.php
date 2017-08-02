@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', function () {
+Route::get('/admin/test', function () {
+
+
+
+    dd(( new \App\PluginBase)->getSideBarMenuItems());
+
+});
+
+Route::get('/admin/dashboard', function () {
     return view('admin/dashboard');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
