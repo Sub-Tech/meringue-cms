@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,29 +7,44 @@
     <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
 
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+          type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/icons/icomoon')}}/styles.css" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/core.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/components.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/colors.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/limitless/assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
+
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
     <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/loaders')}}/pace.min.js"></script>
     <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/core/libraries')}}/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/core/libraries')}}/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/loaders')}}/blockui.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/core/libraries')}}/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/loaders')}}/blockui.min.js"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/visualization')}}/d3/d3.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/visualization')}}/d3/d3_tooltip.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/styling/switchery.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/styling/uniform.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/selects/bootstrap_multiselect.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/ui')}}/moment/moment.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/pickers')}}/daterangepicker.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/visualization')}}/d3/d3.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/visualization')}}/d3/d3_tooltip.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/styling/switchery.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/styling/uniform.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/forms')}}/selects/bootstrap_multiselect.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/ui')}}/moment/moment.min.js"></script>
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/pickers')}}/daterangepicker.js"></script>
+
+    <script type="text/javascript"
+            src="{{ URL::asset('/limitless/assets/js/plugins/notifications/pnotify.min.js')}}"></script>
 
     <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/core/app')}}.js"></script>
     <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/pages/dashboard')}}.js"></script>
@@ -45,7 +59,8 @@
 <!-- Main navbar -->
 <div class="navbar navbar-default header-highlight">
     <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="{{ URL::asset('/limitless/assets/images/logo_light.png')}}" alt=""></a>
+        <a class="navbar-brand" href="index.html"><img src="{{ URL::asset('/limitless/assets/images/logo_light.png')}}"
+                                                       alt=""></a>
 
         <ul class="nav navbar-nav visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -55,7 +70,8 @@
 
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <ul class="nav navbar-nav">
-            <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+            <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a>
+            </li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -75,7 +91,9 @@
                     <ul class="media-list dropdown-content-body width-350">
                         <li class="media">
                             <div class="media-left">
-                                <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+                                <a href="#"
+                                   class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i
+                                            class="icon-git-pull-request"></i></a>
                             </div>
 
                             <div class="media-body">
@@ -86,7 +104,9 @@
 
                         <li class="media">
                             <div class="media-left">
-                                <a href="#" class="btn border-warning text-warning btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-commit"></i></a>
+                                <a href="#"
+                                   class="btn border-warning text-warning btn-flat btn-rounded btn-icon btn-sm"><i
+                                            class="icon-git-commit"></i></a>
                             </div>
 
                             <div class="media-body">
@@ -97,29 +117,36 @@
 
                         <li class="media">
                             <div class="media-left">
-                                <a href="#" class="btn border-info text-info btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-branch"></i></a>
+                                <a href="#" class="btn border-info text-info btn-flat btn-rounded btn-icon btn-sm"><i
+                                            class="icon-git-branch"></i></a>
                             </div>
 
                             <div class="media-body">
-                                <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span> branch
+                                <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span>
+                                branch
                                 <div class="media-annotation">2 hours ago</div>
                             </div>
                         </li>
 
                         <li class="media">
                             <div class="media-left">
-                                <a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-merge"></i></a>
+                                <a href="#"
+                                   class="btn border-success text-success btn-flat btn-rounded btn-icon btn-sm"><i
+                                            class="icon-git-merge"></i></a>
                             </div>
 
                             <div class="media-body">
-                                <a href="#">Eugene Kopyov</a> merged <span class="text-semibold">Master</span> and <span class="text-semibold">Dev</span> branches
+                                <a href="#">Eugene Kopyov</a> merged <span class="text-semibold">Master</span> and <span
+                                        class="text-semibold">Dev</span> branches
                                 <div class="media-annotation">Dec 18, 18:36</div>
                             </div>
                         </li>
 
                         <li class="media">
                             <div class="media-left">
-                                <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+                                <a href="#"
+                                   class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i
+                                            class="icon-git-pull-request"></i></a>
                             </div>
 
                             <div class="media-body">
@@ -130,14 +157,15 @@
                     </ul>
 
                     <div class="dropdown-content-footer">
-                        <a href="#" data-popup="tooltip" title="All activity"><i class="icon-menu display-block"></i></a>
+                        <a href="#" data-popup="tooltip" title="All activity"><i
+                                    class="icon-menu display-block"></i></a>
                     </div>
                 </div>
             </li>
         </ul>
 
         <div class="navbar-right">
-            <p class="navbar-text">Morning, Victoria!</p>
+            <p class="navbar-text">Morning, <?= Auth::user()->name; ?>!</p>
             <p class="navbar-text"><span class="label bg-success">Online</span></p>
 
             <ul class="nav navbar-nav">
@@ -159,7 +187,8 @@
                         <ul class="media-list dropdown-content-body width-350">
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs"><i class="icon-mention"></i></a>
+                                    <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs"><i
+                                                class="icon-mention"></i></a>
                                 </div>
 
                                 <div class="media-body">
@@ -170,7 +199,8 @@
 
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-pink-400 btn-rounded btn-icon btn-xs"><i class="icon-paperplane"></i></a>
+                                    <a href="#" class="btn bg-pink-400 btn-rounded btn-icon btn-xs"><i
+                                                class="icon-paperplane"></i></a>
                                 </div>
 
                                 <div class="media-body">
@@ -181,18 +211,21 @@
 
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-blue btn-rounded btn-icon btn-xs"><i class="icon-plus3"></i></a>
+                                    <a href="#" class="btn bg-blue btn-rounded btn-icon btn-xs"><i
+                                                class="icon-plus3"></i></a>
                                 </div>
 
                                 <div class="media-body">
-                                    <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span> branch in <span class="text-semibold">Limitless</span> repository
+                                    <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span>
+                                    branch in <span class="text-semibold">Limitless</span> repository
                                     <div class="media-annotation">2 hours ago</div>
                                 </div>
                             </li>
 
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-purple-300 btn-rounded btn-icon btn-xs"><i class="icon-truck"></i></a>
+                                    <a href="#" class="btn bg-purple-300 btn-rounded btn-icon btn-xs"><i
+                                                class="icon-truck"></i></a>
                                 </div>
 
                                 <div class="media-body">
@@ -203,7 +236,8 @@
 
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-warning-400 btn-rounded btn-icon btn-xs"><i class="icon-bubble8"></i></a>
+                                    <a href="#" class="btn bg-warning-400 btn-rounded btn-icon btn-xs"><i
+                                                class="icon-bubble8"></i></a>
                                 </div>
 
                                 <div class="media-body">
@@ -214,7 +248,8 @@
 
                             <li class="media">
                                 <div class="media-left">
-                                    <a href="#" class="btn bg-teal-400 btn-rounded btn-icon btn-xs"><i class="icon-spinner11"></i></a>
+                                    <a href="#" class="btn bg-teal-400 btn-rounded btn-icon btn-xs"><i
+                                                class="icon-spinner11"></i></a>
                                 </div>
 
                                 <div class="media-body">
@@ -244,7 +279,8 @@
                         <ul class="media-list dropdown-content-body">
                             <li class="media">
                                 <div class="media-left">
-                                    <img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}" class="img-circle img-sm" alt="">
+                                    <img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}"
+                                         class="img-circle img-sm" alt="">
                                     <span class="badge bg-danger-400 media-badge">5</span>
                                 </div>
 
@@ -260,7 +296,8 @@
 
                             <li class="media">
                                 <div class="media-left">
-                                    <img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}" class="img-circle img-sm" alt="">
+                                    <img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}"
+                                         class="img-circle img-sm" alt="">
                                     <span class="badge bg-danger-400 media-badge">4</span>
                                 </div>
 
@@ -275,7 +312,9 @@
                             </li>
 
                             <li class="media">
-                                <div class="media-left"><img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}" class="img-circle img-sm" alt=""></div>
+                                <div class="media-left"><img
+                                            src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}"
+                                            class="img-circle img-sm" alt=""></div>
                                 <div class="media-body">
                                     <a href="#" class="media-heading">
                                         <span class="text-semibold">Jeremy Victorino</span>
@@ -287,7 +326,9 @@
                             </li>
 
                             <li class="media">
-                                <div class="media-left"><img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}" class="img-circle img-sm" alt=""></div>
+                                <div class="media-left"><img
+                                            src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}"
+                                            class="img-circle img-sm" alt=""></div>
                                 <div class="media-body">
                                     <a href="#" class="media-heading">
                                         <span class="text-semibold">Beatrix Diaz</span>
@@ -299,7 +340,9 @@
                             </li>
 
                             <li class="media">
-                                <div class="media-left"><img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}'" class="img-circle img-sm" alt=""></div>
+                                <div class="media-left"><img
+                                            src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}'"
+                                            class="img-circle img-sm" alt=""></div>
                                 <div class="media-body">
                                     <a href="#" class="media-heading">
                                         <span class="text-semibold">Richard Vango</span>
@@ -312,7 +355,8 @@
                         </ul>
 
                         <div class="dropdown-content-footer">
-                            <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                            <a href="#" data-popup="tooltip" title="All messages"><i
+                                        class="icon-menu display-block"></i></a>
                         </div>
                     </div>
                 </li>
@@ -337,9 +381,10 @@
                 <div class="sidebar-user-material">
                     <div class="category-content">
                         <div class="sidebar-user-material-content">
-                            <a href="#"><img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}" class="img-circle img-responsive" alt=""></a>
-                            <h6>Victoria Baker</h6>
-                            <span class="text-size-small">Santa Ana, CA</span>
+                            <a href="#"><img src="{{ URL::asset('/limitless/assets/images/placeholder.jpg')}}"
+                                             class="img-circle img-responsive" alt=""></a>
+                            <h6><?= Auth::user()->name; ?></h6>
+                            <span class="text-size-small"><?= Auth::user()->email; ?></span>
                         </div>
 
                         <div class="sidebar-user-material-menu">
@@ -351,7 +396,8 @@
                         <ul class="navigation">
                             <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
                             <li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>
-                            <li><a href="#"><i class="icon-comment-discussion"></i> <span><span class="badge bg-teal-400 pull-right">58</span> Messages</span></a></li>
+                            <li><a href="#"><i class="icon-comment-discussion"></i> <span><span
+                                                class="badge bg-teal-400 pull-right">58</span> Messages</span></a></li>
                             <li class="divider"></li>
                             <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
                             <li><a href="#"><i class="icon-switch2"></i> <span>Logout</span></a></li>
@@ -367,26 +413,34 @@
                         <ul class="navigation navigation-main navigation-accordion">
 
                             <!-- Main -->
-                            <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-                            <li class="active"><a href="index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                            <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i>
+                            </li>
+
+                            <li class="active"><a href="/admin/dashboard"><i class="icon-home4"></i>
+                                    <span>Dashboard</span></a></li>
                             <li>
-                                <a href="#"><i class="icon-stack2"></i> <span>Page layouts</span></a>
+                                <a href="#"><i class="fa fa-file"></i> <span>Pages</span></a>
                                 <ul>
-                                    <li><a href="layout_navbar_fixed.html">Fixed navbar</a></li>
-                                    <li><a href="layout_navbar_sidebar_fixed.html">Fixed navbar &amp; sidebar</a></li>
-                                    <li><a href="layout_sidebar_fixed_native.html">Fixed sidebar native scroll</a></li>
-                                    <li><a href="layout_navbar_hideable.html">Hideable navbar</a></li>
-                                    <li><a href="layout_navbar_hideable_sidebar.html">Hideable &amp; fixed sidebar</a></li>
-                                    <li><a href="layout_footer_fixed.html">Fixed footer</a></li>
-                                    <li class="navigation-divider"></li>
-                                    <li><a href="boxed_default.html">Boxed with default sidebar</a></li>
-                                    <li><a href="boxed_mini.html">Boxed with mini sidebar</a></li>
-                                    <li><a href="boxed_full.html">Boxed full width</a></li>
+                                    <li><a href="/admin/page/add">Add Page</a></li>
+                                    <li><a href="/admin/page/manage">Manage Pages</a></li>
                                 </ul>
                             </li>
 
+                            <li>
+                                <a href="#"><i class="fa fa-plug"></i> <span>Plugins</span></a>
+                                <ul>
+                                    <li><a href="/admin/plugin/add">Add Plugin</a></li>
+                                    <li><a href="/admin/plugin/manage">Manage Plugins</a></li>
+                                </ul>
+                            </li>
                             <!-- /page kits -->
 
+                        </ul>
+                        <hr>
+                        <ul class="navigation navigation-main navigation-accordion">
+                            <?php foreach ((new \App\PluginBase)->getSideBarMenuItems() as $plugin) {
+                                echo "<li><a href='index.html'><i class='{$plugin['icon']}'></i><span>{$plugin['name']}</span></a></li>";
+                            }?>
                         </ul>
                     </div>
                 </div>
@@ -402,7 +456,7 @@
 
             <!-- Content area -->
             <div class="content">
-
+                @yield('content')
             </div>
             <!-- /content area -->
 

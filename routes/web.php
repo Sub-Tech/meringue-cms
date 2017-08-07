@@ -15,18 +15,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/test', function () {
 
 
-
-    dd(( new \App\PluginBase)->getSideBarMenuItems());
-
-});
-
-Route::get('/admin/dashboard', function () {
-    return view('admin/dashboard');
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', function () {
+    (new \App\PluginBase())->refreshPluginsRegistry();
+});
+
+
+// Admin Routes
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {return view('admin.dashboard');});
+
+    // Page Routes
+    Route::prefix('page')->group(function () {
+        Route::get('manage', 'Admin\PageController@manage');
+    });
+
+    // Plugin Routes
+    Route::prefix('plugin')->group(function () {
+        Route::get('manage', 'Admin\PluginController@manage');
+        Route::post('activate', 'Admin\PluginController@activate');
+        Route::get('refresh', 'Admin\PluginController@refreshPluginsRegistry');
+    });
+});
+
+// Route for all other pages to go via the CMS
+Route::get('{slug}', 'PageController@index');

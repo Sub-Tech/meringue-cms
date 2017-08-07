@@ -38,7 +38,7 @@
 
 </head>
 
-<body class="login-container bg-slate-800">
+<body class="login-container bg-slate-800"  style="background:url('{{ URL::asset('/limitless/assets/images/backgrounds/auth_page.jpg')}}') center center no-repeat; background-size: cover;">
 
 <!-- Page container -->
 <div class="page-container">

@@ -20,7 +20,8 @@ class YouTubeVideo extends PluginBase
     public function registerSideBarMenuItem()
     {
         return [
-           'name' => 'YouTube Videos'
+           'name' => 'YouTube Videos',
+            'icon' => 'fa fa-youtube-play'
         ];
     }
 }
