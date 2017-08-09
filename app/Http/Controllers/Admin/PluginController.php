@@ -78,6 +78,14 @@ class PluginController extends Controller
     }
 
     /**
+     * Refresh the block registry in the database
+     */
+    public function refreshBlocksRegistry()
+    {
+        $this->pluginBase->refreshBlockRegistry();
+    }
+
+    /**
      * @param Plugin $plugin
      * @return mixed
      */

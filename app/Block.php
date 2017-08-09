@@ -18,6 +18,14 @@ class Block extends Model
         return $this->belongsTo(Section::class);
     }
 
+    public function plugin() {
+        return $this->hasOne(Plugin::class,'class_name','plugin_class' );
+    }
+
+    public function blockRegistry() {
+        return $this->hasOne(BlockRegistry::class,'plugin_class','plugin_class' );
+    }
+
     public static function render(Block $block) {
         dd($block);
     }

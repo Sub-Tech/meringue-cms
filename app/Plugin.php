@@ -17,8 +17,13 @@ class Plugin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function blocks(){
-        return $this->hasMany(Block::class, 'class_name', 'class_name');
+    public function blocks()
+    {
+        return $this->hasMany(Block::class, 'plugin_class', 'class_name');
+    }
+
+    public function loadPlugin() {
+        return (new $this->class_name());
     }
 
 }

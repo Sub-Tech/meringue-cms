@@ -12,7 +12,7 @@ class SectionSeeder extends Seeder
     public function run()
     {
         (new \App\Section([
-            'page_id' => 2,
+            'page_id' => 1,
             'order' => 1
         ]))->save();
     }

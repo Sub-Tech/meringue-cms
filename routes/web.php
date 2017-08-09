@@ -16,8 +16,6 @@ Route::get('/', function () {
 });
 
 
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -28,11 +26,16 @@ Route::get('/test', function () {
 
 // Admin Routes
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {return view('admin.dashboard');});
+    Route::get('/', function (){    return redirect('admin/dashboard');});
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
 
     // Page Routes
     Route::prefix('page')->group(function () {
         Route::get('manage', 'Admin\PageController@manage');
+        Route::get('edit/{page}', 'Admin\PageController@edit');
     });
 
     // Plugin Routes
@@ -40,6 +43,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('manage', 'Admin\PluginController@manage');
         Route::post('activate', 'Admin\PluginController@activate');
         Route::get('refresh', 'Admin\PluginController@refreshPluginsRegistry');
+        Route::prefix('block')->group(function () {
+            Route::get('refresh', 'Admin\PluginController@refreshBlocksRegistry');
+        });
+    });
+
+    // Block Routes
+    Route::prefix('block')->group(function () {
+        Route::post('{block}', 'Admin\BlockController@update');
     });
 });
 

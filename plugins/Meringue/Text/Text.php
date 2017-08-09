@@ -22,7 +22,7 @@ class Text extends PluginBase
             'name' => 'Text',
             'description' => 'Allows you to easily create a text block',
             'author' => 'James Lewis',
-            'icon' => 'icon-leaf'
+            'icon' => './assets/images/block-icon.png',
         ];
     }
 
@@ -32,5 +32,17 @@ class Text extends PluginBase
     public function install() {
         $this->runMigrations();
 
+    }
+
+    public function registerBlock(){
+      return [
+          'name' => 'Text',
+          'description' => 'Simple text block with WYSWYG',
+          'inputs' => [ // Inputs for the page editor
+              'content' => [ // Key must be same as database column
+                  'type' => 'wyswyg' // This will load a corresponding input in the page editor
+              ]
+          ]
+      ];
     }
 }

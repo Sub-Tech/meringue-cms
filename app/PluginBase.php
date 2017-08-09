@@ -4,6 +4,8 @@ namespace App;
 
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Response;
+use League\Flysystem\File;
 use Mockery\Exception;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -123,20 +125,74 @@ class PluginBase
         return response()->json(['success' => true, 'message' => 'Number of new plugins found : ' . $newPlugins]);
     }
 
+
+    /**
+     * Registers the plugins block in the database
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refreshBlockRegistry()
+    {
+        $newBlocks = 0;
+
+        foreach ($this->plugins as $plugin) {
+            // Plugin details as started in the plugins files
+            $pluginClass = (new $plugin['class']());
+            if (!method_exists($pluginClass, 'registerBlock')) {
+                continue;
+            }
+            // Plugin details as stated in the database
+            $blockRegistry = BlockRegistry::find($plugin['class']);
+
+            // If this plugin is already in the database, refresh these details
+            if ($blockRegistry != null) {
+                $blockRegistry->update([
+                    'name' => $pluginClass->registerBlock()['name'],
+                    'icon' => $pluginClass->registerBlock()['icon'],
+                    'description' => $pluginClass->registerBlock()['description'],
+                ]);
+            } else {
+                (new BlockRegistry([
+                    'plugin_class' => $plugin['class'],
+                    'name' => $pluginClass->registerBlock()['name'],
+                    'icon' => $pluginClass->registerBlock()['icon'],
+                    'description' => $pluginClass->registerBlock()['description']
+                ]))->save();
+                $newBlocks++;
+            }
+        }
+        return response()->json(['success' => true, 'message' => 'Number of new blocks found : ' . $newBlocks]);
+    }
+
     /**
      * Overwrite this function in your plugin, This will run on activate.
      *
      * @return bool
      */
-    public function install() {
+    public function install()
+    {
         return false;
     }
 
     /**
      * Runs the migrations found in the plugins directory
      */
-    public function runMigrations() {
-        Artisan::call('migrate', ['--path' => 'plugins/'.$this->vendor .'/'.$this->name.'/database/migrations/']);
+    public function runMigrations()
+    {
+        Artisan::call('migrate', ['--path' => 'plugins/' . $this->vendor . '/' . $this->name . '/database/migrations/']);
+    }
+
+
+    public function getLogo()
+    {
+        $pluginFile = base_path('plugins/'.$this->vendor.'/'.$this->name.'/assets/images/block-logo.png');
+        $tmpFileName = '/tmp/'. md5($pluginFile);
+        $tmpFile = public_path($tmpFileName);
+        if(!file_exists($tmpFile) || (time() - filemtime($tmpFile)) > 300) {
+            copy($pluginFile, $tmpFile);
+        }
+        return $tmpFileName;
+
     }
 
 }

@@ -22,10 +22,14 @@ class PageController extends Controller
     }
 
 
+    /**
+     * @param Page $page
+     */
     public function render(Page $page) {
         foreach ($page->sections as $section) {
             Section::render($section);
         }
     }
+
 
 }
