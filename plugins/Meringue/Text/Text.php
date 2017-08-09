@@ -1,9 +1,9 @@
 <?php namespace Plugins\Meringue\Text;
 
-
 use App\PluginBase;
+use App\PluginInterface;
 
-class Text extends PluginBase
+class Text extends PluginBase implements PluginInterface
 {
 
     public function __construct()
@@ -16,7 +16,7 @@ class Text extends PluginBase
      * Details used for the plugin
      * @return array
      */
-    public function pluginDetails()
+    public function setDetails(): array
     {
         return [
             'name' => 'Text',
@@ -44,5 +44,15 @@ class Text extends PluginBase
               ]
           ]
       ];
+    }
+
+    public function setVendor(string $vendor)
+    {
+        // TODO: Implement setVendor() method.
+    }
+
+    public function setName(string $name)
+    {
+        // TODO: Implement setName() method.
     }
 }

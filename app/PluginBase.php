@@ -12,6 +12,10 @@ use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
 use RegexIterator;
 
+/**
+ * Class PluginBase
+ * @package App
+ */
 class PluginBase
 {
 
@@ -52,6 +56,7 @@ class PluginBase
         }
         return $menu;
     }
+
 
     /**
      * Get the details for the plugin from the database, if this is out of date, run $this->refreshPluginsRegistry();
@@ -98,7 +103,7 @@ class PluginBase
 
         foreach ($this->plugins as $plugin) {
             // Plugin details as started in the plugins files
-            $pluginDetails = (new $plugin['class']())->pluginDetails();
+            $pluginDetails = (new $plugin['class']())->setDetails();
             // Plugin details as stated in the database
             $pluginRegistry = Plugin::find($plugin['class']);
 
@@ -194,5 +199,4 @@ class PluginBase
         return $tmpFileName;
 
     }
-
 }

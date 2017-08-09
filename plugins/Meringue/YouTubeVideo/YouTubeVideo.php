@@ -2,11 +2,12 @@
 
 
 use App\PluginBase;
+use App\PluginInterface;
 
-class YouTubeVideo extends PluginBase
+class YouTubeVideo extends PluginBase implements PluginInterface
 {
 
-    public function pluginDetails()
+    public function setDetails(): array
     {
         return [
             'name'        => 'YouTube Video',
@@ -23,5 +24,15 @@ class YouTubeVideo extends PluginBase
            'name' => 'YouTube Videos',
             'icon' => 'fa fa-youtube-play'
         ];
+    }
+
+    public function setVendor(string $vendor)
+    {
+        // TODO: Implement setVendor() method.
+    }
+
+    public function setName(string $name)
+    {
+        // TODO: Implement setName() method.
     }
 }
