@@ -153,14 +153,14 @@ class PluginBase
             if ($blockRegistry != null) {
                 $blockRegistry->update([
                     'name' => $pluginClass->registerBlock()['name'],
-                    'icon' => $pluginClass->registerBlock()['icon'],
+                    'icon' => $pluginClass->registerBlock()['icon'] ?? null,
                     'description' => $pluginClass->registerBlock()['description'],
                 ]);
             } else {
                 (new BlockRegistry([
                     'plugin_class' => $plugin['class'],
                     'name' => $pluginClass->registerBlock()['name'],
-                    'icon' => $pluginClass->registerBlock()['icon'],
+                    'icon' => $pluginClass->registerBlock()['icon'] ?? null,
                     'description' => $pluginClass->registerBlock()['description']
                 ]))->save();
                 $newBlocks++;

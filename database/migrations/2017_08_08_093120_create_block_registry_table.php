@@ -17,7 +17,7 @@ class CreateBlockRegistryTable extends Migration
             $table->string('plugin_class')->unique();
             $table->string('name');
             $table->string('description');
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->string('inputs')->nullable();
             $table->timestamps();
             $table->primary('plugin_class');
