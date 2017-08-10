@@ -1,39 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jameslewis
- * Date: 10/08/2017
- * Time: 12:39
- */
 
 namespace App\Helpers;
-
 
 use App\Page;
 
 class Render
 {
-    protected $theme;
-
-    public function __construct()
-    {
-        $this->theme = env('THEME');
-    }
 
     /**
      * Render the page for the front end
      * @param Page $page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function renderPage(Page $page) {
-        return $this->renderHeader();
-        // do some more rendering blox
+    public static function page(Page $page)
+    {
+        return self::renderHeader();
     }
+
 
     /**
      * Render the header for the front end from
      */
-    public function renderHeader() {
-       return view($this->theme . '/header');
+    public static function renderHeader()
+    {
+        return view(env('THEME') . '/header', [
+            'tits' => 'wonderful'
+        ]);
     }
 
 
