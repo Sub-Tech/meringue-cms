@@ -5,6 +5,12 @@ use App\PluginInterface;
 
 class Text extends PluginBase implements PluginInterface
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setVendor();
+        $this->setName();
+    }
 
     /**
      * Details used for the plugin
@@ -21,37 +27,43 @@ class Text extends PluginBase implements PluginInterface
     }
 
     /**
-     * Runs on activate
+     * Set the Vendor
      */
-    public function install() {
-        $this->runMigrations();
-
-    }
-
-    public function registerBlock(){
-      return [
-          'name' => 'Text',
-          'description' => 'Simple text block with WYSWYG',
-          'inputs' => [ // Inputs for the page editor
-              'content' => [ // Key must be same as database column
-                  'type' => 'wyswyg' // This will load a corresponding input in the page editor
-              ]
-          ]
-      ];
-    }
-
     public function setVendor()
     {
         $this->vendor = 'Meringue';
     }
 
+
+    /**
+     * Set the Name
+     */
     public function setName()
     {
         $this->name = 'Text';
     }
 
-    public function setViewsPath()
+
+    /**
+     * Runs on activate
+     */
+    public function install()
     {
-        $this->views = '';
+        $this->runMigrations();
+
     }
+
+    public function registerBlock()
+    {
+        return [
+            'name' => 'Text',
+            'description' => 'Simple text block with WYSWYG',
+            'inputs' => [ // Inputs for the page editor
+                'content' => [ // Key must be same as database column
+                    'type' => 'wyswyg' // This will load a corresponding input in the page editor
+                ]
+            ]
+        ];
+    }
+
 }

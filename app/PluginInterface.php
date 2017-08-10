@@ -9,4 +9,5 @@ interface PluginInterface
     public function setVendor();
 
     public function setName();
+
 }

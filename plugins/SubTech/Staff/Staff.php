@@ -21,7 +21,6 @@ class Staff extends PluginBase implements PluginInterface
 
         $this->setVendor();
         $this->setName();
-        $this->setViewsPath();
 
         $this->view('staff.php');
     }
@@ -94,11 +93,5 @@ class Staff extends PluginBase implements PluginInterface
     }
 
 
-    /**
-     * Set the Views Path
-     */
-    public function setViewsPath()
-    {
-        $this->views = "plugins/{$this->vendor}/{$this->name}/views/";
-    }
+
 }
