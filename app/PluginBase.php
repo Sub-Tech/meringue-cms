@@ -2,15 +2,7 @@
 
 namespace App;
 
-
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Response;
-use League\Flysystem\File;
-use Mockery\Exception;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RecursiveRegexIterator;
-use RegexIterator;
 
 /**
  * Class PluginBase
@@ -23,8 +15,20 @@ class PluginBase
      * @var array
      */
     protected $plugins = [];
+
+    /**
+     * @var string The name of the Vendor
+     */
     protected $vendor = '';
+
+    /**
+     * @var string The name of the Plugin
+     */
     protected $name = '';
+
+
+    public $views;
+
 
     /**
      * PluginBase constructor.
@@ -46,12 +50,14 @@ class PluginBase
         $i = 0;
         foreach ($this->plugins as $plugin) {
             $plugin = (new $plugin['class']());
+
             if (!method_exists($plugin, 'registerSideBarMenuItem')) {
                 continue;
             }
+
             $plugin = $plugin->registerSideBarMenuItem();
-            $menu[$i]['name'] = (isset($plugin['name'])) ? $plugin['name'] : '';
-            $menu[$i]['icon'] = (isset($plugin['icon'])) ? $plugin['icon'] : '';
+            $menu[$i]['name'] = $plugin['name'] ?? '';
+            $menu[$i]['icon'] = $plugin['icon'] ?? '';
             $i++;
         }
         return $menu;
@@ -68,6 +74,7 @@ class PluginBase
         return Plugin::get();
     }
 
+
     /**
      * Auto load plugins from the plugins directory.
      *
@@ -76,14 +83,20 @@ class PluginBase
     {
         $vendorDir = base_path('plugins');
         $vendors = scandir(base_path('plugins'));
-        unset($vendors[0], $vendors[1]);
+
+        $this->trimDirectoryPath($vendors);
+
         foreach ($vendors as $vendor) {
             $plugins = scandir($vendorDir . '/' . $vendor);
-            unset($plugins[0], $plugins[1]);
+
+            $this->trimDirectoryPath($plugins);
+
             foreach ($plugins as $plugin) {
                 $classPath = "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin;
                 $filePath = "plugins/" . $vendor . "/" . $plugin . "/" . $plugin . '.php';
+
                 include_once(base_path($filePath));
+
                 $this->plugins[$vendor . '/' . $plugin] = [
                     'class' => $classPath,
                     'file' => $filePath
@@ -91,6 +104,18 @@ class PluginBase
             }
         }
     }
+
+
+    /**
+     * Removes the '.' and '..' from the directory path
+     *
+     * @param $pathArray
+     */
+    public function trimDirectoryPath(&$pathArray)
+    {
+        unset($pathArray[0], $pathArray[1]);
+    }
+
 
     /**
      * Registers the plugin in the database
@@ -101,33 +126,43 @@ class PluginBase
     {
         $newPlugins = 0;
 
-        foreach ($this->plugins as $plugin) {
-            // Plugin details as started in the plugins files
-            $pluginDetails = (new $plugin['class']())->setDetails();
-            // Plugin details as stated in the database
-            $pluginRegistry = Plugin::find($plugin['class']);
+        collect($this->plugins)->each(function ($plugin) use (&$newPlugins) {
+            $pluginDetails = $this->initPlugin($plugin['class'])->setDetails();
 
-            // If this plugin is already in the database, refresh these details
-            if ($pluginRegistry != null) {
-                $pluginRegistry->update([
-                    'name' => $pluginDetails['name'],
-                    'author' => $pluginDetails['author'],
-                    'icon' => $pluginDetails['icon'],
-                    'description' => $pluginDetails['description'],
-                ]);
-            } else {
-                (new Plugin([
+            $pluginRegistry = Plugin::findOrNew($plugin['class']);
+
+            if (!$pluginRegistry->exists) {
+                $pluginRegistry->fill([
                     'class_name' => $plugin['class'],
                     'file_name' => $plugin['file'],
-                    'name' => $pluginDetails['name'],
-                    'author' => $pluginDetails['author'],
-                    'icon' => $pluginDetails['icon'],
-                    'description' => $pluginDetails['description']
-                ]))->save();
+                ]);
                 $newPlugins++;
             }
-        }
-        return response()->json(['success' => true, 'message' => 'Number of new plugins found : ' . $newPlugins]);
+
+            $pluginRegistry->fill([
+                'name' => $pluginDetails['name'],
+                'author' => $pluginDetails['author'],
+                'icon' => $pluginDetails['icon'],
+                'description' => $pluginDetails['description']
+            ])->save();
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Number of new plugins found : ' . $newPlugins
+        ]);
+    }
+
+
+    /**
+     * Initialise the plugin by its Class Path
+     *
+     * @param $class
+     * @return mixed
+     */
+    public function initPlugin($class)
+    {
+        return new $class();
     }
 
 
@@ -140,33 +175,31 @@ class PluginBase
     {
         $newBlocks = 0;
 
-        foreach ($this->plugins as $plugin) {
-            // Plugin details as started in the plugins files
-            $pluginClass = (new $plugin['class']());
-            if (!method_exists($pluginClass, 'registerBlock')) {
-                continue;
-            }
-            // Plugin details as stated in the database
-            $blockRegistry = BlockRegistry::find($plugin['class']);
+        collect($this->plugins)->each(function ($plugin) use (&$newBlocks) {
+            $pluginClass = $this->initPlugin($plugin['class']);
 
-            // If this plugin is already in the database, refresh these details
-            if ($blockRegistry != null) {
-                $blockRegistry->update([
-                    'name' => $pluginClass->registerBlock()['name'],
-                    'icon' => $pluginClass->registerBlock()['icon'] ?? null,
-                    'description' => $pluginClass->registerBlock()['description'],
-                ]);
-            } else {
-                (new BlockRegistry([
-                    'plugin_class' => $plugin['class'],
-                    'name' => $pluginClass->registerBlock()['name'],
-                    'icon' => $pluginClass->registerBlock()['icon'] ?? null,
-                    'description' => $pluginClass->registerBlock()['description']
-                ]))->save();
+            if (!method_exists($pluginClass, 'registerBlock')) {
+                return;
+            }
+
+            $blockRegistry = BlockRegistry::findOrNew($plugin['class']);
+
+            if (!$blockRegistry->exists) {
+                $blockRegistry->plugin_class = $plugin['class'];
                 $newBlocks++;
             }
-        }
-        return response()->json(['success' => true, 'message' => 'Number of new blocks found : ' . $newBlocks]);
+
+            $blockRegistry->fill([
+                'name' => $pluginClass->registerBlock()['name'],
+                'icon' => $pluginClass->registerBlock()['icon'] ?? null,
+                'description' => $pluginClass->registerBlock()['description'],
+            ])->save();
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Number of new blocks found : ' . $newBlocks
+        ]);
     }
 
     /**
@@ -188,15 +221,30 @@ class PluginBase
     }
 
 
+    /**
+     * Get the plugin's logo
+     *
+     * @return string
+     */
     public function getLogo()
     {
-        $pluginFile = base_path('plugins/'.$this->vendor.'/'.$this->name.'/assets/images/block-logo.png');
-        $tmpFileName = '/tmp/'. md5($pluginFile);
+        $pluginFile = base_path('plugins/' . $this->vendor . '/' . $this->name . '/assets/images/block-logo.png');
+        $tmpFileName = '/tmp/' . md5($pluginFile);
         $tmpFile = public_path($tmpFileName);
-        if(!file_exists($tmpFile) || (time() - filemtime($tmpFile)) > 300) {
+        if (!file_exists($tmpFile) || (time() - filemtime($tmpFile)) > 300) {
             copy($pluginFile, $tmpFile);
         }
-        return $tmpFileName;
 
+        return $tmpFileName;
     }
+
+
+    /**
+     * @param string $view
+     */
+    public function view(string $view)
+    {
+        echo file_get_contents(base_path($this->views . $view));
+    }
+
 }

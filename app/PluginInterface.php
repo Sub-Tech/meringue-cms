@@ -6,7 +6,9 @@ interface PluginInterface
 {
     public function setDetails(): array;
 
-    public function setVendor(string $vendor);
+    public function setVendor();
 
-    public function setName(string $name);
+    public function setName();
+
+    public function setViewsPath();
 }

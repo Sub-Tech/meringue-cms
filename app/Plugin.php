@@ -22,7 +22,8 @@ class Plugin extends Model
         return $this->hasMany(Block::class, 'plugin_class', 'class_name');
     }
 
-    public function loadPlugin() {
+    public function loadPlugin()
+    {
         return (new $this->class_name());
     }
 

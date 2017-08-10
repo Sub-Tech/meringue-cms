@@ -26,7 +26,4 @@ class Block extends Model
         return $this->hasOne(BlockRegistry::class,'plugin_class','plugin_class' );
     }
 
-    public static function render(Block $block) {
-        dd($block);
-    }
 }
