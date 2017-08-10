@@ -24,10 +24,6 @@ class Section extends Model
         return $this->hasMany(Block::class);
     }
 
-    public static function render(Section $section) {
-        foreach($section->blocks as $block) {
-            Block::render($block);
-        }
-    }
+
 
 }

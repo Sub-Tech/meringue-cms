@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Render;
+use App\Helpers\Theme;
 use App\Page;
 use App\Section;
 use Illuminate\Http\Request;
@@ -18,18 +20,11 @@ class PageController extends Controller
         if($page->count() == 0) {
            echo "404"; //TODO : Create 404 page
         }
-        $this->render($page->first());
+        return (new Render())->renderPage($page->first());
     }
 
 
-    /**
-     * @param Page $page
-     */
-    public function render(Page $page) {
-        foreach ($page->sections as $section) {
-            Section::render($section);
-        }
-    }
+
 
 
 }

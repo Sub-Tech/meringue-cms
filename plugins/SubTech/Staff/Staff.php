@@ -22,7 +22,6 @@ class Staff extends PluginBase implements PluginInterface
         $this->setVendor();
         $this->setName();
 
-        $this->view('staff.php');
     }
 
 
