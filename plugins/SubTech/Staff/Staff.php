@@ -4,6 +4,7 @@ namespace Plugins\SubTech\Staff;
 
 use App\PluginBase,
     App\PluginInterface;
+use App\Libraries\Stamp;
 
 /**
  * Class Staff
@@ -17,11 +18,17 @@ class Staff extends PluginBase implements PluginInterface
      */
     public function __construct()
     {
+        include 'autoload.php';
+
         parent::__construct();
 
         $this->setVendor();
         $this->setName();
 
+//        $stamp = new Stamp();
+//        dd($stamp->getUsers());
+
+//        $this->view('staff.php');
     }
 
 
@@ -43,10 +50,32 @@ class Staff extends PluginBase implements PluginInterface
 
     /**
      * Install the plugin
+     *
+     * @return bool|void
      */
     public function install()
     {
         $this->runMigrations();
+    }
+
+
+    /**
+     * Refreshes each StampUser from Stamp
+     */
+    private function refreshStampUsers()
+    {
+        $stamp = new Stamp();
+        $stamp->getUsers()->each(function (\stdClass $user) {
+            StampUser::firstOrCreate([
+                'userid' => $user->userid
+            ], (array)$user)->save();
+        });
+    }
+
+
+    public function cron()
+    {
+        //
     }
 
 
@@ -80,7 +109,6 @@ class Staff extends PluginBase implements PluginInterface
     {
         $this->name = 'Staff';
     }
-
 
 
 }
