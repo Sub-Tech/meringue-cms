@@ -49,6 +49,16 @@ class Staff extends PluginBase implements PluginInterface
     public function install()
     {
         $this->runMigrations();
+
+        $this->stamp->getUsers();
+
+        // make Guzzle Req to STAMP to get init users
+    }
+
+
+    public function cron()
+    {
+
     }
 
 
