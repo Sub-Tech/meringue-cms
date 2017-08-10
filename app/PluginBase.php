@@ -26,8 +26,10 @@ class PluginBase
      */
     protected $name = '';
 
-
-    public $views;
+    /**
+     * @var string The route to the views folder
+     */
+    protected $views = '';
 
 
     /**

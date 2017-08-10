@@ -6,12 +6,6 @@ use App\PluginInterface;
 class Text extends PluginBase implements PluginInterface
 {
 
-    public function __construct()
-    {
-        $this->vendor = 'Meringue';
-        $this->name = 'Text';
-    }
-
     /**
      * Details used for the plugin
      * @return array
@@ -46,13 +40,18 @@ class Text extends PluginBase implements PluginInterface
       ];
     }
 
-    public function setVendor(string $vendor)
+    public function setVendor()
     {
-        // TODO: Implement setVendor() method.
+        $this->vendor = 'Meringue';
     }
 
-    public function setName(string $name)
+    public function setName()
     {
-        // TODO: Implement setName() method.
+        $this->name = 'Text';
+    }
+
+    public function setViewsPath()
+    {
+        $this->views = '';
     }
 }

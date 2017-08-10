@@ -1,4 +1,4 @@
-<?php namespace  Plugins\Meringue\YouTubeVideo;
+<?php namespace Plugins\Meringue\YouTubeVideo;
 
 
 use App\PluginBase;
@@ -10,10 +10,10 @@ class YouTubeVideo extends PluginBase implements PluginInterface
     public function setDetails(): array
     {
         return [
-            'name'        => 'YouTube Video',
+            'name' => 'YouTube Video',
             'description' => 'Allows you to easily display a video hosted on YouTube',
-            'author'      => 'James Lewis',
-            'icon'        => 'icon-leaf'
+            'author' => 'James Lewis',
+            'icon' => 'icon-leaf'
         ];
     }
 
@@ -21,18 +21,23 @@ class YouTubeVideo extends PluginBase implements PluginInterface
     public function registerSideBarMenuItem()
     {
         return [
-           'name' => 'YouTube Videos',
+            'name' => 'YouTube Videos',
             'icon' => 'fa fa-youtube-play'
         ];
     }
 
-    public function setVendor(string $vendor)
+    public function setVendor()
     {
-        // TODO: Implement setVendor() method.
+        $this->vendor = 'Meringue';
     }
 
-    public function setName(string $name)
+    public function setName()
     {
-        // TODO: Implement setName() method.
+        $this->name = 'YouTubeVideo';
+    }
+
+    public function setViewsPath()
+    {
+        $this->views = '';
     }
 }
