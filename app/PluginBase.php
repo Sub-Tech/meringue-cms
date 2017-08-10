@@ -246,7 +246,8 @@ class PluginBase
      */
     public function view(string $view)
     {
-        echo file_get_contents(base_path($this->views . $view));
+        echo file_get_contents(base_path("plugins/{$this->vendor}/{$this->name}/views/" . $view));
     }
+
 
 }

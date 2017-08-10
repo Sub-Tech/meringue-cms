@@ -10,5 +10,4 @@ interface PluginInterface
 
     public function setName();
 
-    public function setViewsPath();
 }
