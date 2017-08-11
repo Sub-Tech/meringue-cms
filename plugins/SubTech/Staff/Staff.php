@@ -4,7 +4,6 @@ namespace Plugins\SubTech\Staff;
 
 use App\PluginBase,
     App\PluginInterface;
-use App\Libraries\Stamp;
 
 /**
  * Class Staff
@@ -52,7 +51,7 @@ class Staff extends PluginBase implements PluginInterface
     {
         $this->runMigrations();
     }
-    
+
 
     public function cron()
     {

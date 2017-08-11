@@ -250,4 +250,9 @@ class PluginBase
     }
 
 
+    public function render()
+    {
+        return '';
+    }
+
 }
