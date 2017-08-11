@@ -134,19 +134,19 @@ class PluginBase
             $pluginRegistry = Plugin::findOrNew($plugin['class']);
 
             if (!$pluginRegistry->exists) {
-                $pluginRegistry->fill([
-                    'class_name' => $plugin['class'],
-                    'file_name' => $plugin['file'],
-                ]);
+                $pluginRegistry->fill(array_only($plugin, [
+                    'class',
+                    'file'
+                ]));
                 $newPlugins++;
             }
 
-            $pluginRegistry->fill([
-                'name' => $pluginDetails['name'],
-                'author' => $pluginDetails['author'],
-                'icon' => $pluginDetails['icon'],
-                'description' => $pluginDetails['description']
-            ])->save();
+            $pluginRegistry->fill(array_only($pluginDetails, [
+                'name',
+                'author',
+                'icon',
+                'description',
+            ]))->save();
         });
 
         return response()->json([
