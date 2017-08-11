@@ -6,6 +6,7 @@ use App\Page;
 
 class Render
 {
+    public static $pageOutput = 'Page';
 
     /**
      * Render the page for the front end
@@ -14,7 +15,8 @@ class Render
      */
     public static function page(Page $page)
     {
-        return self::renderHeader();
+        self::$pageOutput .= self::renderHeader();
+        echo self::$pageOutput;
     }
 
 
@@ -23,7 +25,7 @@ class Render
      */
     public static function renderHeader()
     {
-        return view(env('THEME') . '/header', [
+        self::$pageOutput = view(env('THEME') . '/header', [
             'tits' => 'wonderful'
         ]);
     }

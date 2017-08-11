@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Plugins\SubTech\Staff\Commands\RefreshStampUsers;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        RefreshStampUsers::class
     ];
 
     /**
@@ -25,7 +23,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(RefreshStampUsers::class)->daily();
+
     }
 
     /**
