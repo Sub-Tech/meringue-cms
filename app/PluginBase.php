@@ -191,10 +191,12 @@ class PluginBase
                 $newBlocks++;
             }
 
+            $pluginDetails = $pluginClass->registerBlock();
+
             $blockRegistry->fill([
-                'name' => $pluginClass->registerBlock()['name'],
-                'icon' => $pluginClass->registerBlock()['icon'] ?? null,
-                'description' => $pluginClass->registerBlock()['description'],
+                'name' => $pluginDetails['name'],
+                'icon' => $pluginDetails['icon'] ?? null,
+                'description' => $pluginDetails['description'],
             ])->save();
         });
 
