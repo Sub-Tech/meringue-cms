@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Render;
+use App\Helpers\PageRenderer;
 use App\Page;
 
 class PageController extends Controller
 {
 
     /**
+     * @param PageRenderer $renderer
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($slug = '/')
+    public function index(PageRenderer $renderer, $slug = '/')
     {
         $page = Page::whereSlug($slug)->get();
 
@@ -20,7 +21,7 @@ class PageController extends Controller
             echo "404"; //TODO : Create 404 page
         }
 
-        return Render::page($page->first());
+        return $renderer->page($page->first());
     }
 
 }

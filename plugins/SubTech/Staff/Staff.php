@@ -24,11 +24,6 @@ class Staff extends PluginBase implements PluginInterface
 
         $this->setVendor();
         $this->setName();
-
-//        $stamp = new Stamp();
-//        dd($stamp->getUsers());
-
-//        $this->view('staff.php');
     }
 
 
@@ -57,21 +52,7 @@ class Staff extends PluginBase implements PluginInterface
     {
         $this->runMigrations();
     }
-
-
-    /**
-     * Refreshes each StampUser from Stamp
-     */
-    private function refreshStampUsers()
-    {
-        $stamp = new Stamp();
-        $stamp->getUsers()->each(function (\stdClass $user) {
-            StampUser::firstOrCreate([
-                'userid' => $user->userid
-            ], (array)$user)->save();
-        });
-    }
-
+    
 
     public function cron()
     {
