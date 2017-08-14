@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Artisan;
 
 /**
@@ -147,6 +148,8 @@ class PluginBase
                 'icon',
                 'description',
             ]))->save();
+
+            print_r($pluginRegistry);
         });
 
         return response()->json([
@@ -253,6 +256,11 @@ class PluginBase
     public function render()
     {
         return '';
+    }
+
+    public function cron(Schedule $schedule)
+    {
+        return false;
     }
 
 }

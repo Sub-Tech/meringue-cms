@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries;
+namespace Plugins\SubTech\Staff\Libraries;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;

@@ -18,7 +18,7 @@ class PageController extends Controller
         $page = Page::whereSlug($slug)->get();
 
         if ($page->count() == 0) {
-            echo "404"; //TODO : Create 404 page
+            die("404"); //TODO : Create 404 page
         }
 
         return $renderer->page($page->first());

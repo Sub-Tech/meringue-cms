@@ -2,8 +2,8 @@
 
 namespace Plugins\SubTech\Staff\Commands;
 
-use App\Libraries\Stamp;
 use Illuminate\Console\Command;
+use Plugins\SubTech\Staff\Libraries\Stamp;
 use Plugins\SubTech\Staff\StampUser;
 
 /**

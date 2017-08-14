@@ -4,6 +4,8 @@ namespace Plugins\SubTech\Staff;
 
 use App\PluginBase,
     App\PluginInterface;
+use Illuminate\Console\Scheduling\Schedule;
+use Plugins\SubTech\Staff\Libraries\Stamp;
 
 /**
  * Class Staff
@@ -53,11 +55,6 @@ class Staff extends PluginBase implements PluginInterface
     }
 
 
-    public function cron()
-    {
-        //
-    }
-
 
     /**
      * Register the block
@@ -89,6 +86,25 @@ class Staff extends PluginBase implements PluginInterface
     {
         $this->name = 'Staff';
     }
+
+    public function cron(Schedule $schedule) {
+        $schedule->call(function () {
+            echo "efe";
+        })->everyMinute();
+    }
+
+
+
+    public static function refresh() {
+        $stamp = new Stamp();
+        $stamp->getUsers()->each(function (\stdClass $user) {
+            self::firstOrCreate([
+                'userid' => $user->userid
+            ], (array)$user)->save();
+        });
+    }
+
+
 
 
 }
