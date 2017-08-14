@@ -134,19 +134,19 @@ class PluginBase
             $pluginRegistry = Plugin::findOrNew($plugin['class']);
 
             if (!$pluginRegistry->exists) {
-                $pluginRegistry->fill(array_only($plugin, [
-                    'class',
-                    'file'
-                ]));
+                $pluginRegistry->fill([
+                    'class_name' => $plugin['class'],
+                    'file_name' => $plugin['file'],
+                ]);
                 $newPlugins++;
             }
 
-            $pluginRegistry->fill(array_only($pluginDetails, [
-                'name',
-                'author',
-                'icon',
-                'description',
-            ]))->save();
+            $pluginRegistry->fill([
+                'name' => $pluginDetails['name'],
+                'author' => $pluginDetails['author'],
+                'icon' => $pluginDetails['icon'],
+                'description' => $pluginDetails['description']
+            ])->save();
         });
 
         return response()->json([
@@ -206,6 +206,7 @@ class PluginBase
         ]);
     }
 
+
     /**
      * Overwrite this function in your plugin, This will run on activate.
      *
@@ -215,6 +216,7 @@ class PluginBase
     {
         return false;
     }
+
 
     /**
      * Runs the migrations found in the plugins directory
@@ -244,14 +246,10 @@ class PluginBase
 
 
     /**
-     * @param string $view
+     * To be overriden in the plugin class
+     *
+     * @return string
      */
-    public function view(string $view)
-    {
-        echo file_get_contents(base_path("plugins/{$this->vendor}/{$this->name}/views/" . $view));
-    }
-
-
     public function render()
     {
         return '';
