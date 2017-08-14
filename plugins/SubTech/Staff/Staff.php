@@ -27,6 +27,18 @@ class Staff extends PluginBase implements PluginInterface
 
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function render()
+    {
+        require __DIR__ . '/StampUser.php';
+
+        return view('SubTech/Staff/views/staff', [
+            'staff' => StampUser::all()->groupBy('category')
+        ]);
+    }
+
+    /**
      * Set the details of the plugin
      *
      * @return array

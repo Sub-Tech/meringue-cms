@@ -247,8 +247,10 @@ class PluginBase
 
     /**
      * To be overriden in the plugin class
+     * Route begins from the plugins/ folder
+     * Must return view('merchant/plugin/views/viewName) or equivalent
      *
-     * @return string
+     * @return string|View
      */
     public function render()
     {

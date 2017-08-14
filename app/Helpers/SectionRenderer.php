@@ -34,6 +34,12 @@ class SectionRenderer
     }
 
 
+    /**
+     * Initialises the plugin ready for rendering
+     *
+     * @param $plugin
+     * @return mixed
+     */
     private function initialisePlugin($plugin)
     {
         return new $plugin();

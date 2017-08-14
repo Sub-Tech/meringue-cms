@@ -15,7 +15,8 @@ return [
 
     'paths' => [
         resource_path('views'),
-        realpath(base_path('themes'))
+        realpath(base_path('themes')),
+        base_path('plugins')
     ],
 
     /*

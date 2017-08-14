@@ -84,7 +84,7 @@ class Text extends PluginBase implements PluginInterface
      */
     public function render()
     {
-        return "<div style='height: 100px; background-color: cyan'><h2>Big milky titties</h2></div>";
+        return "<div style='height: 100px; background-color: cyan'><h2>arrays start at 1</h2></div>";
     }
 
 }
