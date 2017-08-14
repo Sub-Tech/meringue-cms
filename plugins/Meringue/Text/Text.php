@@ -1,7 +1,10 @@
 <?php namespace Plugins\Meringue\Text;
 
+use App\Console\Kernel;
 use App\PluginBase;
 use App\PluginInterface;
+use Illuminate\Console\Scheduling\Schedule;
+use Plugins\Meringue\Commands\Test;
 
 /**
  * Class Text
@@ -19,6 +22,7 @@ class Text extends PluginBase implements PluginInterface
 
         $this->setVendor();
         $this->setName();
+
     }
 
 
@@ -87,4 +91,10 @@ class Text extends PluginBase implements PluginInterface
         return "<div style='height: 100px; background-color: cyan'><h2>arrays start at 1</h2></div>";
     }
 
+
+    public function cron(Schedule $schedule) {
+        $schedule->call(function () {
+            echo "efe";
+        })->everyMinute();
+    }
 }

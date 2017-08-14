@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Plugin;
+use App\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -23,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
+        $this->pluginCrons($schedule);
     }
 
     /**
@@ -35,4 +37,14 @@ class Kernel extends ConsoleKernel
     {
         require base_path('routes/console.php');
     }
+
+    public function pluginCrons(Schedule $schedule) {
+        $plugins = Plugin::whereActive(1)->get();
+        foreach($plugins as $plugin) {
+            (new PluginBase())->initPlugin($plugin->class_name)->cron($schedule);
+        }
+    }
+
+
+
 }
