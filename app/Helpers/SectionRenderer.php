@@ -19,13 +19,13 @@ class SectionRenderer
      */
     public function render(Section $section)
     {
-        $br = new BlockRenderer();
+        $blockRenderer = new BlockRenderer();
 
         $blocks = '';
 
-        $section->blocks->each(function (Block $block) use ($br, &$blocks) {
+        $section->blocks->each(function (Block $block) use ($blockRenderer, &$blocks) {
             $this->initialisePlugin($block->plugin_class);
-            $blocks .= $br->render($block);
+            $blocks .= $blockRenderer->render($block);
         });
 
         return view('section', [

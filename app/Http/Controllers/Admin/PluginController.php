@@ -16,6 +16,7 @@ class PluginController extends Controller
     protected $pluginBase;
 
     protected $loadedPlugin;
+
     /**
      * Create a new controller instance.
      *
@@ -52,7 +53,7 @@ class PluginController extends Controller
         }
 
         // If plugin not installed
-        if($plugin->installed == 0 ) {
+        if ($plugin->installed == 0) {
             // Try to run install script of plugin
             try {
                 $this->load($plugin)->install();
@@ -91,7 +92,7 @@ class PluginController extends Controller
      */
     public function load(Plugin $plugin)
     {
-        if(!class_exists($plugin->class_name)){
+        if (!class_exists($plugin->class_name)) {
             throw new Exception('Plugin ' . $plugin->name . ' by ' . $plugin->author . ' has not been found');
         }
         return new $plugin->class_name();

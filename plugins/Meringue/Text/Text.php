@@ -1,6 +1,5 @@
 <?php namespace Plugins\Meringue\Text;
 
-use App\Console\Kernel;
 use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Console\Scheduling\Schedule;
@@ -22,7 +21,6 @@ class Text extends PluginBase implements PluginInterface
 
         $this->setVendor();
         $this->setName();
-
     }
 
 
