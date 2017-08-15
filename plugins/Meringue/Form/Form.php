@@ -4,6 +4,7 @@ namespace Plugins\Meringue\Form;
 
 use App\PluginBase;
 use App\PluginInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -64,19 +65,31 @@ class Form extends PluginBase implements PluginInterface
 
     /**
      * Handle form submission
+     * Tries to find the model, validates the request and saves the given data
      *
      * @param Request $request
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function handleAjax(Request $request)
     {
-        $form = Models\Form::find($request->form_id);
+        try {
+            $form = Models\Form::findOrFail($request->form_id);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'message' => 'Request Failed'
+            ], 500);
+        }
 
-        Validator::validate($request->all(), $form->validation);
+        Validator::validate($request->all(), json_decode($form->validation));
 
-        $tits = $form->responses()->create($request->all());
+        $success = (new Models\Response())->fill(array_merge(
+            $request->all(), [
+            'answers' => json_encode($request->all())
+        ]))->save();
 
-        return response()->json($tits);
+        return response()->json([
+            'success' => $success
+        ], $success ? 200 : 500);
     }
 
 

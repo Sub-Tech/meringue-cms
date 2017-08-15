@@ -16,6 +16,15 @@ class Response extends Model
 
     protected $table = 'meringue_form_responses';
 
+    protected $fillable = [
+        'answers'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function form()
     {
         return $this->belongsTo(Form::class);

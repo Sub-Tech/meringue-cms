@@ -17,7 +17,7 @@ class CreateMeringueFormFormsTable extends Migration
             $table->increments('id');
             $table->string('name')->required();
             $table->string('uri')->required();
-            $table->boolean('validation');
+            $table->string('validation');
 
             $table->timestamps();
             $table->softDeletes();
