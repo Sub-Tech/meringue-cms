@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
-use App\Page;
 use App\Plugin;
 use App\PluginBase;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Mockery\Exception;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class PluginController extends Controller
 {
+    /**
+     * @var PluginBase
+     */
     protected $pluginBase;
 
-    protected $loadedPlugin;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * PluginController constructor.
+     * @param PluginInitialiser $pluginInitialiser
      */
-    public function __construct()
+    public function __construct(PluginInitialiser $pluginInitialiser)
     {
-        $this->pluginBase = new PluginBase();
+        parent::__construct($pluginInitialiser);
 
+        $this->pluginBase = new PluginBase();
     }
+
 
     /**
      * Show the application dashboard.
@@ -35,66 +35,65 @@ class PluginController extends Controller
      */
     public function manage()
     {
-        $data['plugins'] = (new PluginBase)->getPluginsDetails();
-        return view('admin.plugin.manage', $data);
+        return view('admin.plugin.manage', [
+            'plugins' => Plugin::all()
+        ]);
     }
 
 
     /**
+     * Activates the Plugin
+     *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function activate()
+    public function activate(Request $request)
     {
-        $plugin = Plugin::find(Input::get('plugin'));
+        $plugin = Plugin::find($request->plugin);
 
-        // If plugin is already active
-        if ($plugin->active == 1) {
-            return response()->json(['success' => false, 'message' => 'Plugin already activated']);
+        if ($plugin->active) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Plugin already activated'
+            ]);
         }
 
-        // If plugin not installed
-        if ($plugin->installed == 0) {
-            // Try to run install script of plugin
+        if (!$plugin->installed) {
             try {
-                $this->load($plugin)->install();
-            } catch (Exception $e) {
-                return response()->json(['success' => false, 'message' => $e->getMessage()]);
+                $this->pluginInitialiser->getPlugin($plugin->class_name)->install();
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ]);
             }
             $plugin->installed = 1;
         }
 
-        // Set plugin as active
         $plugin->active = 1;
         $plugin->save();
 
-        return response()->json(['success' => true]);
+        return response()->json([
+            'success' => true
+        ]);
     }
+
 
     /**
      * Refresh the plugins in the database
      */
     public function refreshPluginsRegistry()
     {
-        $this->pluginBase->refreshPluginsRegistry();
+        return $this->pluginBase->refreshPluginsRegistry();
     }
+
 
     /**
      * Refresh the block registry in the database
      */
     public function refreshBlocksRegistry()
     {
-        $this->pluginBase->refreshBlockRegistry();
+        return $this->pluginBase->refreshBlockRegistry();
     }
-
-    /**
-     * @param Plugin $plugin
-     * @return mixed
-     */
-    public function load(Plugin $plugin)
-    {
-        if (!class_exists($plugin->class_name)) {
-            throw new Exception('Plugin ' . $plugin->name . ' by ' . $plugin->author . ' has not been found');
-        }
-        return new $plugin->class_name();
-    }
+    
 }

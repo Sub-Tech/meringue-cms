@@ -16,13 +16,18 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $pluginInitialiser;
+
     /**
      * Controller constructor.
-     * @param PluginInitialiser $initialiser
+     *
+     * @param PluginInitialiser $pluginInitialiser
      */
-    public function __construct(PluginInitialiser $initialiser)
+    public function __construct(PluginInitialiser $pluginInitialiser)
     {
-        $initialiser->loadAll();
+        $this->pluginInitialiser = $pluginInitialiser;
+
+        $pluginInitialiser->loadAll();
     }
 
 }

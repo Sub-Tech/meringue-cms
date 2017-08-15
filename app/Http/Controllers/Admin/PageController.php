@@ -4,36 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Page;
-use App\PluginBase;
-use Illuminate\Http\Request;
 
+/**
+ * Class PageController
+ * @package App\Http\Controllers\Admin
+ */
 class PageController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->middleware('auth');
-    }
 
     /**
      * Manage pages
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function manage()
     {
-        $data['pages'] = Page::get();
-        return view('admin.page.manage', $data);
+        return view('admin.page.manage')
+            ->with('pages', Page::get());
     }
 
 
-    public function edit(Page $page) {
-        $data['page'] = $page;
-        return view('admin.page.edit', $data);
+    public function edit(Page $page)
+    {
+        return view('admin.page.edit')
+            ->with('page', $page);
     }
+
 }
