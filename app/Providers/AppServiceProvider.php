@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Helpers\BlockRenderer;
 use App\Helpers\PageRenderer;
+use App\Helpers\PluginInitialiser;
 use App\Helpers\SectionRenderer;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(PageRenderer::class, function ($app) {
-            return new PageRenderer(new SectionRenderer());
+            return new PageRenderer(new SectionRenderer(new BlockRenderer()));
+        });
+
+        $this->app->bind(PluginInitialiser::class, function ($app) {
+            return new PluginInitialiser;
         });
     }
 }
