@@ -3,6 +3,7 @@
 namespace App\Renderers;
 
 use App\Block;
+use App\Helpers\PluginInitialiser;
 
 /**
  * Class BlockRenderer
