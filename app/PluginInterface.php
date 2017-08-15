@@ -20,9 +20,9 @@ interface PluginInterface
     /**
      * Set the Vendor of the Plugin
      *
-     * @return mixed
+     * @return void
      */
-    public function setVendor();
+    public function setVendor(): void;
 
 
     /**
@@ -30,7 +30,7 @@ interface PluginInterface
      *
      * @return void
      */
-    public function setName();
+    public function setName(): void;
 
 
     /**

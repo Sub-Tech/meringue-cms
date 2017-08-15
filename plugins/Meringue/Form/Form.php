@@ -44,8 +44,10 @@ class Form extends PluginBase implements PluginInterface
 
     /**
      * Sets the Vendor
+     *
+     * @return void
      */
-    public function setVendor()
+    public function setVendor(): void
     {
         $this->vendor = 'Meringue';
     }
@@ -53,8 +55,10 @@ class Form extends PluginBase implements PluginInterface
 
     /**
      * Sets the name
+     *
+     * @return void
      */
-    public function setName()
+    public function setName(): void
     {
         $this->name = 'Form';
     }
