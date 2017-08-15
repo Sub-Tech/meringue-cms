@@ -76,12 +76,24 @@ class PluginInitialiser
         $filePath = get_plugin_file_path($vendor, $plugin);
         include_once(base_path($filePath));
 
-        load_autoload($vendor, $plugin);
+        $this->loadAutoload($vendor, $plugin);
 
         $this->plugins[$vendor . '/' . $plugin] = (object)[
             'class' => "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin,
             'file' => $filePath
         ];
+    }
+
+
+    /**
+     * Load the autoload file, if it finds one
+     *
+     * @param string $vendor
+     * @param string $plugin
+     */
+    private function loadAutoload(string $vendor, string $plugin)
+    {
+        @include_once(base_path("plugins/{$vendor}/{$plugin}/autoload.php"));
     }
 
 
