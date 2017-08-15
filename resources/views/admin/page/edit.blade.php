@@ -47,9 +47,11 @@
         .section > .menu ul li:hover {
             color: #333333;
         }
+
         .block {
-            margin-bottom:15px;
+            margin-bottom: 15px;
         }
+
         .block .menu {
             position: absolute;
             bottom: 100%;
@@ -73,6 +75,7 @@
             height: 30px;
             line-height: 15px;
         }
+
         .block .menu ul li.image {
             width: 30px;
             height: 30px;
@@ -83,6 +86,7 @@
             bottom: -13px;
             position: relative;
         }
+
         .block .menu ul li:hover {
             color: #333333;
         }
@@ -129,16 +133,18 @@
                                 <div class="menu">
                                     <ul>
 
-                                        <li class="image" style="background-image:url(<?= $block->plugin->loadPlugin()->getLogo(); ?>);"></li>
+                                        <li class="image"
+                                            style="background-image:url({{ $block->plugin->icon }});"></li>
 
                                         <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
                                         <li><i class="fa fa-clone" aria-hidden="true"></i></li>
                                         <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
-                                        <li class="changeBlockWidth" data-adjustment="-1"><i class="fa fa-minus"
-                                                                                             aria-hidden="true"></i>
+                                        <li class="changeBlockWidth" data-adjustment="-1">
+                                            <i class="fa fa-minus" aria-hidden="true"></i>
                                         </li>
-                                        <li class="changeBlockWidth" data-adjustment="1"><i class="fa fa-plus"
-                                                                                            aria-hidden="true"></i></li>
+                                        <li class="changeBlockWidth" data-adjustment="1">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </li>
                                         <li class="blockWidth"><?= $block->width; ?></li>
                                     </ul>
                                 </div>
@@ -154,50 +160,40 @@
         </div>
     </div>
 
-
     <script>
-      function updateBlock(id, data) {
-        return $.ajax({
-          url: '/admin/block/' + id,
-          method: 'post',
-          data: data
-        })
-      }
-
-      function changeBlockWidth(id, width) {
-        if (width <= 0 || width > 12) {
-          return false;
+        function updateBlock(id, data) {
+            return $.ajax({
+                url: '/admin/block/' + id,
+                method: 'post',
+                data: data
+            })
         }
-        updateBlock(id, {
-          width: width
-        }).success(function () {
-          setBlockWidth(id, width);
+
+        function changeBlockWidth(id, width) {
+            if (width <= 0 || width > 12) {
+                return false;
+            }
+            updateBlock(id, {
+                width: width
+            }).success(function () {
+                setBlockWidth(id, width);
+            });
+        }
+
+        function getBlockWidth(id) {
+            return $('.block[data-id=' + id + ']').data('width');
+        }
+
+        function setBlockWidth(id, width) {
+            $('.block[data-id=' + id + ']').removeClass(function (index, className) {
+                return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
+            }).addClass('col-md-' + width).data('width', width);
+            $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
+        }
+
+        $('.changeBlockWidth').on('click', function () {
+            var id = $(this).closest('.block').data('id');
+            changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
         });
-      }
-
-      function getBlockWidth(id) {
-        return $('.block[data-id=' + id + ']').data('width');
-      }
-
-      function setBlockWidth(id, width) {
-        $('.block[data-id=' + id + ']').removeClass(function (index, className) {
-          return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
-        }).addClass('col-md-' + width).data('width', width);
-        $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
-      }
-
-      $('.changeBlockWidth').on('click', function () {
-        var id = $(this).closest('.block').data('id');
-        changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
-      });
     </script>
-
-
-
-
-
-
-
-
-
 @endsection

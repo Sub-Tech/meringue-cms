@@ -9,10 +9,18 @@ class PluginInitialiser
 {
 
     /**
-     * @var array Loaded Plugins
+     * @var \Illuminate\Support\Collection
      */
-    protected $plugins = [];
+    public $plugins;
 
+
+    /**
+     * PluginInitialiser constructor.
+     */
+    public function __construct()
+    {
+        $this->plugins = $this->loadAll();
+    }
 
     /**
      * Auto load plugins from the plugins directory.
@@ -73,7 +81,7 @@ class PluginInitialiser
      */
     private function initialisePlugin(string $vendor, string $plugin)
     {
-        $filePath = get_plugin_file_path($vendor, $plugin);
+        $filePath = file_path($vendor, $plugin);
         include_once(base_path($filePath));
 
         $this->loadAutoload($vendor, $plugin);
@@ -99,11 +107,12 @@ class PluginInitialiser
 
     /**
      * Initialise the plugin by its Class Path
+     * Plugins\Vendor\Plugin\Plugin
      *
-     * @param $class
-     * @return mixed
+     * @param string $class
+     * @return object
      */
-    public static function getPlugin($class)
+    public static function getPlugin(string $class)
     {
         return new $class();
     }
