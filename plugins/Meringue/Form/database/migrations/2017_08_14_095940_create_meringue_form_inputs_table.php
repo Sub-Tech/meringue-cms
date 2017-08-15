@@ -20,10 +20,12 @@ class CreateMeringueFormInputsTable extends Migration
                 'text',
                 'textarea',
                 'select',
-                // etc
+                'radio',
+                'checkbox'
             ]);
             $table->string('name')->required();
             $table->string('label')->required();
+            $table->string('options')->nullable();
             $table->unsignedInteger('position');
 
             $table->boolean('required');

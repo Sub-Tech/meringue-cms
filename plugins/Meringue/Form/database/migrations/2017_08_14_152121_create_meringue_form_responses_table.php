@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeringueFormFormsTable extends Migration
+class CreateMeringueFormResponsesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,11 +14,11 @@ class CreateMeringueFormFormsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meringue_form_forms', function (Blueprint $table) {
+        Schema::create('meringue_form_responses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->required();
-            $table->string('uri')->required();
-            $table->boolean('validation');
+            $table->unsignedInteger('form_id');
+            $table->string('email')->nullable();
+            $table->string('answers')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +32,7 @@ class CreateMeringueFormFormsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meringue_form_forms');
+        Schema::dropIfExists('meringue_form_responses');
     }
+
 }

@@ -6,17 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Input
+ * Class Response
  * @package Plugins\Meringue\Form\Models
  */
-class Input extends Model
+class Response extends Model
 {
 
     use SoftDeletes;
 
-    protected $table = 'meringue_form_inputs';
-
-    protected $guarded = [];
+    protected $table = 'meringue_form_responses';
 
     public function form()
     {
