@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use App\Helpers\PluginInitialiser;
 
@@ -12,11 +11,6 @@ use App\Helpers\PluginInitialiser;
  */
 class PluginBase
 {
-
-    /**
-     * @var Collection
-     */
-    protected $plugins;
 
     /**
      * @var string The name of the Vendor
@@ -33,6 +27,20 @@ class PluginBase
      */
     protected $views = '';
 
+    /**
+     * @var PluginInitialiser
+     */
+    protected $pluginInitialiser;
+
+
+    /**
+     * PluginBase constructor.
+     */
+    public function __construct()
+    {
+        $this->pluginInitialiser = app(PluginInitialiser::class);
+    }
+
 
     /**
      * Refreshes the Plugin Registry
@@ -43,7 +51,7 @@ class PluginBase
     {
         $newPlugins = 0;
 
-        $this->plugins->each(function ($plugin) use (&$newPlugins) {
+        $this->pluginInitialiser->plugins->each(function ($plugin) use (&$newPlugins) {
             $newPlugins += $this->registerNewPlugin($plugin, $newPlugins);
         });
 
@@ -63,7 +71,7 @@ class PluginBase
     {
         $newBlocks = 0;
 
-        $this->plugins->each(function ($plugin) use (&$newBlocks) {
+        $this->pluginInitialiser->plugins->each(function ($plugin) use (&$newBlocks) {
             $newBlocks += $this->registerNewBlock($plugin, $newBlocks);
         });
 
@@ -153,6 +161,35 @@ class PluginBase
         }
 
         return $tmpFileName;
+    }
+
+
+    /**
+     * Todo :// Check if this is still in use
+     * TODO it is.
+     *
+     * @return array
+     */
+    public function getSideBarMenuItems()
+    {
+        $menu = [];
+
+        foreach ($this->pluginInitialiser->plugins as $plugin) {
+            $pluginClass = $this->pluginInitialiser->getPlugin($plugin->class);
+
+            if (!method_exists($pluginClass, 'registerSideBarMenuItem')) {
+                continue;
+            }
+
+            $plugin = $pluginClass->registerSideBarMenuItem();
+
+            $menu[] = [
+                'name' => $plugin['name'] ?? '',
+                'icon' => $plugin['icon'] ?? ''
+            ];
+        }
+
+        return $menu;
     }
 
 
