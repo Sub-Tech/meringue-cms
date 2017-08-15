@@ -13,19 +13,34 @@ class SectionRenderer
 {
 
     /**
+     * @var BlockRenderer
+     */
+    private $blockRenderer;
+
+
+    /**
+     * SectionRenderer constructor.
+     * @param BlockRenderer $blockRenderer
+     */
+    public function __construct(BlockRenderer $blockRenderer)
+    {
+        $this->blockRenderer = $blockRenderer;
+    }
+
+
+    /**
      * Open the section
+     *
      * @param Section $section
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function render(Section $section)
     {
-        $blockRenderer = new BlockRenderer();
-
         $blocks = '';
 
-        $section->blocks->each(function (Block $block) use ($blockRenderer, &$blocks) {
+        $section->blocks->each(function (Block $block) use (&$blocks) {
             $this->initialisePlugin($block->plugin_class);
-            $blocks .= $blockRenderer->render($block);
+            $blocks .= $this->blockRenderer->render($block);
         });
 
         return view('section', [
