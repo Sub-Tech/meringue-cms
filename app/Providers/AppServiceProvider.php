@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Helpers\BlockRenderer;
-use App\Helpers\PageRenderer;
 use App\Helpers\PluginInitialiser;
-use App\Helpers\SectionRenderer;
+use App\Renderers\BlockRenderer;
+use App\Renderers\PageRenderer;
+use App\Renderers\SectionRenderer;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
