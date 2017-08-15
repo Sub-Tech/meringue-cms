@@ -95,5 +95,5 @@ class PluginController extends Controller
     {
         return $this->pluginBase->refreshBlockRegistry();
     }
-    
+
 }

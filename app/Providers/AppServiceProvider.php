@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             return new PageRenderer(new SectionRenderer(new BlockRenderer()));
         });
 
-        $this->app->bind(PluginInitialiser::class, function ($app) {
+        $this->app->singleton(PluginInitialiser::class, function ($app) {
             return new PluginInitialiser;
         });
     }

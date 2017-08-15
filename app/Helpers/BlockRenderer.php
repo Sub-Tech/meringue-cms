@@ -18,7 +18,8 @@ class BlockRenderer
      */
     public function render(Block $block)
     {
-        $p = $block->plugin->loadPlugin();
+        $p = PluginInitialiser::getPlugin($block->plugin_class);
+
         return "<div class='block'>" . $p->render() . "</div>";
     }
 
