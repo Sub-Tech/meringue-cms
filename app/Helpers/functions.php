@@ -33,9 +33,22 @@ if (!function_exists('trim_directory_path')) {
  *
  * @return string
  */
-if (!function_exists('get_plugin_file_path')) {
-    function get_plugin_file_path(string $vendor, string $plugin)
+if (!function_exists('file_path')) {
+    function file_path(string $vendor, string $plugin)
     {
         return "plugins/{$vendor}/{$plugin}/{$plugin}.php";
+    }
+}
+
+
+/**
+ * Returns the plugin's class path
+ *
+ * @return string
+ */
+if (!function_exists('class_path')) {
+    function class_path(string $vendor, string $plugin)
+    {
+        return "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin;
     }
 }
