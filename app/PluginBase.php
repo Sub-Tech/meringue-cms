@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
+use App\Helpers\PluginInitialiser;
 
 /**
  * Class PluginBase
@@ -12,9 +14,9 @@ class PluginBase
 {
 
     /**
-     * @var array
+     * @var Collection
      */
-    protected $plugins = [];
+    protected $plugins;
 
     /**
      * @var string The name of the Vendor
@@ -33,94 +35,7 @@ class PluginBase
 
 
     /**
-     * PluginBase constructor.
-     */
-    public function __construct()
-    {
-        $this->loadPlugins();
-    }
-
-
-    /**
-     * Todo :// Check if this is still in use
-     *
-     * @return array
-     */
-    public function getSideBarMenuItems()
-    {
-        $menu = [];
-        $i = 0;
-        foreach ($this->plugins as $plugin) {
-            $plugin = (new $plugin['class']());
-
-            if (!method_exists($plugin, 'registerSideBarMenuItem')) {
-                continue;
-            }
-
-            $plugin = $plugin->registerSideBarMenuItem();
-            $menu[$i]['name'] = $plugin['name'] ?? '';
-            $menu[$i]['icon'] = $plugin['icon'] ?? '';
-            $i++;
-        }
-        return $menu;
-    }
-
-
-    /**
-     * Get the details for the plugin from the database, if this is out of date, run $this->refreshPluginsRegistry();
-     *
-     * @return array
-     */
-    public function getPluginsDetails()
-    {
-        return Plugin::get();
-    }
-
-
-    /**
-     * Auto load plugins from the plugins directory.
-     *
-     */
-    public function loadPlugins()
-    {
-        $vendorDir = base_path('plugins');
-        $vendors = scandir(base_path('plugins'));
-
-        $this->trimDirectoryPath($vendors);
-
-        foreach ($vendors as $vendor) {
-            $plugins = scandir($vendorDir . '/' . $vendor);
-
-            $this->trimDirectoryPath($plugins);
-
-            foreach ($plugins as $plugin) {
-                $classPath = "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin;
-                $filePath = "plugins/" . $vendor . "/" . $plugin . "/" . $plugin . '.php';
-
-                include_once(base_path($filePath));
-
-                $this->plugins[$vendor . '/' . $plugin] = [
-                    'class' => $classPath,
-                    'file' => $filePath
-                ];
-            }
-        }
-    }
-
-
-    /**
-     * Removes the '.' and '..' from the directory path
-     *
-     * @param $pathArray
-     */
-    public function trimDirectoryPath(&$pathArray)
-    {
-        unset($pathArray[0], $pathArray[1]);
-    }
-
-
-    /**
-     * Registers the plugin in the database
+     * Refreshes the Plugin Registry
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -128,43 +43,14 @@ class PluginBase
     {
         $newPlugins = 0;
 
-        collect($this->plugins)->each(function ($plugin) use (&$newPlugins) {
-            $pluginDetails = $this->initPlugin($plugin['class'])->setDetails();
-
-            $pluginRegistry = Plugin::findOrNew($plugin['class']);
-
-            if (!$pluginRegistry->exists) {
-                $pluginRegistry->fill([
-                    'class_name' => $plugin['class'],
-                    'file_name' => $plugin['file'],
-                ]);
-                $newPlugins++;
-            }
-
-            $pluginRegistry->fill([
-                'name' => $pluginDetails['name'],
-                'author' => $pluginDetails['author'],
-                'icon' => $pluginDetails['icon'],
-                'description' => $pluginDetails['description']
-            ])->save();
+        $this->plugins->each(function ($plugin) use (&$newPlugins) {
+            $newPlugins += $this->registerNewPlugin($plugin, $newPlugins);
         });
 
         return response()->json([
             'success' => true,
             'message' => 'Number of new plugins found : ' . $newPlugins
         ]);
-    }
-
-
-    /**
-     * Initialise the plugin by its Class Path
-     *
-     * @param $class
-     * @return mixed
-     */
-    public function initPlugin($class)
-    {
-        return new $class();
     }
 
 
@@ -177,27 +63,8 @@ class PluginBase
     {
         $newBlocks = 0;
 
-        collect($this->plugins)->each(function ($plugin) use (&$newBlocks) {
-            $pluginClass = $this->initPlugin($plugin['class']);
-
-            if (!method_exists($pluginClass, 'registerBlock')) {
-                return;
-            }
-
-            $blockRegistry = BlockRegistry::findOrNew($plugin['class']);
-
-            if (!$blockRegistry->exists) {
-                $blockRegistry->plugin_class = $plugin['class'];
-                $newBlocks++;
-            }
-
-            $pluginDetails = $pluginClass->registerBlock();
-
-            $blockRegistry->fill([
-                'name' => $pluginDetails['name'],
-                'icon' => $pluginDetails['icon'] ?? null,
-                'description' => $pluginDetails['description'],
-            ])->save();
+        $this->plugins->each(function ($plugin) use (&$newBlocks) {
+            $newBlocks += $this->registerNewBlock($plugin, $newBlocks);
         });
 
         return response()->json([
@@ -208,13 +75,57 @@ class PluginBase
 
 
     /**
-     * Overwrite this function in your plugin, This will run on activate.
+     * Register a new Plugin
      *
-     * @return bool
+     * @param $plugin
+     * @param $newPlugins
+     * @return mixed
      */
-    public function install()
+    private function registerNewPlugin($plugin, $newPlugins)
     {
-        return false;
+        $pluginClass = PluginInitialiser::getPlugin($plugin->class);
+
+        $pluginRegistry = Plugin::findOrNew($plugin->class);
+
+        if (!$pluginRegistry->exists) {
+            $pluginRegistry->fill([
+                'class_name' => $plugin->class,
+                'file_name' => $plugin->file,
+            ]);
+            $newPlugins++;
+        }
+
+        $pluginRegistry->fill($pluginClass->details())->save();
+
+        return $newPlugins;
+    }
+
+
+    /**
+     * Register a new Block
+     *
+     * @param $plugin
+     * @param $newBlocks
+     * @return mixed
+     */
+    private function registerNewBlock($plugin, $newBlocks)
+    {
+        $pluginClass = PluginInitialiser::getPlugin($plugin->class);
+
+        if (!method_exists($pluginClass, 'registerBlock')) {
+            return $newBlocks;
+        }
+
+        $blockRegistry = BlockRegistry::findOrNew($plugin->class);
+
+        if (!$blockRegistry->exists) {
+            $blockRegistry->plugin_class = $plugin->class;
+            $newBlocks++;
+        }
+
+        $blockRegistry->fill($pluginClass->registerBlock())->save();
+
+        return $newBlocks;
     }
 
 
@@ -245,16 +156,9 @@ class PluginBase
     }
 
 
-    /**
-     * To be overriden in the plugin class
-     * Route begins from the plugins/ folder
-     * Must return view('merchant/plugin/views/viewName) or equivalent
-     *
-     * @return string|View
-     */
-    public function render()
-    {
-        return '';
-    }
+//    public function cron()
+//    {
+
+//    }
 
 }
