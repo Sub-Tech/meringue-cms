@@ -4,6 +4,8 @@ namespace Plugins\SubTech\Staff;
 
 use App\PluginBase;
 use App\PluginInterface;
+use Illuminate\Support\Collection;
+use Plugins\SubTech\Staff\Libraries\Stamp;
 
 /**
  * Class Staff
@@ -17,6 +19,8 @@ class Staff extends PluginBase implements PluginInterface
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->setVendor();
         $this->setName();
     }
@@ -54,10 +58,20 @@ class Staff extends PluginBase implements PluginInterface
     public function render()
     {
         return view('SubTech/Staff/views/staff', [
-            'staff' => StampUser::all()->groupBy('category')
+            'staff' => StaffFormatter::format($this->getStaff($groupByCategory = true))
         ]);
     }
 
+
+    /**
+     * Render the admin
+     */
+    public function admin()
+    {
+        return view('SubTech/Staff/views/staff', [
+            'staff' => $this->getStaff()
+        ]);
+    }
 
     /**
      * Set the details of the plugin
@@ -97,6 +111,39 @@ class Staff extends PluginBase implements PluginInterface
             'name' => 'Staff',
             'description' => 'SubTech Staff',
         ];
+    }
+
+
+    /**
+     * Get all Staff
+     *
+     * @param bool $groupByCategory
+     * @return Collection
+     */
+    public function getStaff(bool $groupByCategory = false): ?Collection
+    {
+        $users = StampUser::all();
+
+        if ($groupByCategory) {
+            $users->groupBy('category');
+        }
+
+        return $users;
+    }
+
+
+    /**
+     * Gets all users from STAMP and saves / updates them as appropriate
+     */
+    public function refreshStaff()
+    {
+        $stamp = new Stamp();
+
+        $stamp->getUsers()->each(function (\stdClass $user) {
+            StampUser::firstOrCreate($where = ['userid' => $user->userid],
+                $values = (array)$user
+            )->save();
+        });
     }
 
 }
