@@ -36,7 +36,7 @@ class PluginController extends Controller
     public function manage()
     {
         return view('admin.plugin.manage', [
-            'plugins' => Plugin::all()
+            'plugins' => $this->pluginInitialiser->plugins
         ]);
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Plugin;
+
 /**
  * Class PluginInitialiser
  */
@@ -82,14 +84,17 @@ class PluginInitialiser
     private function initialisePlugin(string $vendor, string $plugin)
     {
         $filePath = file_path($vendor, $plugin);
+        $classPath = class_path($vendor, $plugin);
+
         include_once(base_path($filePath));
 
         $this->loadAutoload($vendor, $plugin);
 
-        $this->plugins[$vendor . '/' . $plugin] = (object)[
+        $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
             'class' => class_path($vendor, $plugin),
-            'file' => $filePath
-        ];
+            'file' => $filePath,
+            'vendor' => $vendor
+        ], Plugin::find($classPath)->toArray());
     }
 
 

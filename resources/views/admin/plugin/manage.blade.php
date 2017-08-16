@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($plugins as $plugin) { ?>
+                        <?php foreach($plugins as $shortPath => $plugin) { ?>
                         <tr>
                             <td><?= $plugin->name;?></td>
                             <td><?= $plugin->description;?></td>
@@ -43,8 +43,16 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                                                     class="icon-menu7"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right text-center">
-                                            <li><a class="activePlugin" data-plugin='<?= $plugin->class_name; ?>'>Active
-                                                    Plugin</a></li>
+                                            <li>
+                                                <a class="activePlugin" data-plugin='{{ $plugin->class_name }}'>
+                                                    Activate Plugin
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/plugin/manage/{{ $shortPath }}">
+                                                    Manage Plugin
+                                                </a>
+                                            </li>
                                             <li class="divider"></li>
                                             <li><a href="#" style="color:red;">Delete</a></li>
                                         </ul>
@@ -66,35 +74,35 @@
 
 
     <script>
-      function refreshList() {
-        $.ajax({
-          'url': '/admin/plugin/refresh'
-        }).success(function () {
-          location.reload();
-        });
-      }
-
-      $('.activePlugin').on('click', function () {
-        $.ajax({
-          'url': '/admin/plugin/activate',
-          'method': 'post',
-          data: {
-            'plugin': $(this).data('plugin')
-          }
-        }).success(function (res) {
-          if (!res.success) {
-            new PNotify({
-              title: 'Error',
-              text: res.message,
-              icon: 'icon-warning22',
-              type: 'error',
-              addclass: 'bg-danger'
+        function refreshList() {
+            $.ajax({
+                'url': '/admin/plugin/refresh'
+            }).success(function () {
+                location.reload();
             });
-          } else {
-            location.reload();
-          }
+        }
+
+        $('.activePlugin').on('click', function () {
+            $.ajax({
+                'url': '/admin/plugin/activate',
+                'method': 'post',
+                data: {
+                    'plugin': $(this).data('plugin')
+                }
+            }).success(function (res) {
+                if (!res.success) {
+                    new PNotify({
+                        title: 'Error',
+                        text: res.message,
+                        icon: 'icon-warning22',
+                        type: 'error',
+                        addclass: 'bg-danger'
+                    });
+                } else {
+                    location.reload();
+                }
+            });
         });
-      });
 
 
     </script>

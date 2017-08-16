@@ -5,7 +5,6 @@ namespace Plugins\SubTech\Staff;
 use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Support\Collection;
-use Plugins\SubTech\Staff\Libraries\Stamp;
 
 /**
  * Class Staff
@@ -135,6 +134,8 @@ class Staff extends PluginBase implements PluginInterface
         });
 
         $this->checkForInactiveEmployees($users);
+
+        return redirect('admin/plugin/manage/SubTech/Staff');
     }
 
 

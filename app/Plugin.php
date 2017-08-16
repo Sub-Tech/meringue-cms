@@ -38,6 +38,7 @@ class Plugin extends Model
         'file_name',
         'active',
         'installed',
+        'vendor',
         'name',
         'author',
         'icon',

@@ -99,6 +99,7 @@ class PluginBase
             $pluginRegistry->fill([
                 'class_name' => $plugin->class,
                 'file_name' => $plugin->file,
+                'vendor' => $plugin->vendor
             ]);
             $newPlugins++;
         }
