@@ -1,5 +1,7 @@
 <?php
 
+use App\Plugin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,48 +13,30 @@
 |
 */
 
+Plugin::routes();
 
-
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-// Admin Routes
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', function (){    return redirect('admin/dashboard');});
+    Route::get('/', 'Admin\PageController@index');
+    Route::get('/dashboard', 'Admin\PageController@index');
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('page/manage', 'Admin\PageController@manage');
+    Route::get('page/edit/{page}', 'Admin\PageController@edit');
 
-    // Page Routes
-    Route::prefix('page')->group(function () {
-        Route::get('manage', 'Admin\PageController@manage');
-        Route::get('edit/{page}', 'Admin\PageController@edit');
-    });
+    Route::get('plugin/manage/{vendor}/{plugin}', 'Admin\PluginController@config');
+    Route::get('plugin/manage', 'Admin\PluginController@manage');
+    Route::get('plugin/refresh', 'Admin\PluginController@refreshPluginsRegistry');
+    Route::get('plugin/block/refresh', 'Admin\PluginController@refreshBlocksRegistry');
+    Route::post('plugin/activate', 'Admin\PluginController@activate');
 
-    // Plugin Routes
-    Route::prefix('plugin')->group(function () {
-        Route::get('manage', 'Admin\PluginController@manage');
-        Route::post('activate', 'Admin\PluginController@activate');
-        Route::get('refresh', 'Admin\PluginController@refreshPluginsRegistry');
-        Route::prefix('block')->group(function () {
-            Route::get('refresh', 'Admin\PluginController@refreshBlocksRegistry');
-        });
-    });
-
-    // Block Routes
-    Route::prefix('block')->group(function () {
-        Route::post('{block}', 'Admin\BlockController@update');
-    });
+    Route::post('block/{block}', 'Admin\BlockController@update');
 });
 
 // Route for all other pages to go via the CMS

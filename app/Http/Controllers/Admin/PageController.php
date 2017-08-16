@@ -13,6 +13,16 @@ class PageController extends Controller
 {
 
     /**
+     * View the dashboard
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('admin.dashboard');
+    }
+
+    /**
      * Manage pages
      *
      * @return \Illuminate\View\View

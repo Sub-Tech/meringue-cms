@@ -87,7 +87,7 @@ class PluginInitialiser
         $this->loadAutoload($vendor, $plugin);
 
         $this->plugins[$vendor . '/' . $plugin] = (object)[
-            'class' => "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin,
+            'class' => class_path($vendor, $plugin),
             'file' => $filePath
         ];
     }
@@ -95,13 +95,47 @@ class PluginInitialiser
 
     /**
      * Load the autoload file, if it finds one
+     * TODO update with composer autoloading
      *
      * @param string $vendor
      * @param string $plugin
      */
     private function loadAutoload(string $vendor, string $plugin)
     {
-        @include_once(base_path("plugins/{$vendor}/{$plugin}/autoload.php"));
+        $autoloadFile = base_path("plugins/{$vendor}/{$plugin}/autoload.php");
+
+        if (file_exists($autoloadFile)) {
+            include_once($autoloadFile);
+        }
+    }
+
+
+    /**
+     * Goes through each Vendor -> Plugin and loads the Routes file
+     */
+    public function initialiseRoutes()
+    {
+        foreach ($this->getVendors() as $vendor) {
+            foreach ($this->getVendorsPlugins($vendor) as $plugin) {
+                $this->loadRoutesFile($vendor, $plugin);
+            }
+        }
+    }
+
+
+    /**
+     * Loads the routes file
+     *
+     * @param string $vendor
+     * @param string $plugin
+     */
+    private function loadRoutesFile(string $vendor, string $plugin)
+    {
+        $routesFile = base_path("plugins/{$vendor}/{$plugin}/routes.php");
+
+        if (file_exists($routesFile)) {
+            include_once($routesFile);
+        }
     }
 
 

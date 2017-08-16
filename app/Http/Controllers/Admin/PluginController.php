@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class PluginController extends Controller
 {
+
     /**
      * @var PluginBase
      */
     protected $pluginBase;
-
 
     /**
      * PluginController constructor.
@@ -38,6 +38,20 @@ class PluginController extends Controller
         return view('admin.plugin.manage', [
             'plugins' => Plugin::all()
         ]);
+    }
+
+
+    /**
+     * Configure a plugin
+     *
+     * @param $vendor
+     * @param $plugin
+     */
+    public function config($vendor, $plugin)
+    {
+        $plugin = $this->pluginInitialiser->getPlugin(class_path($vendor, $plugin));
+
+        return $plugin->admin();
     }
 
 
