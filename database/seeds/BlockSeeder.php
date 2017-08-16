@@ -15,7 +15,7 @@ class BlockSeeder extends Seeder
             'section_id' => 1,
             'order' => 1,
             'width' => 3,
-            'plugin_class' => 'Meringue\Text'
+            'plugin_class' => 'Plugins\Meringue\Text\Text'
         ]))->save();
     }
 }

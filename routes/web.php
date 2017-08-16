@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/bob', '\Plugins\Meringue\Text\TextController@index')->name('home');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 

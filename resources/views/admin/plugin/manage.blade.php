@@ -70,7 +70,7 @@
         $.ajax({
           'url': '/admin/plugin/refresh'
         }).success(function () {
-//          location.reload();
+          location.reload();
         });
       }
 
@@ -91,7 +91,7 @@
               addclass: 'bg-danger'
             });
           } else {
-//            location.reload();
+            location.reload();
           }
         });
       });
