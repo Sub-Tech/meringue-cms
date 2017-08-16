@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($plugins as $shortPath => $plugin) { ?>
+                        <?php foreach($plugins as $plugin) { ?>
                         <tr>
                             <td><?= $plugin->name;?></td>
                             <td><?= $plugin->description;?></td>
@@ -46,11 +46,6 @@
                                             <li>
                                                 <a class="activePlugin" data-plugin='{{ $plugin->class_name }}'>
                                                     Activate Plugin
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/admin/plugin/manage/{{ $shortPath }}">
-                                                    Manage Plugin
                                                 </a>
                                             </li>
                                             <li class="divider"></li>

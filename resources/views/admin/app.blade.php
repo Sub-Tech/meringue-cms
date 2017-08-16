@@ -14,7 +14,8 @@
     <link href="{{ URL::asset('/limitless/assets/css/core.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/components.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('/limitless/assets/css/colors.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('/limitless/assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('/limitless/assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet"
+          type="text/css">
 
     <!-- /global stylesheets -->
 
@@ -438,23 +439,21 @@
                         </ul>
                         <hr>
                         <ul class="navigation navigation-main navigation-accordion">
-                            @foreach(\App\Renderers\AdminMenuRenderer::getSideBarMenuItems() as $plugin)
+                            @foreach(\App\Renderers\AdminMenuRenderer::getSideBarMenuItems() as $item)
                                 <li>
-                                    <a href='#'>
-                                        <i class='{{ $plugin['icon'] }}'></i>
-                                        <span>{{ $plugin['name'] }}</span>
-                                        @if (isset($plugin['options']))
-                                            <ul>
-                                                @foreach($plugin['options'] as $option)
-                                                    <li>
-                                                        <a href="{{ $option['href'] }}">
-                                                            {{ $option['text'] }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </a>
+                                    <a href='#'><i class='{{ $item['icon'] }}'></i>
+                                        <span>{{ $item['name'] }}</span></a>
+                                    @if (isset($item['options']))
+                                        <ul>
+                                            @foreach($item['options'] as $option)
+                                                <li>
+                                                    <a href="{{ $option['href'] }}">
+                                                        {{ $option['text'] }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

@@ -190,13 +190,18 @@ class Staff extends PluginBase implements PluginInterface
     }
 
 
+    /**
+     * Register any Admin Menu Items
+     *
+     * @return array
+     */
     public function registerSideBarMenuItem()
     {
         return [
             'icon' => '',
-            'name' => 'spongeboob',
+            'name' => 'SubTech Staff',
             'options' => [
-                ['href' => 'https://google.com', 'text' => 'fuck off']
+                ['href' => "/admin/plugin/manage/{$this->vendor}/{$this->name}", 'text' => 'Manage Staff']
             ]
         ];
     }
