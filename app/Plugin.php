@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Helpers\PluginInitialiser;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,7 +34,14 @@ use Illuminate\Database\Eloquent\Model;
 class Plugin extends Model
 {
     protected $fillable = [
-        'class_name', 'file_name', 'active', 'installed', 'name', 'author', 'icon', 'description'
+        'class_name',
+        'file_name',
+        'active',
+        'installed',
+        'name',
+        'author',
+        'icon',
+        'description'
     ];
 
     protected $primaryKey = 'class_name';
@@ -46,6 +54,15 @@ class Plugin extends Model
     public function blocks()
     {
         return $this->hasMany(Block::class, 'plugin_class', 'class_name');
+    }
+
+
+    /**
+     * Pulls the Plugin Initialiser from the Service Container and initialises the routes
+     */
+    public static function routes()
+    {
+        app(PluginInitialiser::class)->initialiseRoutes();
     }
 
 }
