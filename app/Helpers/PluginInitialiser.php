@@ -53,7 +53,7 @@ class PluginInitialiser
      *
      * @param $vendor
      */
-    private function initialisePlugins($vendor)
+    private function initialisePlugins(string $vendor)
     {
         foreach ($this->getVendorsPlugins($vendor) as $plugin) {
             $this->initialisePlugin($vendor, $plugin);

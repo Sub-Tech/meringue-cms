@@ -3,6 +3,7 @@
 namespace Plugins\SubTech\Staff;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Plugins\SubTech\Stamp\StampUser
@@ -34,6 +35,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StampUser extends Model
 {
+    use SoftDeletes;
+
+    protected $primaryKey = 'userid';
+
     protected $table = 'subtech_stamp_users';
 
     protected $fillable = [
