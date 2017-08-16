@@ -165,35 +165,6 @@ class PluginBase
     }
 
 
-    /**
-     * Todo :// Check if this is still in use
-     * TODO it is.
-     *
-     * @return array
-     */
-    public function getSideBarMenuItems()
-    {
-        $menu = [];
-
-        foreach ($this->pluginInitialiser->plugins as $plugin) {
-            $pluginClass = $this->pluginInitialiser->getPlugin($plugin->class);
-
-            if (!method_exists($pluginClass, 'registerSideBarMenuItem')) {
-                continue;
-            }
-
-            $plugin = $pluginClass->registerSideBarMenuItem();
-
-            $menu[] = [
-                'name' => $plugin['name'] ?? '',
-                'icon' => $plugin['icon'] ?? ''
-            ];
-        }
-
-        return $menu;
-    }
-
-
 //    public function cron()
 //    {
 

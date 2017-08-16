@@ -189,4 +189,16 @@ class Staff extends PluginBase implements PluginInterface
         });
     }
 
+
+    public function registerSideBarMenuItem()
+    {
+        return [
+            'icon' => '',
+            'name' => 'spongeboob',
+            'options' => [
+                ['href' => 'https://google.com', 'text' => 'fuck off']
+            ]
+        ];
+    }
+
 }

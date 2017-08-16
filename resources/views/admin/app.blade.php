@@ -438,9 +438,25 @@
                         </ul>
                         <hr>
                         <ul class="navigation navigation-main navigation-accordion">
-                            <?php foreach ((new \App\PluginBase)->getSideBarMenuItems() as $plugin) {
-                                echo "<li><a href='index.html'><i class='{$plugin['icon']}'></i><span>{$plugin['name']}</span></a></li>";
-                            }?>
+                            @foreach(\App\Renderers\AdminMenuRenderer::getSideBarMenuItems() as $plugin)
+                                <li>
+                                    <a href='#'>
+                                        <i class='{{ $plugin['icon'] }}'></i>
+                                        <span>{{ $plugin['name'] }}</span>
+                                        @if (isset($plugin['options']))
+                                            <ul>
+                                                @foreach($plugin['options'] as $option)
+                                                    <li>
+                                                        <a href="{{ $option['href'] }}">
+                                                            {{ $option['text'] }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
