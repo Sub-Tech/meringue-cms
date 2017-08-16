@@ -20,6 +20,8 @@ class Form extends PluginBase implements PluginInterface
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->setVendor();
         $this->setName();
     }
@@ -84,7 +86,7 @@ class Form extends PluginBase implements PluginInterface
 
         $success = (new Models\Response())->fill(array_merge(
             $request->all(), [
-            'answers' => json_encode($request->all())
+            'answers' => json_encode($request->except(['vendor', 'plugin']))
         ]))->save();
 
         return response()->json([
@@ -116,6 +118,17 @@ class Form extends PluginBase implements PluginInterface
     public function install()
     {
         $this->runMigrations();
+    }
+
+
+    /**
+     * Renders the admin panel
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     */
+    public function admin()
+    {
+        return false;
     }
 
 }

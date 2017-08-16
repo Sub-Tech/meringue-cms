@@ -17,6 +17,7 @@ class Response extends Model
     protected $table = 'meringue_form_responses';
 
     protected $fillable = [
+        'form_id',
         'answers'
     ];
 

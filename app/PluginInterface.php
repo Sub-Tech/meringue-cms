@@ -50,4 +50,12 @@ interface PluginInterface
      */
     public function render();
 
+
+    /**
+     * Renders the admin panel
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     */
+    public function admin();
+
 }

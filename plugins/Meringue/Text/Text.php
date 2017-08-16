@@ -15,6 +15,8 @@ class Text extends PluginBase implements PluginInterface
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->setVendor();
         $this->setName();
     }
@@ -106,4 +108,13 @@ class Text extends PluginBase implements PluginInterface
         })->everyMinute();
     } */
 
+    /**
+     * Renders the admin panel
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     */
+    public function admin()
+    {
+        return false;
+    }
 }
