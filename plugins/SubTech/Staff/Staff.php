@@ -134,6 +134,17 @@ class Staff extends PluginBase implements PluginInterface
                 ->save();
         });
 
+        $this->checkForInactiveEmployees($users);
+    }
+
+
+    /**
+     * Checks for inactive employees and deletes any if found
+     *
+     * @param Collection $users
+     */
+    private function checkForInactiveEmployees(Collection $users)
+    {
         $stampUsers = StampUser::all();
 
         if ($this->thereAreInactiveEmployeesStillInTheDb($users, $stampUsers)) {
