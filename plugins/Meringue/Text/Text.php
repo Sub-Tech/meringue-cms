@@ -1,10 +1,7 @@
 <?php namespace Plugins\Meringue\Text;
 
-use App\Console\Kernel;
 use App\PluginBase;
 use App\PluginInterface;
-use Illuminate\Console\Scheduling\Schedule;
-use Plugins\Meringue\Commands\Test;
 
 /**
  * Class Text
@@ -18,11 +15,55 @@ class Text extends PluginBase implements PluginInterface
      */
     public function __construct()
     {
-        parent::__construct();
-
         $this->setVendor();
         $this->setName();
+    }
 
+
+    /**
+     * Set the Vendor of the Plugin
+     *
+     * @return void
+     */
+    public function setVendor(): void
+    {
+        $this->vendor = 'Meringue';
+    }
+
+
+    /**
+     * Set the name of the Plugin
+     *
+     * @return void
+     */
+    public function setName(): void
+    {
+        $this->name = 'Text';
+    }
+
+
+    /**
+     * Runs any method that need to be ran upon installation of the Plugin
+     * Return false if not necessary
+     *
+     * @return void|bool
+     */
+    public function install()
+    {
+        $this->runMigrations();
+    }
+
+
+    /**
+     * Route begins from the plugins/ folder
+     * Must return view('merchant/plugin/views/viewName) or equivalent
+     * Return false if plugin doesn't need to render anything on the front end
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     */
+    public function render()
+    {
+        return view('Meringue/Text/views/text');
     }
 
 
@@ -30,7 +71,7 @@ class Text extends PluginBase implements PluginInterface
      * Details used for the plugin
      * @return array
      */
-    public function setDetails(): array
+    public function details(): array
     {
         return [
             'name' => 'Text',
@@ -42,31 +83,8 @@ class Text extends PluginBase implements PluginInterface
 
 
     /**
-     * Set the Vendor
+     * @return array
      */
-    public function setVendor()
-    {
-        $this->vendor = 'Meringue';
-    }
-
-
-    /**
-     * Set the Name
-     */
-    public function setName()
-    {
-        $this->name = 'Text';
-    }
-
-
-    /**
-     * Runs on activate
-     */
-    public function install()
-    {
-        $this->runMigrations();
-    }
-
     public function registerBlock()
     {
         return [
@@ -81,20 +99,11 @@ class Text extends PluginBase implements PluginInterface
     }
 
 
-    /**
-     * Return HTML of the block
-     *
-     * @return string
-     */
-    public function render()
-    {
-        return "<div style='height: 100px; background-color: cyan'><h2>Big milky titties</h2></div>";
-    }
-
-
+    /* Disabled for now
     public function cron(Schedule $schedule) {
         $schedule->call(function () {
             echo "efe";
         })->everyMinute();
-    }
+    } */
+
 }

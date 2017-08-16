@@ -1,0 +1,1 @@
+<textarea name="{{ $input->name }}"></textarea>

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Renderers;
 
 use App\Block;
+use App\Helpers\PluginInitialiser;
 
 /**
  * Class BlockRenderer
@@ -18,7 +19,8 @@ class BlockRenderer
      */
     public function render(Block $block)
     {
-        $p = $block->plugin->loadPlugin();
+        $p = PluginInitialiser::getPlugin($block->plugin_class);
+
         return "<div class='block'>" . $p->render() . "</div>";
     }
 

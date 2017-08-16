@@ -29,13 +29,14 @@ class BlockRegistry extends Model
     protected $fillable = [
         'plugin_class', 'name', 'description', 'icon', 'inputs'
     ];
+
     protected $primaryKey = 'plugin_class';
+
     public $incrementing = false;
 
-    public function plugin(){
+    public function plugin()
+    {
         return $this->belongsTo(Plugin::class, 'plugin_name', 'class_name');
     }
-
-
 
 }
