@@ -28,7 +28,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', 'Admin\PageController@index');
 
     Route::get('page/manage', 'Admin\PageController@manage');
-    Route::get('page/edit/{page}', 'Admin\PageController@edit');
+    Route::get('page/edit/{page_id}', 'Admin\PageController@edit');
 
     Route::get('plugin/manage', 'Admin\PluginController@manage');
     Route::get('plugin/refresh', 'Admin\PluginController@refreshPluginsRegistry');

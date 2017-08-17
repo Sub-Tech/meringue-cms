@@ -20,8 +20,24 @@ class Input extends Model
         'label',
         'type',
         'name',
-        'position'
+        'position',
+        'required',
+        'options'
     ];
+
+    protected $appends = [
+        'form_input_id'
+    ];
+
+    /**
+     * Identifies each Form Input
+     *
+     * @return string
+     */
+    public function getFormInputIdAttribute()
+    {
+        return "{$this->name}-{$this->id}";
+    }
 
     public function form()
     {

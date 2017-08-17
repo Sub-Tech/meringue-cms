@@ -1,12 +1,10 @@
 <form id="form-{{ $form->id }}" action="/{{ $form->uri }}" method="POST">
 
-    <input type="hidden" name="vendor" value="Meringue">
-    <input type="hidden" name="plugin" value="Form">
     <input type="hidden" name="form_id" value="{{ $form->id }}">
 
     @foreach($form->inputs as $input)
         <div class="form-group">
-            <label for="{{ $input->name }}-{{ $input->id }}">{{ $input->label }}</label>
+            <label for="{{ $input->form_input_id }}">{{ $input->label }}</label>
             @include('Meringue/Form/views/inputs/' . $input->type)
         </div>
     @endforeach

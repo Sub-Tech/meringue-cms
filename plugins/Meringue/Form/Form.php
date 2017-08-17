@@ -6,6 +6,8 @@ use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Plugins\Meringue\Form\Models\Input;
 use Validator;
 
 /**
@@ -75,6 +77,7 @@ class Form extends PluginBase implements PluginInterface
     public function handleResponse(Request $request)
     {
         try {
+            /** @var \Plugins\Meringue\Form\Models\Form $form */
             $form = Models\Form::findOrFail($request->form_id);
         } catch (ModelNotFoundException $exception) {
             return response()->json([
@@ -82,7 +85,8 @@ class Form extends PluginBase implements PluginInterface
             ], 500);
         }
 
-        Validator::validate($request->all(), json_decode($form->validation));
+
+//        Validator::validate($request->all(), $this->validationArray($form)); get working
 
         $success = (new Models\Response())->fill(array_merge(
             $request->all(), [
@@ -94,6 +98,24 @@ class Form extends PluginBase implements PluginInterface
         return response()->json([
             'success' => $success
         ], $success ? 200 : 500);
+    }
+
+
+    /**
+     * Constructs an array of validation rules based on the Form's Inputs validation
+     *
+     * @param Models\Form $form
+     * @return array
+     */
+    private function validationArray(Models\Form $form)
+    {
+        $rules = [];
+
+        $form->inputs->each(function (Models\Input $input) {
+            $rules[$input->name] = implode('|', json_decode($input->validation));
+        });
+
+        return $rules;
     }
 
 
@@ -139,10 +161,32 @@ class Form extends PluginBase implements PluginInterface
     }
 
 
+    /**
+     * Display all forms
+     *
+     * @return View
+     */
     public function index()
     {
         return view('Meringue/Form/views/forms')
             ->with('forms', Models\Form::all());
+    }
+
+
+    /**
+     * Register any Admin Menu Items
+     *
+     * @return array
+     */
+    public function registerSideBarMenuItem()
+    {
+        return [
+            'icon' => '',
+            'name' => 'Forms',
+            'options' => [
+                ['href' => route('Form.index'), 'text' => 'View All']
+            ]
+        ];
     }
 
 }

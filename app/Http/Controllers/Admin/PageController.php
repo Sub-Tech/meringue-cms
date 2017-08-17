@@ -34,8 +34,10 @@ class PageController extends Controller
     }
 
 
-    public function edit(Page $page)
+    public function edit($page_id)
     {
+        $page = Page::findOrFail($page_id);
+
         return view('admin.page.edit')
             ->with('page', $page);
     }
