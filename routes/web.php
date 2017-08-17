@@ -39,4 +39,4 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 // Route for all other pages to go via the CMS
-Route::get('{slug}', 'PageController@index');
+Route::get('{page}', 'PageController@index');

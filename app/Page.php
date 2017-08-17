@@ -47,6 +47,17 @@ class Page extends Model
 
 
     /**
+     * This is what route model binding will use to fetch the correct Model
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function author()

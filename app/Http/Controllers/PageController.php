@@ -9,18 +9,14 @@ class PageController extends Controller
 {
 
     /**
+     * Render Page via passed slug
+     *
      * @param PageRenderer $renderer
-     * @param string $slug
+     * @param Page $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(PageRenderer $renderer, $slug = '/')
+    public function index(PageRenderer $renderer, Page $page)
     {
-        $page = Page::whereSlug($slug)->get();
-
-        if ($page->count() == 0) {
-            die("404"); //TODO : Create 404 page
-        }
-
         return $renderer->page($page->first());
     }
 

@@ -45,6 +45,7 @@ class PageRenderer
 
     /**
      * Render the page for the front end
+     *
      * @param Page $page
      * @return mixed
      */
