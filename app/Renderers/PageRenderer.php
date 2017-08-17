@@ -61,15 +61,4 @@ class PageRenderer
         return $view;
     }
 
-
-    /**
-     * Render the header for the front end from
-     */
-    private function renderFooter()
-    {
-        return view(env('THEME') . '/footer', [
-            'tits' => "wonderful<br/>"
-        ]);
-    }
-
 }
