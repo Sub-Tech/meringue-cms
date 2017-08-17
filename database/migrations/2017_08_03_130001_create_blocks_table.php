@@ -16,6 +16,7 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('section_id');
+            $table->integer('instance_id');
             $table->string('plugin_class');
             $table->string('order');
             $table->string('background_color')->nullable();

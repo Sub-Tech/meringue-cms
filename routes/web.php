@@ -30,7 +30,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('page/manage', 'Admin\PageController@manage');
     Route::get('page/edit/{page}', 'Admin\PageController@edit');
 
-    Route::get('plugin/manage/{vendor}/{plugin}', 'Admin\PluginController@config');
     Route::get('plugin/manage', 'Admin\PluginController@manage');
     Route::get('plugin/refresh', 'Admin\PluginController@refreshPluginsRegistry');
     Route::get('plugin/block/refresh', 'Admin\PluginController@refreshBlocksRegistry');

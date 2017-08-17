@@ -72,7 +72,7 @@ class Form extends PluginBase implements PluginInterface
      * @param Request $request
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function handleAjax(Request $request)
+    public function handleResponse(Request $request)
     {
         try {
             $form = Models\Form::findOrFail($request->form_id);
@@ -89,6 +89,8 @@ class Form extends PluginBase implements PluginInterface
             'answers' => json_encode($request->except(['vendor', 'plugin']))
         ]))->save();
 
+        return redirect('/'); // Todo rm
+
         return response()->json([
             'success' => $success
         ], $success ? 200 : 500);
@@ -100,12 +102,17 @@ class Form extends PluginBase implements PluginInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     * @param null $instanceId
+     * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render()
+    public function render($instanceId = null)
     {
-        return view('Meringue/Form/views/form')
-            ->with('form', Models\Form::find(1)); // TODO test id -> make dynamic
+        try {
+            return view('Meringue/Form/views/form')
+            ->with('form', Models\Form::findOrFail($instanceId));
+        } catch (ModelNotFoundException $exception) {
+            return false;
+        }
     }
 
 

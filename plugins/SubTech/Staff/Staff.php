@@ -52,11 +52,14 @@ class Staff extends PluginBase implements PluginInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     * @param null $instanceId
+     * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render()
+    public function render($instanceId = null)
     {
         $staff = StampUser::all()->groupBy('category');
+
+        return false; // todo rm
 
         return view('SubTech/Staff/views/staff', [
             'staff' => StaffFormatter::format($staff)

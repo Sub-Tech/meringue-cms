@@ -1,8 +1,6 @@
 @extends('admin.app')
 
 @section('content')
-
-
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-flat">
@@ -64,10 +62,6 @@
         </div>
     </div>
 
-
-
-
-
     <script>
         function refreshList() {
             $.ajax({
@@ -98,12 +92,5 @@
                 }
             });
         });
-
-
     </script>
-
-
-
-
-
 @endsection

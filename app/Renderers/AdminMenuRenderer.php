@@ -18,18 +18,16 @@ class AdminMenuRenderer
      */
     public static function getSideBarMenuItems()
     {
-        $menu = [];
-
         $pluginInitialiser = app(PluginInitialiser::class);
+
+        $menu = [];
 
         foreach ($pluginInitialiser->plugins as $plugin) {
             $pluginClass = $pluginInitialiser->getPlugin($plugin->class);
 
-            if (!method_exists($pluginClass, 'registerSideBarMenuItem')) {
-                continue;
+            if (method_exists($pluginClass, 'registerSideBarMenuItem')) {
+                $menu[] = $pluginClass->registerSideBarMenuItem();
             }
-
-            $menu[] = $pluginClass->registerSideBarMenuItem();
         }
 
         return $menu;

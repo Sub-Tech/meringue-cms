@@ -42,20 +42,6 @@ class PluginController extends Controller
 
 
     /**
-     * Configure a plugin
-     *
-     * @param $vendor
-     * @param $plugin
-     */
-    public function config($vendor, $plugin)
-    {
-        $plugin = $this->pluginInitialiser->getPlugin(class_path($vendor, $plugin));
-
-        return $plugin->admin();
-    }
-
-
-    /**
      * Activates the Plugin
      *
      * @param Request $request

@@ -21,7 +21,7 @@ class BlockRenderer
     {
         $p = PluginInitialiser::getPlugin($block->plugin_class);
 
-        return "<div class='block'>" . $p->render() . "</div>";
+        return "<div class='block'>" . $p->render($block->instance_id) . "</div>";
     }
 
 }
