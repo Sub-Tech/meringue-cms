@@ -109,7 +109,7 @@ class Form extends PluginBase implements PluginInterface
     {
         try {
             return view('Meringue/Form/views/form')
-            ->with('form', Models\Form::findOrFail($instanceId));
+                ->with('form', Models\Form::findOrFail($instanceId));
         } catch (ModelNotFoundException $exception) {
             return false;
         }
@@ -136,6 +136,13 @@ class Form extends PluginBase implements PluginInterface
     public function admin()
     {
         return false;
+    }
+
+
+    public function index()
+    {
+        return view('Meringue/Form/views/forms')
+            ->with('forms', Models\Form::all());
     }
 
 }

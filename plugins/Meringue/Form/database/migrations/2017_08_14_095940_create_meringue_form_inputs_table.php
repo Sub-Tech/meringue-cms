@@ -28,8 +28,8 @@ class CreateMeringueFormInputsTable extends Migration
             $table->string('options')->nullable();
             $table->unsignedInteger('position');
 
-            $table->boolean('required');
-            $table->string('validation');
+            $table->boolean('required')->default();
+            $table->string('validation')->default('[]');
 
             $table->timestamps();
             $table->softDeletes();

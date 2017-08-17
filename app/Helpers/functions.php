@@ -52,3 +52,16 @@ if (!function_exists('class_path')) {
         return "Plugins\\" . $vendor . "\\" . $plugin . "\\" . $plugin;
     }
 }
+
+
+/**
+ * Converts a form label to name
+ * "What is your age?" becomes "what_is_your_age"
+ * For rendering the form
+ */
+if (!function_exists('convert_label_to_name')) {
+    function label_to_name($label)
+    {
+        return snake_case(preg_replace("/[^a-zA-Z]+/", "", $label));
+    }
+}

@@ -16,11 +16,27 @@ class Input extends Model
 
     protected $table = 'meringue_form_inputs';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'label',
+        'type',
+        'name',
+        'position'
+    ];
 
     public function form()
     {
         return $this->belongsTo(Form::class);
+    }
+
+    public static function types()
+    {
+        return [
+            'text',
+            'textarea',
+            'select',
+            'checkbox',
+            'radio'
+        ];
     }
 
 }
