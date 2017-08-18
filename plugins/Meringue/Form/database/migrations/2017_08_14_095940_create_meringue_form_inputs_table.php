@@ -21,14 +21,14 @@ class CreateMeringueFormInputsTable extends Migration
                 'textarea',
                 'select',
                 'radio',
-                'checkbox'
+                'checkbox',
+                'file'
             ]);
             $table->string('name')->required();
             $table->string('label')->required();
             $table->string('options')->nullable();
             $table->unsignedInteger('position');
 
-            $table->boolean('required')->default();
             $table->string('validation')->default('[]');
 
             $table->timestamps();

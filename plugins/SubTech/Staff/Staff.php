@@ -57,9 +57,9 @@ class Staff extends PluginBase implements PluginInterface
      */
     public function render($instanceId = null)
     {
-        $staff = StampUser::all()->groupBy('category');
-
         return false; // todo rm
+
+        $staff = StampUser::all()->groupBy('category');
 
         return view('SubTech/Staff/views/staff', [
             'staff' => StaffFormatter::format($staff)

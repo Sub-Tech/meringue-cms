@@ -85,15 +85,12 @@ class Form extends PluginBase implements PluginInterface
             ], 500);
         }
 
-
-//        Validator::validate($request->all(), $this->validationArray($form)); get working
+        Validator::validate($request->all(), $this->validationArray($form));
 
         $success = (new Models\Response())->fill(array_merge(
             $request->all(), [
             'answers' => json_encode($request->except(['vendor', 'plugin']))
         ]))->save();
-
-        return redirect('/'); // Todo rm
 
         return response()->json([
             'success' => $success
@@ -111,8 +108,8 @@ class Form extends PluginBase implements PluginInterface
     {
         $rules = [];
 
-        $form->inputs->each(function (Models\Input $input) {
-            $rules[$input->name] = implode('|', json_decode($input->validation));
+        $form->inputs->each(function (Models\Input $input) use (&$rules) {
+            $rules[$input->name] = $input->validation;
         });
 
         return $rules;

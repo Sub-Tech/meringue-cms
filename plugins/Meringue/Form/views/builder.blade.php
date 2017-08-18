@@ -37,13 +37,13 @@
 
                     <div class="form-group">
                         <label for="label">Label</label>
-                        <input type="text" placeholder="Label" name="label" id="label" class="form-control">
+                        <input type="text" placeholder="Label" name="label" id="label" class="form-control" required>
                     </div>
 
                     <div class="form-group">
                         <label for="type">Input Type</label>
-                        <select name="type" id="type" class="form-control">
-                            <option disabled selected>Input Type</option>
+                        <select name="type" id="type" class="form-control" required>
+                            <option disabled selected value="">Input Type</option>
                             @foreach($inputTypes as $inputType)
                                 <option value="{{ $inputType }}">{{ ucfirst($inputType) }}</option>
                             @endforeach
@@ -57,9 +57,42 @@
                     </div>
 
                     <div class="form-group">
+                        <strong>Required</strong>
                         <div class="checkbox">
-                            <label><input type="checkbox" name="required">Required</label>
+                            <label><input type="checkbox" name="validation_required">Required</label>
                         </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <strong>Value Type</strong>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="validation_email">Email</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="validation_numeric">Numeric</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="validation_alpha_dash">Alphabetic</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="validation_image">Image</label>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <strong>Other Rules</strong><br>
+                        <label for="same">Input Must Match</label>
+                        <select name="validation_same" class="form-control" id="same">
+                            @forelse($form->inputs as $input)
+                                <option value="{{ $input->name }}">{{ $input->label }}</option>
+                            @empty
+                                <option disabled value=""><i>No Inputs found</i></option>
+                            @endforelse
+                        </select>
                     </div>
 
                     <div class="form-group">

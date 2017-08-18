@@ -21,8 +21,8 @@ class Input extends Model
         'type',
         'name',
         'position',
-        'required',
-        'options'
+        'options',
+        'validation'
     ];
 
     protected $appends = [

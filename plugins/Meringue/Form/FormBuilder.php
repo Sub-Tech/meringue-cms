@@ -68,13 +68,44 @@ class FormBuilder
             $request->all(), [
             'name' => label_to_name($request->label),
             'position' => Models\Input::whereFormId($form->id)->count() + 1,
-            'required' => $request->has('required') ? 1 : 0,
-            'options' => json_encode(explode('|', $request->options))
+            'options' => json_encode(explode($delimiter = '|', $request->options)),
+            'validation' => $this->constructValidationRules($request)
         ]));
 
         $input->save();
 
         return redirect()->back();
+    }
+
+
+    /**
+     * Returns the Laravel formatted validation string
+     *
+     * @param Request $request
+     * @return string
+     */
+    private function constructValidationRules(Request $request)
+    {
+        $rules = [];
+
+        $requireValue = [
+            'same'
+        ];
+
+        foreach ($request->all() as $input => $value) {
+            if (str_contains($input, 'validation_')) {
+                $trimmed_input = str_replace('validation_', '', $input);
+
+                if (in_array($trimmed_input, $requireValue)) {
+                    $rules[] = "{$trimmed_input}:{$value}";
+                    continue;
+                }
+
+                $rules[] = $trimmed_input;
+            }
+        }
+
+        return implode($glue = '|', $rules);
     }
 
 
