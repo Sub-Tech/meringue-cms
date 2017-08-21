@@ -136,9 +136,10 @@
                                                 <li class="image"
                                                     style="background-image:url({{ $block->plugin->icon }});"></li>
 
-                                                <li><i class="fa fa-pencil editBlock" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-pencil editBlock" data-toggle="modal"
+                                                       data-target="#myModal" aria-hidden="true"></i></li>
                                                 <li><i class="fa fa-clone" aria-hidden="true"></i></li>
-                                                <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-trash-o deleteBlock" aria-hidden="true"></i></li>
                                                 <li class="changeBlockWidth" data-adjustment="-1">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </li>
@@ -186,13 +187,35 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The Select Instance Dropdown will go here</p>
+                    <p>As will the new Instance form created by the Plugins</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <script>
         function updateBlock(id, data) {
             return $.ajax({
                 url: '/admin/block/' + id,
                 method: 'post',
                 data: data
-            })
+            });
         }
 
         function changeBlockWidth(id, width) {
@@ -220,6 +243,17 @@
         $('.changeBlockWidth').on('click', function () {
             var id = $(this).closest('.block').data('id');
             changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
+        });
+
+        $('.deleteBlock').on('click', function () {
+            var id = $(this).closest('.block').data('id');
+
+            return $.ajax({
+                url: "/admin/block/" + id,
+                method: 'delete'
+            }).success(function () {
+                $('.block[data-id=' + id + ']').html("");
+            });
         });
     </script>
 @endsection

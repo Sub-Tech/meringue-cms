@@ -42,4 +42,20 @@ class BlockController extends Controller
         ], $success ? 200 : 500);
     }
 
+
+    /**
+     * Delete a Block
+     *
+     * @param Block $block
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Block $block)
+    {
+        $success = $block->delete();
+
+        return response()->json([
+            'success' => $success
+        ], $success ? 200 : 500);
+    }
+
 }
