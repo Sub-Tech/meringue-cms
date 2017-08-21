@@ -1,13 +1,17 @@
 <?php namespace Plugins\Meringue\Text;
 
+use App\InstanceInterface;
 use App\PluginBase;
 use App\PluginInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Text
  * @package Plugins\Meringue\Text
  */
-class Text extends PluginBase implements PluginInterface
+class Text extends PluginBase implements PluginInterface, InstanceInterface
 {
 
     /**
@@ -66,7 +70,10 @@ class Text extends PluginBase implements PluginInterface
      */
     public function render($instanceId = null)
     {
-        return view('Meringue/Text/views/text');
+        $content = DB::table('meringue_text_text')->find($instanceId)->content;
+
+        return view('Meringue/Text/views/text')
+            ->with('content', $content);
     }
 
 
@@ -86,16 +93,19 @@ class Text extends PluginBase implements PluginInterface
 
 
     /**
+     * #TODO get ckeditor implemented
+     *
      * @return array
      */
     public function registerBlock()
     {
         return [
-            'name' => 'Text',
-            'description' => 'Simple text block with WYSWYG',
             'inputs' => [ // Inputs for the page editor
                 'content' => [ // Key must be same as database column
                     'type' => 'wysiwyg' // This will load a corresponding input in the page editor
+                ],
+                'name' => [
+                    'type' => 'text'
                 ]
             ]
         ];
@@ -117,5 +127,29 @@ class Text extends PluginBase implements PluginInterface
     public function admin()
     {
         return false;
+    }
+
+
+    /**
+     * Get the Text Instance
+     *
+     * @param int $instanceId
+     * @return Collection
+     */
+    public function getInstance(int $instanceId)
+    {
+        return DB::table('meringue_text_text')->find($instanceId);
+    }
+
+
+    /**
+     * Save an instance of the plugin to the db
+     *
+     * @param Request $request
+     * @return int $instanceId
+     */
+    public function saveInstance(Request $request)
+    {
+        return DB::table('meringue_text_text')->insertGetId($request->all());
     }
 }

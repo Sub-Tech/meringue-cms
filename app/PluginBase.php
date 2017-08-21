@@ -21,12 +21,7 @@ class PluginBase
      * @var string The name of the Plugin
      */
     protected $name = '';
-
-
-    /**
-     * @var string The name of the instances table
-     */
-    protected $instancesTable = '';
+    
 
     /**
      * @var PluginInitialiser

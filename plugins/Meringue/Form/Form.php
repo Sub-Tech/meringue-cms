@@ -2,19 +2,20 @@
 
 namespace Plugins\Meringue\Form;
 
+use App\InstanceInterface;
 use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Plugins\Meringue\Form\Models\Input;
 use Validator;
 
 /**
  * Class Form
  * @package Plugins\Meringue\Form
  */
-class Form extends PluginBase implements PluginInterface
+class Form extends PluginBase implements PluginInterface, InstanceInterface
 {
 
     /**
@@ -186,4 +187,40 @@ class Form extends PluginBase implements PluginInterface
         ];
     }
 
+
+    /**
+     * #TODO if this array has 'instances' show a dropdown of... well the instances
+     *
+     * @return array
+     */
+    public function registerBlock()
+    {
+        return [
+            'instances' => Models\Form::all()
+        ];
+    }
+
+
+    /**
+     * Get the specific Form
+     *
+     * @param int $instanceId
+     * @return Collection
+     */
+    public function getInstance(int $instanceId)
+    {
+        return Models\Form::findOrFail($instanceId);
+    }
+
+
+    /**
+     * Save an instance of the plugin to the db
+     *
+     * @param Request $request
+     * @return int $instanceId
+     */
+    public function saveInstance(Request $request)
+    {
+        return Models\Form::create($request->all())->id;
+    }
 }

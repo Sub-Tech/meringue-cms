@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Plugin;
 use App\PluginBase;
 use Illuminate\Http\Request;
+use Prophecy\Exception\Doubler\MethodNotFoundException;
 
 class PluginController extends Controller
 {
@@ -80,20 +81,34 @@ class PluginController extends Controller
 
 
     /**
-     * Refresh the plugins in the database
-     */
-    public function refreshPluginsRegistry()
-    {
-        return $this->pluginBase->refreshPluginsRegistry();
-    }
-
-
-    /**
      * Refresh the block registry in the database
      */
     public function refreshBlocksRegistry()
     {
         return $this->pluginBase->refreshBlockRegistry();
+    }
+
+
+    /**
+     * Create Instance of a Plugin and assign it to a Block
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function createInstance(Request $request)
+    {
+        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
+
+        if (!method_exists($plugin, 'saveInstance')) {
+            throw new \Exception('Method not found', 500);
+        }
+
+        $instanceId = $plugin->saveInstance($request);
+
+        return redirect(route('block.update', [
+            'block' => $request->input('block_id')
+        ]))->with('instance_id', $instanceId);
     }
 
 }

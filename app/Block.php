@@ -45,7 +45,18 @@ use Illuminate\Database\Eloquent\Model;
 class Block extends Model
 {
     protected $fillable = [
-        'section_id', 'plugin_class', 'section_id', 'background_color', 'width', 'padding', 'border_top', 'border_right', 'border_left', 'border_bottom', 'custom_css', 'active'
+        'section_id',
+        'plugin_class',
+        'background_color',
+        'width',
+        'padding',
+        'border_top',
+        'border_right',
+        'border_left',
+        'border_bottom',
+        'custom_css',
+        'active',
+        'instance_id'
     ];
 
     /**
@@ -56,12 +67,14 @@ class Block extends Model
         return $this->belongsTo(Section::class);
     }
 
-    public function plugin() {
-        return $this->hasOne(Plugin::class,'class_name','plugin_class' );
+    public function plugin()
+    {
+        return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
     }
 
-    public function blockRegistry() {
-        return $this->hasOne(BlockRegistry::class,'plugin_class','plugin_class' );
+    public function blockRegistry()
+    {
+        return $this->hasOne(BlockRegistry::class, 'plugin_class', 'plugin_class');
     }
 
 }
