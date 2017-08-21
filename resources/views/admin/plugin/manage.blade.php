@@ -58,19 +58,10 @@
                     </table>
                 </div>
             </div>
-            <p>Can you not see a plugin in this list. <a onclick="refreshList()">Click here to refresh</a></p>
         </div>
     </div>
 
     <script>
-        function refreshList() {
-            $.ajax({
-                'url': '/admin/plugin/refresh'
-            }).success(function () {
-                location.reload();
-            });
-        }
-
         $('.activePlugin').on('click', function () {
             $.ajax({
                 'url': '/admin/plugin/activate',
