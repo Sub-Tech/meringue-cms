@@ -117,44 +117,70 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <?php foreach ($page->sections as $section) { ?>
-                    <div class="section row">
-                        <div class="menu">
-                            <ul>
-                                <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
-                                <li><i class="fa fa-clone" aria-hidden="true"></i></li>
-                                <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
-                            </ul>
-                        </div>
-                        <?php foreach ($section->blocks as $block) {?>
-                        <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
-                             data-id="<?=$block->id;?>">
-                            <div class="blockInner">
-                                <div class="menu">
-                                    <ul>
-
-                                        <li class="image"
-                                            style="background-image:url({{ $block->plugin->icon }});"></li>
-
-                                        <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-clone" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
-                                        <li class="changeBlockWidth" data-adjustment="-1">
-                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                        </li>
-                                        <li class="changeBlockWidth" data-adjustment="1">
-                                            <i class="fa fa-plus" aria-hidden="true"></i>
-                                        </li>
-                                        <li class="blockWidth"><?= $block->width; ?></li>
-                                    </ul>
-                                </div>
-                                Block
+                    @foreach ($page->sections as $section)
+                        <div class="section row">
+                            <div class="menu">
+                                <ul>
+                                    <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-clone" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
+                                </ul>
                             </div>
+                            @foreach ($section->blocks as $block)
+                                <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
+                                     data-id="<?=$block->id;?>">
+                                    <div class="blockInner">
+                                        <div class="menu">
+                                            <ul>
+
+                                                <li class="image"
+                                                    style="background-image:url({{ $block->plugin->icon }});"></li>
+
+                                                <li><i class="fa fa-pencil editBlock" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-clone" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
+                                                <li class="changeBlockWidth" data-adjustment="-1">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </li>
+                                                <li class="changeBlockWidth" data-adjustment="1">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </li>
+                                                <li class="blockWidth"><?= $block->width; ?></li>
+                                            </ul>
+                                        </div>
+                                        @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($block->plugin_class) @endphp
+                                        {{ $plugin->getName() }}
+                                        @if (isset($block->instance_id))
+                                            {{ $plugin->getInstance($block->instance_id)->name }}
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
+                            @foreach($plugins as $plugin)
+                                @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($plugin->class) @endphp
+                                <div class="col-md-2">
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
+                                        <div class="panel-body">
+                                            <form method="POST" action="{{ route('block.store') }}">
+                                                <input type="hidden" name="section_id" value="{{ $section->id }}">
+
+                                                <input type="hidden" name="plugin_class"
+                                                       value="{{ class_path($plugin->getVendor(), $plugin->getName()) }}">
+
+                                                <input type="submit" class="btn btn-primary" value="Insert">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="addBlock col-md-12"><i class="fa fa-plus"></i></div>
+
                         </div>
-                        <?php }?>
-                        <div class="addBlock col-md-12"><i class="fa fa-plus"></i></div>
-                    </div>
-                    <?php  } ?>
+                    @endforeach
                 </div>
             </div>
         </div>
