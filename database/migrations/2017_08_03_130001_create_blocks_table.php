@@ -20,7 +20,7 @@ class CreateBlocksTable extends Migration
             $table->string('plugin_class');
             $table->string('order');
             $table->string('background_color')->nullable();
-            $table->string('width')->nullable();
+            $table->string('width')->nullable()->default("12");
             $table->string('padding')->nullable();
             $table->string('border_top')->nullable();
             $table->string('border_right')->nullable();
