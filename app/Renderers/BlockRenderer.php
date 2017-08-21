@@ -19,9 +19,11 @@ class BlockRenderer
      */
     public function render(Block $block)
     {
-        $p = PluginInitialiser::getPlugin($block->plugin_class);
+        $plugin = PluginInitialiser::getPlugin($block->plugin_class);
 
-        return "<div class='block'>" . $p->render($block->instance_id) . "</div>";
+        return "<div class='block col-md-{$block->width}'>" .
+            $plugin->render($block->instance_id) .
+            "</div>";
     }
 
 }
