@@ -90,11 +90,35 @@ class PluginInitialiser
 
         $this->loadAutoload($vendor, $plugin);
 
+        if (!Plugin::whereClassName($classPath)->exists()) {
+            $this->registerPlugin($vendor, $plugin);
+        }
+
         $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
             'class' => class_path($vendor, $plugin),
             'file' => $filePath,
             'vendor' => $vendor
         ], Plugin::find($classPath)->toArray());
+    }
+
+
+    /**
+     * Registers a new Plugin
+     *
+     * @param string $vendor
+     * @param string $plugin
+     */
+    private function registerPlugin(string $vendor, string $plugin)
+    {
+        $classPath = class_path($vendor, $plugin);
+
+        $newPlugin = Plugin::create([
+            'class_name' => $classPath,
+            'file_name' => file_path($vendor, $plugin),
+            'name' => $plugin
+        ]);
+
+        $newPlugin->update($this->getPlugin($classPath)->details());
     }
 
 
@@ -154,6 +178,21 @@ class PluginInitialiser
     public static function getPlugin(string $class)
     {
         return new $class();
+    }
+
+
+    public function getAllPlugins()
+    {
+        $x = [];
+
+        foreach ($this->getVendors() as $vendor) {
+            foreach ($this->getVendorsPlugins($vendor) as $plugin) {
+                $x[] = $plugin;
+            }
+        }
+
+        dd($x);
+        return $x;
     }
 
 }

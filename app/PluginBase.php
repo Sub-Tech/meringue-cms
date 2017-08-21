@@ -22,10 +22,11 @@ class PluginBase
      */
     protected $name = '';
 
+
     /**
-     * @var string The route to the views folder
+     * @var string The name of the instances table
      */
-    protected $views = '';
+    protected $instancesTable = '';
 
     /**
      * @var PluginInitialiser
@@ -39,26 +40,6 @@ class PluginBase
     public function __construct()
     {
         $this->pluginInitialiser = app(PluginInitialiser::class);
-    }
-
-
-    /**
-     * Refreshes the Plugin Registry
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refreshPluginsRegistry()
-    {
-        $newPlugins = 0;
-
-        $this->pluginInitialiser->plugins->each(function ($plugin) use (&$newPlugins) {
-            $newPlugins += $this->registerNewPlugin($plugin, $newPlugins);
-        });
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Number of new plugins found : ' . $newPlugins
-        ]);
     }
 
 
@@ -79,34 +60,6 @@ class PluginBase
             'success' => true,
             'message' => 'Number of new blocks found : ' . $newBlocks
         ]);
-    }
-
-
-    /**
-     * Register a new Plugin
-     *
-     * @param $plugin
-     * @param $newPlugins
-     * @return mixed
-     */
-    private function registerNewPlugin($plugin, $newPlugins)
-    {
-        $pluginClass = PluginInitialiser::getPlugin($plugin->class);
-
-        $pluginRegistry = Plugin::findOrNew($plugin->class);
-
-        if (!$pluginRegistry->exists) {
-            $pluginRegistry->fill([
-                'class_name' => $plugin->class,
-                'file_name' => $plugin->file,
-                'vendor' => $plugin->vendor
-            ]);
-            $newPlugins++;
-        }
-
-        $pluginRegistry->fill($pluginClass->details())->save();
-
-        return $newPlugins;
     }
 
 
@@ -162,6 +115,17 @@ class PluginBase
         }
 
         return $tmpFileName;
+    }
+
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getVendor()
+    {
+        return $this->vendor;
     }
 
 
