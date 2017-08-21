@@ -21,7 +21,7 @@ class PluginBase
      * @var string The name of the Plugin
      */
     protected $name = '';
-    
+
 
     /**
      * @var PluginInitialiser

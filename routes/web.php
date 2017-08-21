@@ -34,8 +34,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('plugin/refresh', 'Admin\PluginController@refreshPluginsRegistry');
     Route::get('plugin/block/refresh', 'Admin\PluginController@refreshBlocksRegistry');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
+    Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
 
-    Route::post('block/{block}', 'Admin\BlockController@update');
+    Route::post('block/new', 'Admin\BlockController@store')->name('block.store');
+    Route::post('block/{block}', 'Admin\BlockController@update')->name('block.update');
+
+
+
 });
 
 // Route for all other pages to go via the CMS

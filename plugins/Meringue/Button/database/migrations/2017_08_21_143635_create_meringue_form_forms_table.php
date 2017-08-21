@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestTable extends Migration
+class CreateMeringueButtonButtonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTestTable extends Migration
      */
     public function up()
     {
-        Schema::create('meringue_text_text', function (Blueprint $table) {
+        Schema::create('meringue_button_buttons', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('block_id');
-            $table->string('content');
+            // TODO
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateTestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meringue_text_text');
+        Schema::dropIfExists('meringue_button_buttons');
     }
 }
