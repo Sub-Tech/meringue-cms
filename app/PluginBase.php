@@ -39,54 +39,6 @@ class PluginBase
 
 
     /**
-     * Registers the plugins block in the database
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refreshBlockRegistry()
-    {
-        $newBlocks = 0;
-
-        $this->pluginInitialiser->plugins->each(function ($plugin) use (&$newBlocks) {
-            $newBlocks += $this->registerNewBlock($plugin, $newBlocks);
-        });
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Number of new blocks found : ' . $newBlocks
-        ]);
-    }
-
-
-    /**
-     * Register a new Block
-     *
-     * @param $plugin
-     * @param $newBlocks
-     * @return mixed
-     */
-    private function registerNewBlock($plugin, $newBlocks)
-    {
-        $pluginClass = PluginInitialiser::getPlugin($plugin->class);
-
-        if (!method_exists($pluginClass, 'registerBlock')) {
-            return $newBlocks;
-        }
-
-        $blockRegistry = BlockRegistry::findOrNew($plugin->class);
-
-        if (!$blockRegistry->exists) {
-            $blockRegistry->plugin_class = $plugin->class;
-            $newBlocks++;
-        }
-
-        $blockRegistry->fill($pluginClass->registerBlock())->save();
-
-        return $newBlocks;
-    }
-
-
-    /**
      * Runs the migrations found in the plugins directory
      */
     public function runMigrations()

@@ -1,5 +1,6 @@
 <?php
 
+use App\Block;
 use App\Plugin;
 
 /*
@@ -28,18 +29,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', 'Admin\PageController@index');
 
     Route::get('page/manage', 'Admin\PageController@manage');
-    Route::get('page/edit/{page_id}', 'Admin\PageController@edit');
+    Route::get('page/edit/{page_id}', 'Admin\PageController@edit')->name('admin.page.edit');
 
     Route::get('plugin/manage', 'Admin\PluginController@manage');
-    Route::get('plugin/refresh', 'Admin\PluginController@refreshPluginsRegistry');
-    Route::get('plugin/block/refresh', 'Admin\PluginController@refreshBlocksRegistry');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
     Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
 
+//    Route::get('block/refresh', 'Admin\BlockController@refreshRegistry')->name('block.refresh');
     Route::post('block/new', 'Admin\BlockController@store')->name('block.store');
     Route::post('block/{block}', 'Admin\BlockController@update')->name('block.update');
     Route::delete('block/{block}', 'Admin\BlockController@delete')->name('block.delete');
+
+    Route::get('block/{block}/modal', 'Admin\PluginController@renderModal');
 });
+
 
 // Route for all other pages to go via the CMS
 Route::get('{page}', 'PageController@index');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\BlockRegistry;
+use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -26,6 +28,7 @@ class BlockController extends Controller
         return redirect()->back();
     }
 
+
     /**
      * Update a Block and return if it worked or not
      *
@@ -35,11 +38,9 @@ class BlockController extends Controller
      */
     public function update(Request $request, Block $block)
     {
-        $success = $block->update($request->all());
+        $block->update($request->all());
 
-        return response()->json([
-            'success' => $success
-        ], $success ? 200 : 500);
+        return redirect()->back();
     }
 
 
@@ -56,6 +57,54 @@ class BlockController extends Controller
         return response()->json([
             'success' => $success
         ], $success ? 200 : 500);
+    }
+
+
+    /**
+     * Registers the plugins block in the database
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refreshRegistry()
+    {
+        $newBlocks = 0;
+
+        $this->pluginInitialiser->plugins->each(function ($plugin) use (&$newBlocks) {
+            $newBlocks += $this->registerNewBlock($plugin, $newBlocks);
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Number of new blocks found : ' . $newBlocks
+        ]);
+    }
+
+
+    /**
+     * Register a new Block
+     *
+     * @param $plugin
+     * @param $newBlocks
+     * @return mixed
+     */
+    private function registerNewBlock($plugin, $newBlocks)
+    {
+        $pluginClass = PluginInitialiser::getPlugin($plugin->class);
+
+        if (!method_exists($pluginClass, 'registerBlock')) {
+            return $newBlocks;
+        }
+
+        $blockRegistry = BlockRegistry::findOrNew($plugin->class);
+
+        if (!$blockRegistry->exists) {
+            $blockRegistry->plugin_class = $plugin->class;
+            $newBlocks++;
+        }
+
+        $blockRegistry->fill($pluginClass->registerBlock())->save();
+
+        return $newBlocks;
     }
 
 }
