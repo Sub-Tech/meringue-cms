@@ -23,6 +23,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
         $this->setName();
     }
 
+
     /**
      * Set any details necessary to the running of the Plugin
      *
@@ -38,6 +39,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
         ];
     }
 
+
     /**
      * Set the Vendor of the Plugin
      *
@@ -47,6 +49,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
     {
         $this->vendor = 'Meringue';
     }
+
 
     /**
      * Set the name of the Plugin
@@ -70,6 +73,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
         return false;
     }
 
+
     /**
      * Route begins from the plugins/ folder
      * Must return view('merchant/plugin/views/viewName) or equivalent
@@ -80,8 +84,10 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      */
     public function render($instanceId = null)
     {
-        return false;
+        return view('Meringue/Button/views/button')
+            ->with('button', Models\Button::find($instanceId));
     }
+
 
     /**
      * Renders the admin panel
@@ -104,6 +110,9 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
             'description' => 'Choose a Button, nig!',
             'inputs' => [
                 'text' => [
+                    'type' => 'text'
+                ],
+                'link' => [
                     'type' => 'text'
                 ]
             ]
@@ -130,6 +139,6 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      */
     public function saveInstance(Request $request)
     {
-        return Models\Button::create($request->all())->id;
+        return Models\Button::create($request->only(['text', 'link']))->id;
     }
 }

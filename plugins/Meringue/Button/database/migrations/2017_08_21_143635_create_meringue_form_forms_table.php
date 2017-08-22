@@ -15,7 +15,8 @@ class CreateMeringueButtonButtonsTable extends Migration
     {
         Schema::create('meringue_button_buttons', function (Blueprint $table) {
             $table->increments('id');
-            // TODO
+            $table->string('text');
+            $table->string('link');
 
             $table->timestamps();
             $table->softDeletes();
