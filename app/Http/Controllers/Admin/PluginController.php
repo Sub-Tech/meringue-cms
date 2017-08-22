@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Block;
 use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
 use App\PluginBase;
+use App\Renderers\ModalRenderer;
 use Illuminate\Http\Request;
-use Prophecy\Exception\Doubler\MethodNotFoundException;
 
 class PluginController extends Controller
 {
@@ -81,15 +82,6 @@ class PluginController extends Controller
 
 
     /**
-     * Refresh the block registry in the database
-     */
-    public function refreshBlocksRegistry()
-    {
-        return $this->pluginBase->refreshBlockRegistry();
-    }
-
-
-    /**
      * Create Instance of a Plugin and assign it to a Block
      *
      * @param Request $request
@@ -106,9 +98,21 @@ class PluginController extends Controller
 
         $instanceId = $plugin->saveInstance($request);
 
-        return redirect(route('block.update', [
-            'block' => $request->input('block_id')
-        ]))->with('instance_id', $instanceId);
+        Block::assignInstanceToBlock($request->input('block_id'), $instanceId);
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Render the Modal to edit an Instance of the Plugin
+     *
+     * @param Block $block
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function renderModal(Block $block)
+    {
+        return ModalRenderer::render($block);
     }
 
 }

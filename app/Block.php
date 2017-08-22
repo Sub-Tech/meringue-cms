@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereWidth($value)
  * @mixin \Eloquent
+ * @property int|null $instance_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereInstanceId($value)
  */
 class Block extends Model
 {
@@ -75,6 +77,13 @@ class Block extends Model
     public function blockRegistry()
     {
         return $this->hasOne(BlockRegistry::class, 'plugin_class', 'plugin_class');
+    }
+
+    public static function assignInstanceToBlock($blockId, $instanceId)
+    {
+        self::find($blockId)->fill([
+            'instance_id' => $instanceId,
+        ])->save();
     }
 
 }

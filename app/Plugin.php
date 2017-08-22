@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Plugin whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Plugin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $vendor
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Plugin whereVendor($value)
  */
 class Plugin extends Model
 {

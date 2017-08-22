@@ -101,12 +101,12 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
     {
         return [
             'inputs' => [ // Inputs for the page editor
-                'content' => [ // Key must be same as database column
-                    'type' => 'wysiwyg' // This will load a corresponding input in the page editor
-                ],
                 'name' => [
                     'type' => 'text'
-                ]
+                ],
+                'content' => [ // Key must be same as database column
+                    'type' => 'textarea' // This will load a corresponding input in the page editor
+                ],
             ]
         ];
     }
@@ -118,6 +118,7 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
             echo "efe";
         })->everyMinute();
     } */
+
 
     /**
      * Renders the admin panel
@@ -150,6 +151,6 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      */
     public function saveInstance(Request $request)
     {
-        return DB::table('meringue_text_text')->insertGetId($request->all());
+        return DB::table('meringue_text_text')->insertGetId($request->only(['name', 'content']));
     }
 }

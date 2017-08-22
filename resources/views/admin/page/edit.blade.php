@@ -150,14 +150,15 @@
                                             </ul>
                                         </div>
                                         @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($block->plugin_class) @endphp
-                                        {{ $plugin->getName() }}
+                                        <strong>{{ $plugin->getName() }}</strong>
                                         @if (isset($block->instance_id))
-                                            {{ $plugin->getInstance($block->instance_id)->name }}
+                                            : {{ $plugin->getInstance($block->instance_id)->name }}
                                         @endif
                                     </div>
                                 </div>
                             @endforeach
 
+                            {{-- PLUGIN DRAWER --}}
                             <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
                             @foreach($plugins as $plugin)
                                 @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($plugin->class) @endphp
@@ -195,11 +196,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Select / Insert Content</h4>
                 </div>
                 <div class="modal-body">
-                    <p>The Select Instance Dropdown will go here</p>
-                    <p>As will the new Instance form created by the Plugins</p>
+                    <p>Loading...</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -253,6 +253,17 @@
                 method: 'delete'
             }).success(function () {
                 $('.block[data-id=' + id + ']').html("");
+            });
+        });
+
+        $('.editBlock').on('click', function () {
+            var id = $(this).closest('.block').data('id');
+
+            return $.ajax({
+                url: "/admin/block/" + id + "/modal",
+                method: 'get'
+            }).success(function (resp) {
+                $('.modal-body').html(resp);
             });
         });
     </script>
