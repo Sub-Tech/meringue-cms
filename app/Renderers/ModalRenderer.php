@@ -19,7 +19,7 @@ class ModalRenderer
      */
     public static function render(Block $block)
     {
-        return view('admin.plugin.edit', [
+        return view('admin.plugin.modal', [
             'block' => $block
         ]);
     }
