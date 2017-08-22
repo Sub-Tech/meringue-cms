@@ -37,13 +37,11 @@ class PageController extends Controller
     /**
      * Edit a Page / Sections / Blocks
      *
-     * @param int $page_id
+     * @param Page $page
      * @return $this
      */
-    public function edit(int $page_id)
+    public function edit(Page $page)
     {
-        $page = Page::findOrFail($page_id);
-
         return view('admin.page.edit')
             ->with('page', $page)
             ->with('plugins', $this->pluginInitialiser->plugins);

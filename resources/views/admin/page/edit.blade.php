@@ -118,7 +118,7 @@
                 </div>
                 <div class="panel-body">
                     @foreach ($page->sections as $section)
-                        <div class="section row">
+                        <div class="section row" style="margin-top: 50px">
                             <div class="menu">
                                 <ul>
                                     <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
@@ -126,6 +126,7 @@
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
+                            <h3>Section</h3>
                             @foreach ($section->blocks as $block)
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
                                      data-id="<?=$block->id;?>">
@@ -183,6 +184,12 @@
 
                         </div>
                     @endforeach
+
+                    <form method="post" action="{{ route('section.store', ['page_id' => $page->id]) }}">
+                        <input type="hidden" name="order" value="1"> {{-- TODO REMOVE --}}
+
+                        <input class="btn btn-success" type="submit" style="margin-top: 20px" value="Add New Section">
+                    </form>
                 </div>
             </div>
         </div>
@@ -200,9 +207,6 @@
                 </div>
                 <div class="modal-body">
                     <p>Loading...</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 

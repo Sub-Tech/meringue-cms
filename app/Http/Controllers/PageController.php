@@ -12,12 +12,14 @@ class PageController extends Controller
      * Render Page via passed slug
      *
      * @param PageRenderer $renderer
-     * @param Page $page
+     * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(PageRenderer $renderer, Page $page)
+    public function index(PageRenderer $renderer, string $slug)
     {
-        return $renderer->page($page->first());
+        $page = Page::whereSlug($slug)->get()->first();
+
+        return $renderer->page($page);
     }
 
 }

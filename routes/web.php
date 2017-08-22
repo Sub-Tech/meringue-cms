@@ -29,7 +29,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', 'Admin\PageController@index');
 
     Route::get('page/manage', 'Admin\PageController@manage');
-    Route::get('page/edit/{page_id}', 'Admin\PageController@edit')->name('admin.page.edit');
+    Route::get('page/edit/{page}', 'Admin\PageController@edit')->name('admin.page.edit');
+
+    Route::post('page/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::get('plugin/manage', 'Admin\PluginController@manage');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
@@ -45,4 +47,4 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
 // Route for all other pages to go via the CMS
-Route::get('{page}', 'PageController@index');
+Route::get('{slug}', 'PageController@index');
