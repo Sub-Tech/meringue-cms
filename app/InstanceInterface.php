@@ -27,6 +27,7 @@ interface InstanceInterface
 
     /**
      * Save an instance of the plugin to the db
+     * Return the inserted ID
      *
      * @param Request $request
      * @return int $instanceId
