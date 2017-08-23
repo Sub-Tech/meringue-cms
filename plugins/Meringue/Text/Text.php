@@ -165,6 +165,7 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
     public function updateInstance(int $instanceId, Request $request)
     {
         return DB::table('meringue_text_text')
+            ->where('id', $instanceId)
             ->update($request->only(['name', 'content']));
     }
 }
