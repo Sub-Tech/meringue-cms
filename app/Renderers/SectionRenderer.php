@@ -36,7 +36,7 @@ class SectionRenderer
      */
     public function render(Section $section)
     {
-        $blocks = "<div class=container><div class='row'>";
+        $blocks = "<div class='container'><div class='row'>";
 
         $section->blocks->each(function (Block $block) use (&$blocks) {
             $blocks .= $this->blockRenderer->render($block);

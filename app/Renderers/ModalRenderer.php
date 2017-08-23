@@ -3,6 +3,7 @@
 namespace App\Renderers;
 
 use App\Block;
+use App\Helpers\PluginInitialiser;
 
 /**
  * Class ModalRenderer
@@ -14,14 +15,19 @@ class ModalRenderer
     /**
      * Render the Modal
      *
-     * @param $block
+     * @param Block $block
+     * @param int|null $instanceId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public static function render(Block $block)
+    public static function render(Block $block, int $instanceId = null)
     {
-        return view('admin.plugin.modal', [
-            'block' => $block
-        ]);
+        $plugin = PluginInitialiser::getPlugin($block->plugin->class_name);
+
+        return view('admin.plugin.modal')
+            ->with('block', $block)
+            ->with('plugin', $plugin)
+            ->with('editSettings', $plugin->registerBlock())
+            ->with('instance', $plugin->getInstance($instanceId));
     }
 
 }

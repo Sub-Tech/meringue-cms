@@ -61,9 +61,6 @@ class Block extends Model
         'instance_id'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function section()
     {
         return $this->belongsTo(Section::class);
@@ -79,7 +76,14 @@ class Block extends Model
         return $this->hasOne(BlockRegistry::class, 'plugin_class', 'plugin_class');
     }
 
-    public static function assignInstanceToBlock($blockId, $instanceId)
+
+    /**
+     * Assign an Instance of a Plugin to a Block
+     *
+     * @param int $blockId
+     * @param int $instanceId
+     */
+    public static function assignInstanceToBlock(int $blockId, int $instanceId)
     {
         self::find($blockId)->fill([
             'instance_id' => $instanceId,

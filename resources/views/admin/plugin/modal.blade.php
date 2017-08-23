@@ -1,8 +1,3 @@
-@php
-    $plugin = \App\Helpers\PluginInitialiser::getPlugin($block->plugin->class_name);
-    $editSettings = $plugin->registerBlock();
-@endphp
-
 {{-- If the Plugin relies on premade Instances --}}
 @if (array_key_exists('instances', $editSettings))
 
@@ -28,17 +23,14 @@
         <input type="hidden" name="vendor" value="{{ $plugin->getVendor() }}">
         <input type="hidden" name="plugin" value="{{ $plugin->getName() }}">
         <input type="hidden" name="block_id" value="{{ $block->id }}">
-        <input type="hidden" name="section_id" value="{{ $block->section->id }}">
 
         @foreach($editSettings['inputs'] as $inputName => $inputDetails)
             <div class="form-group">
                 <label>{{ ucfirst($inputName) }}</label>
                 @if ($inputDetails['type'] == 'textarea')
-                    <textarea name="{{ $inputName }}" id="{{ $inputDetails['type'] }}-{{ $inputName }}"></textarea>
+                    <textarea name="{{ $inputName }}" id="{{ $inputDetails['type'] }}-{{ $inputName }}">{{ $instance->$inputName ?? "" }}</textarea>
                     <script>
-//                        $(function () {
-                            CKEDITOR.replace('{{ $inputDetails['type'] }}-{{ $inputName }}');
-//                        });
+                        CKEDITOR.replace('{{ $inputDetails['type'] }}-{{ $inputName }}');
                     </script>
                 @else
                     <input type="{{ $inputDetails['type'] }}" name="{{ $inputName }}"

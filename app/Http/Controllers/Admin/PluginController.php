@@ -108,11 +108,12 @@ class PluginController extends Controller
      * Render the Modal to edit an Instance of the Plugin
      *
      * @param Block $block
+     * @param int|null $instanceId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function renderModal(Block $block)
+    public function renderModal(Block $block, int $instanceId = null)
     {
-        return ModalRenderer::render($block);
+        return ModalRenderer::render($block, $instanceId);
     }
 
 }

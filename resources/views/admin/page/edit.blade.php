@@ -129,6 +129,7 @@
                             <h3>Section</h3>
                             @foreach ($section->blocks as $block)
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
+                                     data-instance_id="{{ $block->instance_id ?? "" }}"
                                      data-id="<?=$block->id;?>">
                                     <div class="blockInner">
                                         <div class="menu">
@@ -262,9 +263,17 @@
 
         $('.editBlock').on('click', function () {
             var id = $(this).closest('.block').data('id');
+            var instance_id = $(this).closest('.block').data('instance_id');
 
+            url = "/admin/block/" + id + "/modal";
+
+            if (typeof(instance_id) !== undefined && instance_id !== "") {
+                url = url + "/" + instance_id
+            }
+
+            console.log(url);
             return $.ajax({
-                url: "/admin/block/" + id + "/modal",
+                url: url,
                 method: 'get'
             }).success(function (resp) {
                 $('.modal-body').html(resp);

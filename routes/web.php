@@ -42,7 +42,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('block/{block}', 'Admin\BlockController@update')->name('block.update');
     Route::delete('block/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
-    Route::get('block/{block}/modal', 'Admin\PluginController@renderModal');
+    Route::get('block/{block}/modal/{instance?}', 'Admin\PluginController@renderModal');
 });
 
 
