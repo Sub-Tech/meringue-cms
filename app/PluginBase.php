@@ -9,7 +9,7 @@ use App\Helpers\PluginInitialiser;
  * Class PluginBase
  * @package App
  */
-class PluginBase
+abstract class PluginBase
 {
 
     /**
@@ -39,11 +39,24 @@ class PluginBase
 
 
     /**
-     * Runs the migrations found in the plugins directory
+     * Get the Name of the Plugin
+     *
+     * @return string
      */
-    public function runMigrations()
+    public function getName()
     {
-        Artisan::call('migrate', ['--path' => 'plugins/' . $this->vendor . '/' . $this->name . '/database/migrations/']);
+        return $this->name;
+    }
+
+
+    /**
+     * Get the Vendor of the Plugin
+     *
+     * @return string
+     */
+    public function getVendor()
+    {
+        return $this->vendor;
     }
 
 
@@ -65,14 +78,12 @@ class PluginBase
     }
 
 
-    public function getName()
+    /**
+     * Runs the migrations found in the plugins directory
+     */
+    public function runMigrations()
     {
-        return $this->name;
-    }
-
-    public function getVendor()
-    {
-        return $this->vendor;
+        Artisan::call('migrate', ['--path' => "plugins/{$this->vendor}/{$this->name}/database/migrations/"]);
     }
 
 

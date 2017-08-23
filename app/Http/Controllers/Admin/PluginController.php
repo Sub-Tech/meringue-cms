@@ -14,19 +14,12 @@ class PluginController extends Controller
 {
 
     /**
-     * @var PluginBase
-     */
-    protected $pluginBase;
-
-    /**
      * PluginController constructor.
      * @param PluginInitialiser $pluginInitialiser
      */
     public function __construct(PluginInitialiser $pluginInitialiser)
     {
         parent::__construct($pluginInitialiser);
-
-        $this->pluginBase = new PluginBase();
     }
 
 
@@ -99,6 +92,27 @@ class PluginController extends Controller
         $instanceId = $plugin->saveInstance($request);
 
         Block::assignInstanceToBlock($request->input('block_id'), $instanceId);
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Update the Instance of the Plugin
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function updateInstance(Request $request)
+    {
+        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
+
+        if (!method_exists($plugin, 'updateInstance')) {
+            throw new \Exception('Method not found', 500);
+        }
+
+        $plugin->updateInstance($request->instance_id, $request);
 
         return redirect()->back();
     }
