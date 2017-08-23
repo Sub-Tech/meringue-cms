@@ -41,6 +41,7 @@ interface PluginInterface
      */
     public function install();
 
+
     /**
      * Route begins from the plugins/ folder
      * Must return view('merchant/plugin/views/viewName) or equivalent
@@ -53,10 +54,10 @@ interface PluginInterface
 
 
     /**
-     * Renders the admin panel
+     * Construct the Modal that appears in the Page Editor
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
+     * @return array
      */
-    public function admin();
+    public function constructEditorModal(): array;
 
 }

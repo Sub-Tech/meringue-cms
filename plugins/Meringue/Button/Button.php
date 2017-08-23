@@ -90,20 +90,11 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * Renders the admin panel
+     * Construct the Modal that appears in the Page Editor
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
-    }
-
-
-    /**
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'name' => 'Button',

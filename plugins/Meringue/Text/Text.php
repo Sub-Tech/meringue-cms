@@ -93,11 +93,11 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * #TODO get ckeditor implemented
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'inputs' => [ // Inputs for the page editor
@@ -118,17 +118,6 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
             echo "efe";
         })->everyMinute();
     } */
-
-
-    /**
-     * Renders the admin panel
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
-    }
 
 
     /**
@@ -155,6 +144,7 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
             ->insertGetId($request->only(['name', 'content']));
     }
 
+
     /**
      * Update the Instance in the DB and return success via bool
      *
@@ -168,4 +158,5 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
             ->where('id', $instanceId)
             ->update($request->only(['name', 'content']));
     }
+
 }

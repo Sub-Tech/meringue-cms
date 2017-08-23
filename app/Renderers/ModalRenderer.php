@@ -26,7 +26,7 @@ class ModalRenderer
         return view('admin.plugin.modal')
             ->with('block', $block)
             ->with('plugin', $plugin)
-            ->with('editSettings', $plugin->registerBlock())
+            ->with('editSettings', $plugin->constructEditorModal())
             ->with('instance', $instanceId ? $plugin->getInstance($instanceId) : null);
     }
 

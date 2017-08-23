@@ -70,7 +70,7 @@ class Staff extends PluginBase implements PluginInterface
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
      */
-    public function admin()
+    public function manageStaff()
     {
         return view('SubTech/Staff/views/admin', [
             'staff' => StampUser::all()
@@ -106,11 +106,11 @@ class Staff extends PluginBase implements PluginInterface
 
 
     /**
-     * Register the block
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'name' => 'Staff',

@@ -149,17 +149,6 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * Renders the admin panel
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
-    }
-
-
-    /**
      * Display all forms
      *
      * @return View
@@ -189,11 +178,11 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * #TODO if this array has 'instances' show a dropdown of... well the instances
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'instances' => Models\Form::all()
