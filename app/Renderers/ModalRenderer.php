@@ -27,7 +27,7 @@ class ModalRenderer
             ->with('block', $block)
             ->with('plugin', $plugin)
             ->with('editSettings', $plugin->registerBlock())
-            ->with('instance', $plugin->getInstance($instanceId));
+            ->with('instance', $instanceId ? $plugin->getInstance($instanceId) : null);
     }
 
 }

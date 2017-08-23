@@ -1,7 +1,7 @@
 {{-- If the Plugin relies on premade Instances --}}
 @if (array_key_exists('instances', $editSettings))
 
-    <form action="{{ route('block.update', ['block'=>$block]) }}" method="post">
+    <form action="{{ route('block.update', ['block' => $block]) }}" method="post">
         <input type="hidden" name="id" value="{{ $block->id }}">
 
         <div class="form-group">
@@ -26,16 +26,18 @@
 
         @foreach($editSettings['inputs'] as $inputName => $inputDetails)
             <div class="form-group">
-                <label>{{ ucfirst($inputName) }}</label>
+                <label for="{{ $inputDetails['type'] }}-{{ $inputName }}">{{ ucfirst($inputName) }}</label>
+
                 @if ($inputDetails['type'] == 'textarea')
-                    <textarea name="{{ $inputName }}" id="{{ $inputDetails['type'] }}-{{ $inputName }}">{{ $instance->$inputName ?? "" }}</textarea>
-                    <script>
-                        CKEDITOR.replace('{{ $inputDetails['type'] }}-{{ $inputName }}');
-                    </script>
+                    <textarea name="{{ $inputName }}"
+                              id="{{ $inputDetails['type'] }}-{{ $inputName }}">{{ $instance->$inputName ?? "" }}</textarea>
+
+                    <script>CKEDITOR.replace('{{ $inputDetails['type'] }}-{{ $inputName }}');</script>
                 @else
                     <input type="{{ $inputDetails['type'] }}" name="{{ $inputName }}"
                            id="{{ $inputDetails['type'] }}-{{ $inputName }}" class="form-control">
                 @endif
+
             </div>
         @endforeach
 

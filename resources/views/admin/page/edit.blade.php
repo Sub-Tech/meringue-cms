@@ -250,6 +250,10 @@
             changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
         });
 
+
+        /**
+         * Delete a block
+         */
         $('.deleteBlock').on('click', function () {
             var id = $(this).closest('.block').data('id');
 
@@ -261,17 +265,21 @@
             });
         });
 
+
+        /**
+         * Render the appropriate Modal popup when an Edit Block button is clicked
+         * Done by making an AJAX request to the ModalRenderer
+         */
         $('.editBlock').on('click', function () {
             var id = $(this).closest('.block').data('id');
             var instance_id = $(this).closest('.block').data('instance_id');
 
-            url = "/admin/block/" + id + "/modal";
+            var url = "/admin/block/" + id + "/modal";
 
-            if (typeof(instance_id) !== undefined && instance_id !== "") {
-                url = url + "/" + instance_id
+            if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
+                url += "/" + instance_id
             }
 
-            console.log(url);
             return $.ajax({
                 url: url,
                 method: 'get'
@@ -279,5 +287,14 @@
                 $('.modal-body').html(resp);
             });
         });
+
+
+        /**
+         * Reset Modal Body upon close
+         */
+        $('#myModal').on('hidden.bs.modal', function () {
+            $('.modal-body').html("Loading...");
+        });
+
     </script>
 @endsection

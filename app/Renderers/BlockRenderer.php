@@ -15,15 +15,19 @@ class BlockRenderer
     /**
      * Open the section
      * @param Block $block
-     * @return string
+     * @return string (of HTML)
      */
     public function render(Block $block)
     {
         $plugin = PluginInitialiser::getPlugin($block->plugin_class);
 
-        return "<div class='block col-md-{$block->width}'>" .
-            $plugin->render($block->instance_id) .
-            "</div>";
+        try {
+            return "<div class='block col-md-{$block->width}'>" .
+                $plugin->render($block->instance_id) .
+                "</div>";
+        } catch (\Exception $exception) {
+            return "<span style='color:red'>Content not set for block {$block->id}!</span>";
+        }
     }
 
 }
