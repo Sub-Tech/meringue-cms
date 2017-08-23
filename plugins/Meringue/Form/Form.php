@@ -223,4 +223,19 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
     {
         return Models\Form::create($request->all())->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request)
+    {
+        return Models\Form::find($instanceId)
+            ->update($request->all());
+    }
+
 }

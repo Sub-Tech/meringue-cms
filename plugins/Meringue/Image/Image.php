@@ -141,4 +141,19 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
     {
         return Models\Image::create($request->only(['url', 'alt']))->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request)
+    {
+        return Models\Image::find($instanceId)
+            ->update($request->only(['url', 'alt']));
+    }
+
 }

@@ -34,4 +34,14 @@ interface InstanceInterface
      */
     public function saveInstance(Request $request);
 
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request);
+
 }

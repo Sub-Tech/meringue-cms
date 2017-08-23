@@ -151,6 +151,20 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      */
     public function saveInstance(Request $request)
     {
-        return DB::table('meringue_text_text')->insertGetId($request->only(['name', 'content']));
+        return DB::table('meringue_text_text')
+            ->insertGetId($request->only(['name', 'content']));
+    }
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request)
+    {
+        return DB::table('meringue_text_text')
+            ->update($request->only(['name', 'content']));
     }
 }

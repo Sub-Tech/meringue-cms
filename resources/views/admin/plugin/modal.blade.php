@@ -20,6 +20,11 @@
 
     <form action="{{ route('instance.store') }}" method="post">
 
+        @if($instance)
+            {{ method_field('PATCH') }}
+            <input type="hidden" name="instance_id" value="{{ $instance->id }}">
+        @endif
+
         <input type="hidden" name="vendor" value="{{ $plugin->getVendor() }}">
         <input type="hidden" name="plugin" value="{{ $plugin->getName() }}">
         <input type="hidden" name="block_id" value="{{ $block->id }}">
@@ -35,7 +40,8 @@
                     <script>CKEDITOR.replace('{{ $inputDetails['type'] }}-{{ $inputName }}');</script>
                 @else
                     <input type="{{ $inputDetails['type'] }}" name="{{ $inputName }}"
-                           id="{{ $inputDetails['type'] }}-{{ $inputName }}" class="form-control">
+                           id="{{ $inputDetails['type'] }}-{{ $inputName }}" class="form-control"
+                           value="{{ $instance->$inputName ?? "" }}">
                 @endif
 
             </div>

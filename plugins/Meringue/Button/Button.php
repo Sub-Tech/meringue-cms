@@ -141,4 +141,19 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
     {
         return Models\Button::create($request->only(['text', 'link']))->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request)
+    {
+        return Models\Button::find($instanceId)
+            ->update($request->all());
+    }
+
 }

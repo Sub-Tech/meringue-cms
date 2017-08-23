@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('plugin/manage', 'Admin\PluginController@manage');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
     Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
+    Route::patch('plugin/instance', 'Admin\PluginController@updateInstance')->name('instance.update');
 
 //    Route::get('block/refresh', 'Admin\BlockController@refreshRegistry')->name('block.refresh');
     Route::post('block/new', 'Admin\BlockController@store')->name('block.store');
