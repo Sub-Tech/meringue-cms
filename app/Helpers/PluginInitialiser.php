@@ -180,19 +180,4 @@ class PluginInitialiser
         return new $class();
     }
 
-
-    public function getAllPlugins()
-    {
-        $x = [];
-
-        foreach ($this->getVendors() as $vendor) {
-            foreach ($this->getVendorsPlugins($vendor) as $plugin) {
-                $x[] = $plugin;
-            }
-        }
-
-        dd($x);
-        return $x;
-    }
-
 }
