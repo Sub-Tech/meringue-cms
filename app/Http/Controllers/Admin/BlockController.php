@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
-use App\BlockRegistry;
-use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -58,5 +56,5 @@ class BlockController extends Controller
             'success' => $success
         ], $success ? 200 : 500);
     }
-    
+
 }

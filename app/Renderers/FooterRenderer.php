@@ -16,9 +16,7 @@ class FooterRenderer
      */
     public function render()
     {
-        return view(env('THEME') . '/footer', [
-            'tits' => "wonderful<br/>"
-        ]);
+        return view(env('THEME') . '/footer');
     }
 
 }

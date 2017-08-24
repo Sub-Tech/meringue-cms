@@ -16,9 +16,7 @@ class HeaderRenderer
      */
     public function render()
     {
-        return view(env('THEME') . '/header', [
-            'tits' => "Stretch"
-        ]);
+        return view(env('THEME') . '/header');
     }
 
 }

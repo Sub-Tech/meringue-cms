@@ -47,10 +47,10 @@ interface PluginInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null);
+    public function render(int $instanceId = null);
 
 
     /**

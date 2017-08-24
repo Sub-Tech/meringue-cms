@@ -14,9 +14,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  */
 class Controller extends BaseController
 {
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * @var PluginInitialiser
+     */
     protected $pluginInitialiser;
+
 
     /**
      * Controller constructor.

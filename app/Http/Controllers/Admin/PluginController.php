@@ -3,25 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
-use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
-use App\PluginBase;
 use App\Renderers\ModalRenderer;
 use Illuminate\Http\Request;
 
+/**
+ * Class PluginController
+ * @package App\Http\Controllers\Admin
+ */
 class PluginController extends Controller
 {
-
-    /**
-     * PluginController constructor.
-     * @param PluginInitialiser $pluginInitialiser
-     */
-    public function __construct(PluginInitialiser $pluginInitialiser)
-    {
-        parent::__construct($pluginInitialiser);
-    }
-
 
     /**
      * Show the application dashboard.
@@ -85,10 +77,6 @@ class PluginController extends Controller
     {
         $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
 
-        if (!method_exists($plugin, 'saveInstance')) {
-            throw new \Exception('Method not found', 500);
-        }
-
         $instanceId = $plugin->saveInstance($request);
 
         Block::assignInstanceToBlock($request->input('block_id'), $instanceId);
@@ -107,10 +95,6 @@ class PluginController extends Controller
     public function updateInstance(Request $request)
     {
         $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
-
-        if (!method_exists($plugin, 'updateInstance')) {
-            throw new \Exception('Method not found', 500);
-        }
 
         $plugin->updateInstance($request->instance_id, $request);
 

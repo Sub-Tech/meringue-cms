@@ -22,13 +22,13 @@ class AdminMenuRenderer
 
         $menu = [];
 
-        foreach ($pluginInitialiser->plugins as $plugin) {
-            $pluginClass = $pluginInitialiser->getPlugin($plugin->class);
+        $pluginInitialiser->plugins->each(function ($plugin) use (&$menu) {
+            $pluginClass = pluginInitialiser::getPlugin($plugin->class);
 
             if (method_exists($pluginClass, 'registerSideBarMenuItem')) {
                 $menu[] = $pluginClass->registerSideBarMenuItem();
             }
-        }
+        });
 
         return $menu;
     }
