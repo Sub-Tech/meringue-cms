@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Page;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PageController
@@ -31,6 +33,34 @@ class PageController extends Controller
     {
         return view('admin.page.manage')
             ->with('pages', Page::get());
+    }
+
+
+    /**
+     * Display the form to create the shit
+     */
+    public function create()
+    {
+        return view('admin.page.create');
+    }
+
+
+    /**
+     * Create a new Page
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        $page = Page::create(array_merge(
+            $request->all(), [
+            'user_id' => Auth::check()
+        ]));
+
+        return redirect(route('admin.page.edit', [
+            'page' => $page
+        ]));
     }
 
 

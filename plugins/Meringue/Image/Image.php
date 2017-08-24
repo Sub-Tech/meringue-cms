@@ -122,6 +122,7 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
         return Models\Image::find($instanceId);
     }
 
+
     /**
      * Save an instance of the plugin to the db
      *

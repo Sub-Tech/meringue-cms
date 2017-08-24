@@ -28,6 +28,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'Admin\PageController@index');
     Route::get('/dashboard', 'Admin\PageController@index');
 
+    Route::post('page', 'Admin\PageController@store')->name('admin.page.store');
+    Route::get('page/add', 'Admin\PageController@create')->name('admin.page.create');
     Route::get('page/manage', 'Admin\PageController@manage');
     Route::get('page/edit/{page}', 'Admin\PageController@edit')->name('admin.page.edit');
 
