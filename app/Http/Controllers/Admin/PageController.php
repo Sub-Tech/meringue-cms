@@ -24,6 +24,7 @@ class PageController extends Controller
         return view('admin.dashboard');
     }
 
+
     /**
      * Manage pages
      *
@@ -32,7 +33,7 @@ class PageController extends Controller
     public function manage()
     {
         return view('admin.page.manage')
-            ->with('pages', Page::get());
+            ->with('pages', Page::all());
     }
 
 
