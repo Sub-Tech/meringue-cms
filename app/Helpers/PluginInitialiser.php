@@ -86,9 +86,9 @@ class PluginInitialiser
         $filePath = file_path($vendor, $plugin);
         $classPath = class_path($vendor, $plugin);
 
-        include_once(base_path($filePath));
-
         $this->loadAutoload($vendor, $plugin);
+
+        include_once(base_path($filePath));
 
         if (!Plugin::whereClassName($classPath)->exists()) {
             $this->registerPlugin($vendor, $plugin);
