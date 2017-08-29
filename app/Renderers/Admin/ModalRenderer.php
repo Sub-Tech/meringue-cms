@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Renderers;
+namespace App\Renderers\Admin;
 
 use App\Block;
 use App\Helpers\PluginInitialiser;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Block;
 use App\Http\Controllers\Controller;
 use App\Plugin;
-use App\Renderers\ModalRenderer;
+use App\Renderers\Admin\ModalRenderer;
 use Illuminate\Http\Request;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Renderers;
+namespace App\Renderers\Admin;
 
 use App\Helpers\PluginInitialiser;
 
@@ -8,7 +8,7 @@ use App\Helpers\PluginInitialiser;
  * Class BlockRenderer
  * @package App\Helpers
  */
-class AdminMenuRenderer
+class MenuRenderer
 {
 
     /**

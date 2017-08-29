@@ -95,7 +95,7 @@ class PluginInitialiser
         }
 
         $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
-            'class' => class_path($vendor, $plugin),
+            'class' => $classPath,
             'file' => $filePath,
             'vendor' => $vendor
         ], Plugin::find($classPath)->toArray());
@@ -110,11 +110,12 @@ class PluginInitialiser
      */
     private function registerPlugin(string $vendor, string $plugin)
     {
+        $filePath = file_path($vendor, $plugin);
         $classPath = class_path($vendor, $plugin);
 
         $newPlugin = Plugin::create([
             'class_name' => $classPath,
-            'file_name' => file_path($vendor, $plugin),
+            'file_name' => $filePath,
             'name' => $plugin
         ]);
 
@@ -177,7 +178,7 @@ class PluginInitialiser
      */
     public static function getPlugin(string $class)
     {
-        return new $class();
+        return new $class;
     }
 
 }

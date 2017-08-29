@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Section extends Model
 {
+
     protected $fillable = [
         'page_id', 'order', 'background_color', 'foreground_color', 'border_top', 'border_right', 'border_left', 'border_bottom', 'custom_css', 'container', 'active'
     ];
@@ -58,7 +59,5 @@ class Section extends Model
     public function blocks() {
         return $this->hasMany(Block::class);
     }
-
-
 
 }

@@ -5,6 +5,8 @@ namespace Plugins\SubTech\Staff;
 use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Http\RedirectResponse;
+use Plugins\SubTech\Staff\Libraries\Stamp;
+use stdClass;
 
 /**
  * Class Staff
@@ -128,11 +130,11 @@ class Staff extends PluginBase implements PluginInterface
      */
     public function refreshStaff()
     {
-        $stamp = new Libraries\Stamp();
+        $stamp = new Stamp();
 
         $users = $stamp->getUsers();
 
-        $users->each(function (\stdClass $user) {
+        $users->each(function (stdClass $user) {
             StampUser::findOrNew($user->userid)
                 ->fill((array)$user)
                 ->save();

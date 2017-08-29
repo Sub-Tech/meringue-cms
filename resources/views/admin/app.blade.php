@@ -442,7 +442,7 @@
                         </ul>
                         <hr>
                         <ul class="navigation navigation-main navigation-accordion">
-                            @foreach(\App\Renderers\AdminMenuRenderer::getSideBarMenuItems() as $item)
+                            @foreach(\App\Renderers\Admin\MenuRenderer::getSideBarMenuItems() as $item)
                                 <li>
                                     <a href='#'><i class='{{ $item['icon'] }}'></i>
                                         <span>{{ $item['name'] }}</span></a>
