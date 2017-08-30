@@ -6,6 +6,7 @@ use App\Block;
 use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
+use App\PluginInterface;
 use App\Renderers\Admin\ModalRenderer;
 use Illuminate\Http\Request;
 
@@ -80,55 +81,6 @@ class PluginController extends Controller
         return response()->json([
             'success' => true
         ]);
-    }
-
-
-    /**
-     * Create Instance of a Plugin and assign it to a Block
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function createInstance(Request $request)
-    {
-        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
-
-        $instanceId = $plugin->saveInstance($request);
-
-        Block::assignInstanceToBlock($request->input('block_id'), $instanceId);
-
-        return redirect()->back();
-    }
-
-
-    /**
-     * Update the Instance of the Plugin
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function updateInstance(Request $request)
-    {
-        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
-
-        $plugin->updateInstance($request->instance_id, $request);
-
-        return redirect()->back();
-    }
-
-
-    /**
-     * Render the Modal to edit an Instance of the Plugin
-     *
-     * @param Block $block
-     * @param int|null $instanceId
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function renderModal(Block $block, int $instanceId = null)
-    {
-        return ModalRenderer::render($block, $instanceId);
     }
 
 }

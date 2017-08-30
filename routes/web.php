@@ -30,14 +30,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('plugins', 'Admin\PluginController@index')->name('admin.plugin.index');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
-    Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
-    Route::patch('plugin/instance', 'Admin\PluginController@updateInstance')->name('instance.update');
+
+    Route::post('plugin/instance', 'Admin\PluginInstanceController@store')->name('instance.store');
+    Route::patch('plugin/instance/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');
 
     Route::post('block/new', 'Admin\BlockController@store')->name('block.store');
     Route::post('block/{block}', 'Admin\BlockController@update')->name('block.update');
     Route::delete('block/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
-    Route::get('block/{block}/modal/{instance?}', 'Admin\PluginController@renderModal');
+    Route::get('block/{block}/modal/{instance?}', 'Admin\PluginModalController@show');
 });
 
 // Route for all other pages to go via the CMS

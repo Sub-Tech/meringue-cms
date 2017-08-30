@@ -18,12 +18,10 @@
     {{-- Else if the Plugin can be spun up on the go --}}
 @elseif (array_key_exists('inputs', $editSettings))
 
-    <form action="{{ route('instance.store') }}" method="post">
+    <form action="{{ $instance ? route('instance.update', ['instanceId' => $instance->id]) : route('instance.store') }}"
+          method="post">
 
-        @if($instance)
-            {{ method_field('PATCH') }}
-            <input type="hidden" name="instance_id" value="{{ $instance->id }}">
-        @endif
+        @if($instance) {{ method_field('PATCH') }} @endif
 
         <input type="hidden" name="vendor" value="{{ $plugin->getVendor() }}">
         <input type="hidden" name="plugin" value="{{ $plugin->getName() }}">
