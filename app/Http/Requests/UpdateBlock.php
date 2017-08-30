@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\OnlyOneHomepage;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class UpdatePage
+ * Class UpdateBlock
  * @package App\Http\Requests
  */
-class UpdatePage extends FormRequest
+class UpdateBlock extends FormRequest
 {
 
     /**
@@ -31,9 +30,7 @@ class UpdatePage extends FormRequest
     public function rules()
     {
         return [
-            'homepage' => ['boolean', new OnlyOneHomepage],
-            'name' => 'required|string',
-            'slug' => 'required|string'
+            'instance_id' => 'required|int'
         ];
     }
 

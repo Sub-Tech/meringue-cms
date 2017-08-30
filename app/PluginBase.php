@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Artisan;
 use App\Helpers\PluginInitialiser;
+use Artisan;
 
 /**
  * Class PluginBase

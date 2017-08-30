@@ -2,7 +2,6 @@
 @if (array_key_exists('instances', $editSettings))
 
     <form action="{{ route('block.update', ['block' => $block]) }}" method="post">
-        <input type="hidden" name="id" value="{{ $block->id }}">
 
         <div class="form-group">
             <select name="instance_id" class="form-control">

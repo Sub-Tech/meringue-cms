@@ -50,9 +50,9 @@ class PageController extends Controller
             'user_id' => Auth::check()
         ]));
 
-        return redirect(route('admin.page.edit', [
+        return redirect()->route('admin.page.edit', [
             'page' => $page
-        ]));
+        ]);
     }
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Block;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateBlock;
+use App\Http\Requests\UpdateBlock;
 use Illuminate\Http\Request;
 
 /**
@@ -16,10 +18,10 @@ class BlockController extends Controller
     /**
      * Create a new Block
      *
-     * @param Request $request
+     * @param CreateBlock $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateBlock $request)
     {
         Block::create($request->all());
 
@@ -30,11 +32,11 @@ class BlockController extends Controller
     /**
      * Update a Block and return if it worked or not
      *
-     * @param Request $request
+     * @param UpdateBlock $request
      * @param Block $block
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Block $block)
+    public function update(UpdateBlock $request, Block $block)
     {
         $block->update($request->all());
 

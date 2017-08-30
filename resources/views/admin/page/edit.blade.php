@@ -258,7 +258,7 @@
             var id = $(this).closest('.block').data('id');
 
             return $.ajax({
-                url: "/admin/block/" + id,
+                url: "/admin/blocks/" + id,
                 method: 'delete'
             }).success(function () {
                 $('.block[data-id=' + id + ']').html("");
