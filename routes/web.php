@@ -1,6 +1,5 @@
 <?php
 
-use App\Block;
 use App\Plugin;
 
 /*
@@ -21,13 +20,13 @@ Auth::routes();
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'Admin\PageController@index')->name('admin.index');
 
+    Route::get('pages', 'Admin\PageController@index')->name('admin.page.index');
     Route::post('pages', 'Admin\PageController@store')->name('admin.page.store');
     Route::get('pages/add', 'Admin\PageController@create')->name('admin.page.create');
-    Route::get('pages', 'Admin\PageController@index')->name('admin.page.index');
     Route::get('pages/{page}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
     Route::patch('pages/{page}', 'Admin\PageController@update')->name('admin.page.update');
 
-    Route::post('page/{page}/sections', 'Admin\SectionController@store')->name('section.store');
+    Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('admin.plugin.index');
     Route::post('plugin/activate', 'Admin\PluginController@activate');

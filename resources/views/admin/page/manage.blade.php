@@ -38,6 +38,10 @@
                                     @else
                                         <span class="label bg-red">Hidden</span>
                                     @endif
+
+                                    @if($page->homepage)
+                                        &nbsp;<span class="label bg-blue">Homepage</span>
+                                    @endif
                                 </td>
 
                                 <td class="text-center">
