@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
 use App\Renderers\Admin\ModalRenderer;
@@ -23,7 +24,7 @@ class PluginController extends Controller
     public function index()
     {
         return view('admin.plugin.manage', [
-            'plugins' => $this->pluginInitialiser->plugins
+            'plugins' => app(PluginInitialiser::class)->plugins
         ]);
     }
 
@@ -47,7 +48,7 @@ class PluginController extends Controller
 
         if (!$plugin->installed) {
             try {
-                $this->pluginInitialiser->getPlugin($plugin->class_name)->install();
+                app(PluginInitialiser::class)->getPlugin($plugin->class_name)->install();
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
@@ -75,7 +76,7 @@ class PluginController extends Controller
      */
     public function createInstance(Request $request)
     {
-        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
+        $plugin = app(PluginInitialiser::class)->getPlugin(class_path($request->vendor, $request->plugin));
 
         $instanceId = $plugin->saveInstance($request);
 
@@ -94,7 +95,7 @@ class PluginController extends Controller
      */
     public function updateInstance(Request $request)
     {
-        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
+        $plugin = app(PluginInitialiser::class)->getPlugin(class_path($request->vendor, $request->plugin));
 
         $plugin->updateInstance($request->instance_id, $request);
 

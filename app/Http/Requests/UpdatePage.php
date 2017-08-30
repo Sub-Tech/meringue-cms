@@ -26,7 +26,9 @@ class UpdatePage extends FormRequest
     public function rules()
     {
         return [
-            'homepage' => ['boolean', new OnlyOneHomepage]
+            'homepage' => ['boolean', new OnlyOneHomepage],
+            'name' => 'required|string',
+            'slug' => 'required|string'
         ];
     }
 

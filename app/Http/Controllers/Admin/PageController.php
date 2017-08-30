@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePage;
 use App\Page;
@@ -65,7 +66,7 @@ class PageController extends Controller
     {
         return view('admin.page.edit')
             ->with('page', $page)
-            ->with('plugins', $this->pluginInitialiser->plugins);
+            ->with('plugins', app(PluginInitialiser::class)->plugins);
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Plugin;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class PluginInitialiser
@@ -84,21 +85,35 @@ class PluginInitialiser
     private function initialisePlugin(string $vendor, string $plugin)
     {
         $filePath = file_path($vendor, $plugin);
-        $classPath = class_path($vendor, $plugin);
 
         $this->loadAutoload($vendor, $plugin);
 
         include_once(base_path($filePath));
 
-        if (!Plugin::whereClassName($classPath)->exists()) {
+        try {
+            $this->addPluginToArray($vendor, $plugin);
+        } catch (ModelNotFoundException $exception) {
             $this->registerPlugin($vendor, $plugin);
+            $this->addPluginToArray($vendor, $plugin);
         }
+    }
+
+
+    /**
+     * Add the current plugin to the array of plugins
+     *
+     * @param string $vendor
+     * @param string $plugin
+     */
+    private function addPluginToArray(string $vendor, string $plugin)
+    {
+        $classPath = class_path($vendor, $plugin);
 
         $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
             'class' => $classPath,
-            'file' => $filePath,
+            'file' => file_path($vendor, $plugin),
             'vendor' => $vendor
-        ], Plugin::find($classPath)->toArray());
+        ], Plugin::findOrFail($classPath)->toArray());
     }
 
 
