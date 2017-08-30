@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Block;
 use App\Helpers\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
-use App\PluginInterface;
-use App\Renderers\Admin\ModalRenderer;
 use Illuminate\Http\Request;
 
 /**

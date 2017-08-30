@@ -434,7 +434,7 @@
                                 <a href="#"><i class="fa fa-plug"></i> <span>Plugins</span></a>
                                 <ul>
                                     <li><a href="/admin/plugin/add">Add Plugin</a></li>
-                                    <li><a href="{{ route('admin.plugin.index') }}">Manage Plugins</a></li>
+                                    <li><a href="{{ route('plugin.index') }}">Manage Plugins</a></li>
                                 </ul>
                             </li>
                             <!-- /page kits -->

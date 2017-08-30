@@ -274,7 +274,7 @@
             var id = $(this).closest('.block').data('id');
             var instance_id = $(this).closest('.block').data('instance_id');
 
-            var url = "/admin/block/" + id + "/modal";
+            var url = "/admin/blocks/" + id + "/modal";
 
             if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
                 url += "/" + instance_id
