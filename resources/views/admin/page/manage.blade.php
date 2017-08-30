@@ -40,7 +40,7 @@
                                     @endif
 
                                     @if($page->homepage)
-                                        &nbsp;<span class="label bg-blue">Homepage</span>
+                                        <span class="label bg-blue">Homepage</span>
                                     @endif
                                 </td>
 
