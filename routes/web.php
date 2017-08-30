@@ -18,24 +18,18 @@ Plugin::routes();
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', 'Admin\PageController@index');
-    Route::get('/dashboard', 'Admin\PageController@index');
+    Route::get('/', 'Admin\PageController@index')->name('admin.index');
 
-    Route::post('page', 'Admin\PageController@store')->name('admin.page.store');
-    Route::get('page/add', 'Admin\PageController@create')->name('admin.page.create');
-    Route::get('page/manage', 'Admin\PageController@manage');
-    Route::get('page/edit/{page}', 'Admin\PageController@edit')->name('admin.page.edit');
+    Route::post('pages', 'Admin\PageController@store')->name('admin.page.store');
+    Route::get('pages/add', 'Admin\PageController@create')->name('admin.page.create');
+    Route::get('pages', 'Admin\PageController@index')->name('admin.page.index');
+    Route::get('pages/{page}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
+    Route::patch('pages/{page}', 'Admin\PageController@update')->name('admin.page.update');
 
     Route::post('page/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
-    Route::get('plugin/manage', 'Admin\PluginController@manage');
+    Route::get('plugins', 'Admin\PluginController@index')->name('admin.plugin.index');
     Route::post('plugin/activate', 'Admin\PluginController@activate');
     Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
     Route::patch('plugin/instance', 'Admin\PluginController@updateInstance')->name('instance.update');
@@ -47,6 +41,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('block/{block}/modal/{instance?}', 'Admin\PluginController@renderModal');
 });
 
-
 // Route for all other pages to go via the CMS
-Route::get('{slug}', 'PageController@index');
+Route::get('{slug?}', 'PageController@index');

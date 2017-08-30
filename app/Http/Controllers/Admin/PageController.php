@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdatePage;
 use App\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,22 +16,11 @@ class PageController extends Controller
 {
 
     /**
-     * View the dashboard
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        return view('admin.dashboard');
-    }
-
-
-    /**
      * Manage pages
      *
      * @return \Illuminate\View\View
      */
-    public function manage()
+    public function index()
     {
         return view('admin.page.manage')
             ->with('pages', Page::all());
@@ -76,6 +66,21 @@ class PageController extends Controller
         return view('admin.page.edit')
             ->with('page', $page)
             ->with('plugins', $this->pluginInitialiser->plugins);
+    }
+
+
+    /**
+     * Update the page
+     *
+     * @param UpdatePage $request
+     * @param Page $page
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdatePage $request, Page $page)
+    {
+        $page->update($request->all());
+
+        return redirect()->back();
     }
 
 }

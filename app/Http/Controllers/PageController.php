@@ -13,13 +13,19 @@ class PageController extends Controller
      *
      * @param PageRenderer $renderer
      * @param string $slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|null
      */
-    public function index(PageRenderer $renderer, string $slug)
+    public function index(PageRenderer $renderer, string $slug = null)
     {
-        $page = Page::whereSlug($slug)->get()->first();
-
-        return $renderer->page($page);
+        try {
+            return $renderer->page((
+            $slug ?
+                Page::whereSlug($slug) :
+                Page::whereHomepage(1)
+            )->firstOrFail());
+        } catch (\Exception $exception) {
+            return abort(404);
+        }
     }
 
 }

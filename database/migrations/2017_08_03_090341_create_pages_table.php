@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->string('slug')->unique();
+            $table->boolean('homepage')->default(0);
             $table->string('meta_description')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('custom_css')->nullable();
