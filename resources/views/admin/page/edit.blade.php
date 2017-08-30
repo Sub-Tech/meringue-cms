@@ -98,9 +98,9 @@
             margin-top: 26px;
             position: relative;
         }
-
     </style>
 
+    @include('admin.page.details')
 
     <div class="row">
         <div class="col-lg-12">

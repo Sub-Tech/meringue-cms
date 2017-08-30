@@ -420,13 +420,13 @@
                             <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i>
                             </li>
 
-                            <li class="active"><a href="/admin/dashboard"><i class="icon-home4"></i>
+                            <li class="active"><a href="{{ route('admin.index') }}"><i class="icon-home4"></i>
                                     <span>Dashboard</span></a></li>
                             <li>
                                 <a href="#"><i class="fa fa-file"></i> <span>Pages</span></a>
                                 <ul>
-                                    <li><a href="/admin/page/add">Add Page</a></li>
-                                    <li><a href="/admin/page/manage">Manage Pages</a></li>
+                                    <li><a href="{{ route('admin.page.create') }}">Add Page</a></li>
+                                    <li><a href="{{ route('admin.page.index') }}">Manage Pages</a></li>
                                 </ul>
                             </li>
 
@@ -434,7 +434,7 @@
                                 <a href="#"><i class="fa fa-plug"></i> <span>Plugins</span></a>
                                 <ul>
                                     <li><a href="/admin/plugin/add">Add Plugin</a></li>
-                                    <li><a href="/admin/plugin/manage">Manage Plugins</a></li>
+                                    <li><a href="{{ route('admin.plugin.index') }}">Manage Plugins</a></li>
                                 </ul>
                             </li>
                             <!-- /page kits -->
@@ -450,9 +450,7 @@
                                         <ul>
                                             @foreach($item['options'] as $option)
                                                 <li>
-                                                    <a href="{{ $option['href'] }}">
-                                                        {{ $option['text'] }}
-                                                    </a>
+                                                    <a href="{{ $option['href'] }}">{{ $option['text'] }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>

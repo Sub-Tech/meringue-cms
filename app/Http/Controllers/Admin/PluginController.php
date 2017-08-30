@@ -20,7 +20,7 @@ class PluginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function manage()
+    public function index()
     {
         return view('admin.plugin.manage', [
             'plugins' => $this->pluginInitialiser->plugins
