@@ -17,6 +17,22 @@ class PluginController extends Controller
 {
 
     /**
+     * @var PluginInitialiser
+     */
+    private $pluginInitialiser;
+
+
+    /**
+     * PluginController constructor.
+     * @param PluginInitialiser $pluginInitialiser
+     */
+    public function __construct(PluginInitialiser $pluginInitialiser)
+    {
+        $this->pluginInitialiser = $pluginInitialiser;
+    }
+
+
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
@@ -24,7 +40,7 @@ class PluginController extends Controller
     public function index()
     {
         return view('admin.plugin.manage', [
-            'plugins' => app(PluginInitialiser::class)->plugins
+            'plugins' => $this->pluginInitialiser->plugins
         ]);
     }
 
@@ -48,7 +64,7 @@ class PluginController extends Controller
 
         if (!$plugin->installed) {
             try {
-                app(PluginInitialiser::class)->getPlugin($plugin->class_name)->install();
+                $this->pluginInitialiser->getPlugin($plugin->class_name)->install();
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,
@@ -76,7 +92,7 @@ class PluginController extends Controller
      */
     public function createInstance(Request $request)
     {
-        $plugin = app(PluginInitialiser::class)->getPlugin(class_path($request->vendor, $request->plugin));
+        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
 
         $instanceId = $plugin->saveInstance($request);
 
@@ -95,7 +111,7 @@ class PluginController extends Controller
      */
     public function updateInstance(Request $request)
     {
-        $plugin = app(PluginInitialiser::class)->getPlugin(class_path($request->vendor, $request->plugin));
+        $plugin = $this->pluginInitialiser->getPlugin(class_path($request->vendor, $request->plugin));
 
         $plugin->updateInstance($request->instance_id, $request);
 
