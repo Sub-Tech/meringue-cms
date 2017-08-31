@@ -39,7 +39,7 @@ class StampUser extends Model
 
     protected $primaryKey = 'userid';
 
-    protected $table = 'subtech_stamp_users';
+    protected $table = 'subtech_staff_users';
 
     protected $fillable = [
         'user',

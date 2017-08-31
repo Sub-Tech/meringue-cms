@@ -13,7 +13,7 @@ class CreateStampUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('subtech_stamp_users', function (Blueprint $table) {
+        Schema::create('subtech_staff_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user');
             $table->string('userid');
