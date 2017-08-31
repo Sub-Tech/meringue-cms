@@ -2,7 +2,9 @@
 
 namespace App\Helpers;
 
+use App\InstanceInterface;
 use App\Plugin;
+use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
@@ -24,6 +26,7 @@ class PluginInitialiser
     {
         $this->plugins = $this->loadAll();
     }
+
 
     /**
      * Auto load plugins from the plugins directory.
@@ -86,15 +89,12 @@ class PluginInitialiser
     {
         $filePath = file_path($vendor, $plugin);
 
-        $this->loadAutoload($vendor, $plugin);
-
         include_once(base_path($filePath));
 
         try {
             $this->addPluginToArray($vendor, $plugin);
         } catch (ModelNotFoundException $exception) {
             $this->registerPlugin($vendor, $plugin);
-            $this->addPluginToArray($vendor, $plugin);
         }
     }
 
@@ -128,30 +128,15 @@ class PluginInitialiser
         $filePath = file_path($vendor, $plugin);
         $classPath = class_path($vendor, $plugin);
 
-        $newPlugin = Plugin::create([
+        Plugin::create([
             'class_name' => $classPath,
             'file_name' => $filePath,
             'name' => $plugin
-        ]);
+        ])->update(
+            $this->getPlugin($classPath)->details()
+        );
 
-        $newPlugin->update($this->getPlugin($classPath)->details());
-    }
-
-
-    /**
-     * Load the autoload file, if it finds one
-     * TODO update with composer autoloading
-     *
-     * @param string $vendor
-     * @param string $plugin
-     */
-    private function loadAutoload(string $vendor, string $plugin)
-    {
-        $autoloadFile = base_path("plugins/{$vendor}/{$plugin}/autoload.php");
-
-        if (file_exists($autoloadFile)) {
-            include_once($autoloadFile);
-        }
+        $this->addPluginToArray($vendor, $plugin);
     }
 
 
@@ -189,7 +174,7 @@ class PluginInitialiser
      * Plugins\Vendor\Plugin\Plugin
      *
      * @param string $class
-     * @return object
+     * @return PluginInterface|InstanceInterface
      */
     public static function getPlugin(string $class)
     {

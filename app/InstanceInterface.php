@@ -32,7 +32,7 @@ interface InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request);
+    public function saveInstance(Request $request): int;
 
 
     /**
@@ -42,6 +42,6 @@ interface InstanceInterface
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request);
+    public function updateInstance(int $instanceId, Request $request): bool;
 
 }

@@ -128,7 +128,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Button::create($request->only(['text', 'link']))->id;
     }
@@ -141,7 +141,7 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request)
+    public function updateInstance(int $instanceId, Request $request): bool
     {
         return Models\Button::find($instanceId)
             ->update($request->all());

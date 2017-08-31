@@ -138,7 +138,7 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return DB::table('meringue_text_text')
             ->insertGetId($request->only(['name', 'content']));
@@ -152,7 +152,7 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request)
+    public function updateInstance(int $instanceId, Request $request): bool
     {
         return DB::table('meringue_text_text')
             ->where('id', $instanceId)

@@ -129,7 +129,7 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Image::create($request->only(['url', 'alt']))->id;
     }
@@ -142,7 +142,7 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request)
+    public function updateInstance(int $instanceId, Request $request): bool
     {
         return Models\Image::find($instanceId)
             ->update($request->only(['url', 'alt']));

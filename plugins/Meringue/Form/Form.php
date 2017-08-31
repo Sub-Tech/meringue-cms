@@ -208,7 +208,7 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Form::create($request->all())->id;
     }
@@ -221,7 +221,7 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request)
+    public function updateInstance(int $instanceId, Request $request): bool
     {
         return Models\Form::find($instanceId)
             ->update($request->all());
