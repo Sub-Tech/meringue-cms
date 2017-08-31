@@ -24,7 +24,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Plugins\\": "plugins/"
         },
         "files": [
             "app/Helpers/functions.php"
