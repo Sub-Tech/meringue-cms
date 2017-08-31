@@ -13,7 +13,7 @@ use Plugins\Meringue\Form\Requests\CreateInput;
 class FormBuilder
 {
 
-    use ConstructsValidation;
+    use ValidatesInputs;
 
     /**
      * Display the form of which to create a new form.

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Validator;
 
 /**
  * Class Form
@@ -65,55 +64,6 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
     public function setName(): void
     {
         $this->name = 'Form';
-    }
-
-
-    /**
-     * Handle form submission
-     * Tries to find the model, validates the request and saves the given data
-     *
-     * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function handleResponse(Request $request)
-    {
-        try {
-            /** @var \Plugins\Meringue\Form\Models\Form $form */
-            $form = Models\Form::findOrFail($request->form_id);
-        } catch (ModelNotFoundException $exception) {
-            return response()->json([
-                'message' => 'Request Failed'
-            ], 500);
-        }
-
-        Validator::validate($request->all(), $this->validationArray($form));
-
-        $success = (new Models\Response())->fill(array_merge(
-            $request->all(), [
-            'answers' => json_encode($request->except(['vendor', 'plugin']))
-        ]))->save();
-
-        return response()->json([
-            'success' => $success
-        ], $success ? 200 : 500);
-    }
-
-
-    /**
-     * Constructs an array of validation rules based on the Form's Inputs validation
-     *
-     * @param Models\Form $form
-     * @return array
-     */
-    private function validationArray(Models\Form $form)
-    {
-        $rules = [];
-
-        $form->inputs->each(function (Models\Input $input) use (&$rules) {
-            $rules[$input->name] = $input->validation;
-        });
-
-        return $rules;
     }
 
 

@@ -9,7 +9,7 @@ use Illuminate\Http\{
 /**
  * Trait ConstructsValidation
  */
-trait ConstructsValidation
+trait ValidatesInputs
 {
 
     /**
@@ -75,6 +75,24 @@ trait ConstructsValidation
     private function parse(string &$input)
     {
         str_replace('validation_', '', $input);
+    }
+
+
+    /**
+     * Constructs an array of validation rules based on the Form's Inputs validation
+     *
+     * @param Models\Form $form
+     * @return array
+     */
+    private function validationArray(Models\Form $form)
+    {
+        $rules = [];
+
+        $form->inputs->each(function (Models\Input $input) use (&$rules) {
+            $rules[$input->name] = $input->validation;
+        });
+
+        return $rules;
     }
 
 }

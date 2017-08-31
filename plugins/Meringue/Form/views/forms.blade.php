@@ -8,8 +8,9 @@
         <div class="panel-body">
             <ul>
                 @forelse($forms as $form)
-                    <li>{{ $form->name }}, created {{ $form->created_at->format('d/m/Y') }} <a
-                                href="{{ route('Form.edit', ['form' => $form->id]) }}">Edit</a>
+                    <li>{{ $form->name }}, created {{ $form->created_at->format('d/m/Y') }}
+                        <a href="{{ route('Form.edit', ['form' => $form->id]) }}">Edit</a>
+                        <a href="{{ route('Form.responses', ['form' => $form->id]) }}">View Responses</a>
                     </li>
                 @empty
                     <i>No forms yet</i>
