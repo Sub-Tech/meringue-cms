@@ -4,7 +4,7 @@
 
 ### Getting Started
 
-Create a class called `ExamplePlugin` inside the plugins/_{vendorName}_/ExamplePlugin folder.
+Create a class called `ExamplePlugin` inside the plugins/YourName/ExamplePlugin folder.
 
 This class must extend `App\Plugin\PluginBase`.
 
