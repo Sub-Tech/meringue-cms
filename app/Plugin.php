@@ -68,4 +68,10 @@ class Plugin extends Model
         app(PluginInitialiser::class)->initialiseRoutes();
     }
 
+
+    public static function activePlugins()
+    {
+        return self::whereActive(1)->get();
+    }
+
 }
