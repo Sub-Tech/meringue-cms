@@ -2,8 +2,11 @@
 
 namespace App\Helpers;
 
+use App;
+use App\CronInterface;
 use App\InstanceInterface;
 use App\Plugin;
+use App\PluginBase;
 use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -174,11 +177,11 @@ class PluginInitialiser
      * Plugins\Vendor\Plugin\Plugin
      *
      * @param string $class
-     * @return PluginInterface|InstanceInterface
+     * @return PluginBase|PluginInterface|InstanceInterface|CronInterface
      */
     public static function getPlugin(string $class)
     {
-        return new $class;
+        return App::make($class);
     }
 
 }

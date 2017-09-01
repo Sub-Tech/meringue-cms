@@ -17,6 +17,8 @@ class PageController extends Controller
      */
     public function index(PageRenderer $renderer, string $slug = null)
     {
+//      dd($renderer->page(($slug ? Page::whereSlug($slug) : Page::whereHomepage(1))->firstOrFail()));
+
         try {
             return $renderer->page((
             $slug ?
