@@ -44,4 +44,14 @@ interface InstanceInterface
      */
     public function updateInstance(int $instanceId, Request $request): bool;
 
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool;
+
 }
