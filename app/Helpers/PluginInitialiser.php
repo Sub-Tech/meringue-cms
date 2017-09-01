@@ -139,6 +139,9 @@ class PluginInitialiser
             $this->getPlugin($classPath)->details()
         );
 
+        // This method failing is what calls this function in the first place
+        // Now that the plugin has been registered, we can continue adding
+        // this plugin to the global array that is called elsewhere...!
         $this->addPluginToArray($vendor, $plugin);
     }
 
