@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\CronInterface;
 use App\Helpers\PluginInitialiser;
 use App\Plugin;
 use App\PluginBase;
@@ -28,10 +29,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         Plugin::whereActive(1)->get()->each(function (Plugin $plugin) use (&$schedule) {
-            $pluginClass = PluginInitialiser::getPlugin($plugin->class_name);
+            $plugin = PluginInitialiser::getPlugin($plugin->class_name);
 
-            if ($this->pluginImplementsCronInterface($pluginClass)) {
-                $pluginClass->schedule($schedule);
+            if ($plugin->implements(CronInterface::class)) {
+                $plugin->schedule($schedule);
             }
         });
     }
@@ -45,18 +46,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
-    }
-
-
-    /**
-     * Check to see if the Plugin implements the CronInterface ergo has a Cron
-     *
-     * @param PluginBase $plugin
-     * @return bool
-     */
-    private function pluginImplementsCronInterface(PluginBase $plugin)
-    {
-        return in_array('App\CronInterface', class_implements($plugin));
     }
 
 }
