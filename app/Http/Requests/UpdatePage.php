@@ -31,7 +31,7 @@ class UpdatePage extends FormRequest
     public function rules()
     {
         return [
-            'homepage' => ['boolean', new OnlyOneHomepage],
+            'homepage' => 'boolean',
             'name' => 'required|string',
             'slug' => 'required|string'
         ];

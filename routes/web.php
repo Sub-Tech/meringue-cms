@@ -26,6 +26,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('pages/{page}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
     Route::patch('pages/{page}', 'Admin\PageController@update')->name('admin.page.update');
 
+    Route::get('homepage/{page}', 'Admin\HomepageController@update')->name('homepage.update');
+
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
