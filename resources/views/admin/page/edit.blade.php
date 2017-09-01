@@ -151,7 +151,7 @@
                                                 <li class="blockWidth"><?= $block->width; ?></li>
                                             </ul>
                                         </div>
-                                        @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($block->plugin_class) @endphp
+                                        @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
                                         <strong>{{ $plugin->getName() }}</strong>
                                         @if (isset($block->instance_id))
                                             : {{ $plugin->getInstance($block->instance_id)->name }}
@@ -163,7 +163,7 @@
                             {{-- PLUGIN DRAWER --}}
                             <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
                             @foreach($plugins as $plugin)
-                                @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($plugin->class) @endphp
+                                @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
                                 <div class="col-md-2">
                                     <div class="panel panel-flat">
                                         <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>

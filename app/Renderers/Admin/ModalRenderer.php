@@ -3,7 +3,7 @@
 namespace App\Renderers\Admin;
 
 use App\Block;
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 
 /**
  * Class ModalRenderer

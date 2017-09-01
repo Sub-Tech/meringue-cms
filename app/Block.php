@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $active
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\BlockRegistry $blockRegistry
  * @property-read \App\Plugin $plugin
  * @property-read \App\Section $section
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereActive($value)
@@ -69,11 +68,6 @@ class Block extends Model
     public function plugin()
     {
         return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
-    }
-
-    public function blockRegistry()
-    {
-        return $this->hasOne(BlockRegistry::class, 'plugin_class', 'plugin_class');
     }
 
 

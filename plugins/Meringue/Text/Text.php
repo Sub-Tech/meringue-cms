@@ -2,8 +2,8 @@
 
 namespace Plugins\Meringue\Text;
 
-use App\InstanceInterface;
-use App\PluginBase;
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;

@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Plugin;
 
-use App\Helpers\PluginInitialiser;
 use Artisan;
 
 /**

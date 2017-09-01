@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use App\Plugin;
 use Illuminate\Http\Request;

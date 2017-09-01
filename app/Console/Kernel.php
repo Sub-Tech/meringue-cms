@@ -3,7 +3,7 @@
 namespace App\Console;
 
 use App\CronInterface;
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use App\Plugin;
 use App\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;

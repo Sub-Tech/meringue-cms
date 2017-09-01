@@ -2,7 +2,7 @@
 
 namespace App\Renderers\Admin;
 
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 
 /**
  * Class BlockRenderer

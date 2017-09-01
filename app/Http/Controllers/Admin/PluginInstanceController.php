@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

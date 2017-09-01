@@ -2,8 +2,8 @@
 
 namespace Plugins\SubTech\Staff;
 
-use App\CronInterface;
-use App\PluginBase;
+use App\Plugin\CronInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Plugins\SubTech\Staff\Libraries\Stamp;

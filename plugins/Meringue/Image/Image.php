@@ -2,8 +2,8 @@
 
 namespace Plugins\Meringue\Image;
 
-use App\InstanceInterface;
-use App\PluginBase;
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

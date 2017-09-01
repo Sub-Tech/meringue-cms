@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Plugin;
 
 use Illuminate\Console\Scheduling\Schedule;
 

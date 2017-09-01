@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use Illuminate\Database\Eloquent\Model;
 
 /**

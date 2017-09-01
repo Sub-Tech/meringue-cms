@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Plugin;
 
-use App;
-use App\CronInterface;
-use App\InstanceInterface;
 use App\Plugin;
-use App\PluginBase;
-use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class PluginInitialiser

@@ -3,7 +3,7 @@
 namespace App\Renderers;
 
 use App\Block;
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use App\InstanceInterface;
 
 /**
