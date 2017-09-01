@@ -62,7 +62,7 @@ class PluginController extends Controller
 
         if (!$plugin->installed) {
             try {
-                $this->pluginInitialiser->getPlugin($plugin->class_name)->install();
+                PluginInitialiser::getPlugin($plugin->class_name)->install();
             } catch (\Exception $e) {
                 return response()->json([
                     'success' => false,

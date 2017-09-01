@@ -21,7 +21,7 @@ class MenuRenderer
         $menu = [];
 
         app(PluginInitialiser::class)->plugins->each(function ($plugin) use (&$menu) {
-            $pluginClass = pluginInitialiser::getPlugin($plugin->class);
+            $pluginClass = PluginInitialiser::getPlugin($plugin->class);
 
             if (method_exists($pluginClass, 'registerSideBarMenuItem')) {
                 $menu[] = $pluginClass->registerSideBarMenuItem();
