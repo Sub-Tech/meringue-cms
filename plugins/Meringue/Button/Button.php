@@ -13,18 +13,6 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
 {
 
     /**
-     * Button constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
-
-    /**
      * Set any details necessary to the running of the Plugin
      *
      * @return array

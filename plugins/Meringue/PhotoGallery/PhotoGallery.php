@@ -19,17 +19,6 @@ class PhotoGallery extends PluginBase implements PluginInterface, InstanceInterf
 {
 
     /**
-     * PhotoGallery constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
-    /**
      * Get the specified Instance of the Plugin
      *
      * @param int $instanceId

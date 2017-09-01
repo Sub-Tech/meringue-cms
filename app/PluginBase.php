@@ -35,7 +35,26 @@ abstract class PluginBase
     public function __construct()
     {
         $this->pluginInitialiser = app(PluginInitialiser::class);
+
+        $this->setName();
+        $this->setVendor();
     }
+
+
+    /**
+     * Set the Vendor of the Plugin
+     *
+     * @return void
+     */
+    public abstract function setVendor(): void;
+
+
+    /**
+     * Set the name of the Plugin
+     *
+     * @return void
+     */
+    public abstract function setName(): void;
 
 
     /**
@@ -85,11 +104,5 @@ abstract class PluginBase
     {
         Artisan::call('migrate', ['--path' => "plugins/{$this->vendor}/{$this->name}/database/migrations/"]);
     }
-
-
-//    public function cron()
-//    {
-
-//    }
 
 }

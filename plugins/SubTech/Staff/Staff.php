@@ -2,8 +2,10 @@
 
 namespace Plugins\SubTech\Staff;
 
+use App\CronInterface;
 use App\PluginBase;
 use App\PluginInterface;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Plugins\SubTech\Staff\Libraries\Stamp;
 use stdClass;
@@ -12,22 +14,10 @@ use stdClass;
  * Class Staff
  * @package Plugins\SubTech\Staff
  */
-class Staff extends PluginBase implements PluginInterface
+class Staff extends PluginBase implements PluginInterface, CronInterface
 {
 
     use WorksWithStamp;
-
-    /**
-     * Staff constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
 
     /**
      * Set the Vendor of the Plugin
@@ -160,6 +150,19 @@ class Staff extends PluginBase implements PluginInterface
                 ['href' => "/admin/plugin/manage/{$this->vendor}/{$this->name}", 'text' => 'Manage Staff']
             ]
         ];
+    }
+
+
+    /**
+     * A list of all crons to be run. Follows the same format as Laravel Scheduled Tasks.
+     *
+     * @param Schedule $schedule
+     */
+    public function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            $this->refreshStaff();
+        })->daily();
     }
 
 }

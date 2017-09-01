@@ -18,22 +18,6 @@ interface PluginInterface
 
 
     /**
-     * Set the Vendor of the Plugin
-     *
-     * @return void
-     */
-    public function setVendor(): void;
-
-
-    /**
-     * Set the name of the Plugin
-     *
-     * @return void
-     */
-    public function setName(): void;
-
-
-    /**
      * Runs any method that need to be ran upon installation of the Plugin
      * Return false if not necessary
      *

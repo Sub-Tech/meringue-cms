@@ -18,18 +18,6 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
 {
 
     /**
-     * Form constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
-
-    /**
      * Set the plugin details
      *
      * @return array

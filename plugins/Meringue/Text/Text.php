@@ -15,18 +15,6 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
 {
 
     /**
-     * Text constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
-
-    /**
      * Set the Vendor of the Plugin
      *
      * @return void
@@ -110,14 +98,6 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
             ]
         ];
     }
-
-
-    /* Disabled for now
-    public function cron(Schedule $schedule) {
-        $schedule->call(function () {
-            echo "efe";
-        })->everyMinute();
-    } */
 
 
     /**
