@@ -9,7 +9,7 @@ use Artisan;
  * Class PluginBase
  * @package App
  */
-abstract class PluginBase
+abstract class PluginBase implements PluginInterface
 {
 
     /**
@@ -39,22 +39,6 @@ abstract class PluginBase
         $this->setName();
         $this->setVendor();
     }
-
-
-    /**
-     * Set the Vendor of the Plugin
-     *
-     * @return void
-     */
-    public abstract function setVendor(): void;
-
-
-    /**
-     * Set the name of the Plugin
-     *
-     * @return void
-     */
-    public abstract function setName(): void;
 
 
     /**

@@ -4,7 +4,6 @@ namespace Plugins\Meringue\Form;
 
 use App\InstanceInterface;
 use App\PluginBase;
-use App\PluginInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -14,7 +13,7 @@ use Illuminate\View\View;
  * Class Form
  * @package Plugins\Meringue\Form
  */
-class Form extends PluginBase implements PluginInterface, InstanceInterface
+class Form extends PluginBase implements InstanceInterface
 {
 
     /**

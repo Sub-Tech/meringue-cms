@@ -4,18 +4,16 @@ namespace Plugins\Meringue\PhotoGallery;
 
 use App\InstanceInterface;
 use App\PluginBase;
-use App\PluginInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Plugins\Meringue\PhotoGallery\Galleries\GalleryInterface;
 use Plugins\Meringue\PhotoGallery\Models\Gallery;
 
 /**
  * Class PhotoGallery
  * @package Plugins\Meringue\PhotoGallery
  */
-class PhotoGallery extends PluginBase implements PluginInterface, InstanceInterface
+class PhotoGallery extends PluginBase implements InstanceInterface
 {
 
     /**

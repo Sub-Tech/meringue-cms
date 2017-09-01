@@ -10,6 +10,22 @@ interface PluginInterface
 {
 
     /**
+     * Set the Vendor of the Plugin
+     *
+     * @return void
+     */
+    public function setVendor(): void;
+
+
+    /**
+     * Set the name of the Plugin
+     *
+     * @return void
+     */
+    public function setName(): void;
+
+
+    /**
      * Set any details necessary to the running of the Plugin
      *
      * @return array

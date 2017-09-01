@@ -4,12 +4,11 @@ namespace Plugins\Meringue\Image;
 
 use App\InstanceInterface;
 use App\PluginBase;
-use App\PluginInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class Image extends PluginBase implements PluginInterface, InstanceInterface
+class Image extends PluginBase implements InstanceInterface
 {
 
     /**

@@ -4,7 +4,6 @@ namespace Plugins\SubTech\Staff;
 
 use App\CronInterface;
 use App\PluginBase;
-use App\PluginInterface;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Plugins\SubTech\Staff\Libraries\Stamp;
@@ -14,7 +13,7 @@ use stdClass;
  * Class Staff
  * @package Plugins\SubTech\Staff
  */
-class Staff extends PluginBase implements PluginInterface, CronInterface
+class Staff extends PluginBase implements CronInterface
 {
 
     use WorksWithStamp;
