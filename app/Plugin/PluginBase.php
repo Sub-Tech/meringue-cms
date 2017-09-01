@@ -10,6 +10,7 @@ use Artisan;
  */
 abstract class PluginBase implements PluginInterface
 {
+    use ImplementsInterfaces;
 
     /**
      * @var string The name of the Vendor
@@ -93,26 +94,14 @@ abstract class PluginBase implements PluginInterface
 
 
     /**
-     * Runs the migrations found in the plugins directory
+     * Rolls the migrations found in the plugins directory back
      * @param string|null $path
      */
-    public function rollbackMigrations(string $path)
+    public function rollbackMigrations(string $path = null)
     {
         Artisan::call('migrate:reset', [
             '--path' => $path ?? "plugins/{$this->vendor}/{$this->name}/database/migrations"
         ]);
-    }
-
-
-    /**
-     * Check to see if the Plugin implements a given Interface
-     *
-     * @param string $class
-     * @return bool
-     */
-    public function implements(string $class)
-    {
-        return in_array($class, class_implements($this));
     }
 
 }
