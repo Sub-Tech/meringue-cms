@@ -2,10 +2,9 @@
 
 namespace App\Console;
 
-use App\CronInterface;
+use App\Plugin\CronInterface;
 use App\Plugin\PluginInitialiser;
 use App\Plugin;
-use App\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
