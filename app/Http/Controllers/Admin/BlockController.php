@@ -6,7 +6,6 @@ use App\Block;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlock;
 use App\Http\Requests\UpdateBlock;
-use Illuminate\Http\Request;
 
 /**
  * Class BlockController
