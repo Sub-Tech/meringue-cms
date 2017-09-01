@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\InstallsPlugins;
 use App\Http\Controllers\Controller;
+use App\Http\Responses\AjaxResponse;
 use App\Plugin;
-use App\Responses\AjaxResponse;
 
 /**
  * Class PluginController
