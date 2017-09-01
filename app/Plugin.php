@@ -49,6 +49,11 @@ class Plugin extends Model
 
     protected $primaryKey = 'class_name';
 
+    public function getRouteKeyName()
+    {
+        return 'class_name';
+    }
+
     public $incrementing = false;
 
     /**

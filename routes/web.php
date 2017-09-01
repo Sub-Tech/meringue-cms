@@ -31,7 +31,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
-    Route::post('plugin/activate', 'Admin\PluginController@activate')->name('plugin.activate');
+    Route::post('plugins/{plugin}/activate', 'Admin\PluginActivationController@store')->name('plugin.activate');
 
     Route::post('instances', 'Admin\PluginInstanceController@store')->name('instance.store');
     Route::patch('instances/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');

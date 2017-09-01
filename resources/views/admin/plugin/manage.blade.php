@@ -63,12 +63,10 @@
 
     <script>
         $('.activePlugin').on('click', function () {
+            var plugin = $(this).data('plugin');
             $.ajax({
-                'url': '/admin/plugin/activate',
-                'method': 'post',
-                data: {
-                    'plugin': $(this).data('plugin')
-                }
+                'url': '/admin/plugins/' + encodeURI(plugin) + '/activate',
+                'method': 'post'
             }).success(function (res) {
                 if (!res.success) {
                     new PNotify({
