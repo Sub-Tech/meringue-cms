@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
+/**
+ * Class Button
+ * @package Plugins\Meringue\Button
+ */
 class Button extends PluginBase implements InstanceInterface
 {
 

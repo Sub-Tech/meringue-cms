@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
+/**
+ * Class Image
+ * @package Plugins\Meringue\Image
+ */
 class Image extends PluginBase implements InstanceInterface
 {
 

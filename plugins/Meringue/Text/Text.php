@@ -1,4 +1,6 @@
-<?php namespace Plugins\Meringue\Text;
+<?php
+
+namespace Plugins\Meringue\Text;
 
 use App\InstanceInterface;
 use App\PluginBase;
