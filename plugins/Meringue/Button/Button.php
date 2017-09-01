@@ -57,11 +57,11 @@ class Button extends PluginBase implements InstanceInterface
      * Runs any method that need to be ran upon installation of the Plugin
      * Return false if not necessary
      *
-     * @return bool
+     * @return void|bool
      */
     public function install()
     {
-        return false;
+        $this->runMigrations();
     }
 
 
