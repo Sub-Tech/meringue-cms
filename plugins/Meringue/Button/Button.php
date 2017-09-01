@@ -138,4 +138,17 @@ class Button extends PluginBase implements InstanceInterface
             ->update($request->all());
     }
 
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Button::findOrFail($instanceId)->delete();
+    }
+
 }

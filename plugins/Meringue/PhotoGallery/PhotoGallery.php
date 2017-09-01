@@ -56,6 +56,19 @@ class PhotoGallery extends PluginBase implements InstanceInterface
 
 
     /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Gallery::find($instanceId)->delete();
+    }
+
+
+    /**
      * Set any details necessary to the running of the Plugin
      *
      * @return array

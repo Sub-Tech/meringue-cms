@@ -66,7 +66,7 @@ class Form extends PluginBase implements InstanceInterface
     {
         try {
             return view('Meringue/Form/views/form')
-                ->with('form', Models\Form::findOrFail($instanceId));
+                ->with('form', $this->getInstance($instanceId));
         } catch (ModelNotFoundException $exception) {
             return false;
         }
@@ -162,6 +162,19 @@ class Form extends PluginBase implements InstanceInterface
     {
         return Models\Form::find($instanceId)
             ->update($request->all());
+    }
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Form::findOrFail($instanceId)->delete();
     }
 
 }

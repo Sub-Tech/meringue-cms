@@ -140,4 +140,17 @@ class Text extends PluginBase implements InstanceInterface
             ->update($request->only(['name', 'content']));
     }
 
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return DB::table('meringue_text_text')->delete($instanceId);
+    }
+
 }

@@ -139,4 +139,16 @@ class Image extends PluginBase implements InstanceInterface
             ->update($request->only(['url', 'alt']));
     }
 
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Image::find($instanceId)->delete();
+    }
+
 }

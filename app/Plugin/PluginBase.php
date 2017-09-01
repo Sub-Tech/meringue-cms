@@ -82,10 +82,25 @@ abstract class PluginBase implements PluginInterface
 
     /**
      * Runs the migrations found in the plugins directory
+     * @param string|null $path
      */
-    public function runMigrations()
+    public function runMigrations(string $path = null)
     {
-        Artisan::call('migrate', ['--path' => "plugins/{$this->vendor}/{$this->name}/database/migrations/"]);
+        Artisan::call('migrate', [
+            '--path' => $path ?? "plugins/{$this->vendor}/{$this->name}/database/migrations"
+        ]);
+    }
+
+
+    /**
+     * Runs the migrations found in the plugins directory
+     * @param string|null $path
+     */
+    public function rollbackMigrations(string $path)
+    {
+        Artisan::call('migrate:reset', [
+            '--path' => $path ?? "plugins/{$this->vendor}/{$this->name}/database/migrations"
+        ]);
     }
 
 
