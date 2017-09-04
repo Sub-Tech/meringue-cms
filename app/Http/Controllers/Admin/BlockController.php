@@ -6,6 +6,9 @@ use App\Block;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlock;
 use App\Http\Requests\UpdateBlock;
+use App\Http\Responses\AjaxResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class BlockController
@@ -18,13 +21,13 @@ class BlockController extends Controller
      * Create a new Block
      *
      * @param CreateBlock $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return RedirectResponse
      */
     public function store(CreateBlock $request)
     {
         Block::create($request->all());
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 
@@ -33,13 +36,13 @@ class BlockController extends Controller
      *
      * @param UpdateBlock $request
      * @param Block $block
-     * @return \Illuminate\Http\JsonResponse
+     * @return RedirectResponse
      */
     public function update(UpdateBlock $request, Block $block)
     {
         $block->update($request->all());
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 
@@ -47,15 +50,14 @@ class BlockController extends Controller
      * Delete a Block
      *
      * @param Block $block
-     * @return \Illuminate\Http\JsonResponse
+     * @return AjaxResponse
      */
     public function delete(Block $block)
     {
         $success = $block->delete();
+        $message = $success ? 'Block deleted' : 'Error';
 
-        return response()->json([
-            'success' => $success
-        ], $success ? 200 : 500);
+        return new AjaxResponse($message, $success);
     }
 
 }

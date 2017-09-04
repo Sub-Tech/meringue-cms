@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Page;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class PluginController
@@ -16,7 +18,7 @@ class HomepageController extends Controller
      * Render the Modal to edit an Instance of the Plugin
      *
      * @param Page $page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return RedirectResponse
      */
     public function update(Page $page)
     {
@@ -26,7 +28,7 @@ class HomepageController extends Controller
             'homepage' => 1
         ]);
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 

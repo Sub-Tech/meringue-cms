@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Page;
 use App\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class SectionController
@@ -25,7 +26,7 @@ class SectionController extends Controller
     {
         $page->sections()->create($request->all());
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 
@@ -39,7 +40,7 @@ class SectionController extends Controller
     {
         $section->delete();
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 }

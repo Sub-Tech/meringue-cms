@@ -3,6 +3,7 @@
 namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Class AjaxResponse
@@ -41,7 +42,7 @@ class AjaxResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return response()->json([
+        return Response::json([
             'message' => $this->message,
             'success' => $this->success
         ]);

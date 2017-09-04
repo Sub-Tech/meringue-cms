@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Plugin\PluginInitialiser;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class PluginController
@@ -20,7 +21,7 @@ class PluginController extends Controller
      */
     public function index(PluginInitialiser $pluginInitialiser)
     {
-        return view('admin.plugin.manage', [
+        return View::make('admin.plugin.manage', [
             'plugins' => $pluginInitialiser->plugins
         ]);
     }

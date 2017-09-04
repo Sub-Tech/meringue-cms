@@ -4,6 +4,7 @@ namespace App\Renderers\Admin;
 
 use App\Block;
 use App\Plugin\PluginInitialiser;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class ModalRenderer
@@ -23,7 +24,7 @@ class ModalRenderer
     {
         $plugin = PluginInitialiser::getPlugin($block->plugin->class_name);
 
-        return view('admin.plugin.modal')
+        return View::make('admin.plugin.modal')
             ->with('block', $block)
             ->with('plugin', $plugin)
             ->with('editSettings', $plugin->constructEditorModal())

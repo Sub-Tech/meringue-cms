@@ -56,9 +56,6 @@ class Plugin extends Model
 
     public $incrementing = false;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function blocks()
     {
         return $this->hasMany(Block::class, 'plugin_class', 'class_name');
