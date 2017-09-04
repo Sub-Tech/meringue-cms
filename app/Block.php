@@ -70,18 +70,4 @@ class Block extends Model
         return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
     }
 
-
-    /**
-     * Assign an Instance of a Plugin to a Block
-     *
-     * @param int $blockId
-     * @param int $instanceId
-     */
-    public static function assignInstanceToBlock(int $blockId, int $instanceId)
-    {
-        self::find($blockId)->fill([
-            'instance_id' => $instanceId,
-        ])->save();
-    }
-
 }

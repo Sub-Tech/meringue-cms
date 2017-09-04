@@ -6,6 +6,7 @@ use App\Block;
 use App\Plugin\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class PluginController
@@ -25,11 +26,10 @@ class PluginInstanceController extends Controller
     {
         $plugin = PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin));
 
-        $instanceId = $plugin->saveInstance($request);
+        Block::whereId($request->input('block_id'))
+            ->update(['instance_id' => $plugin->saveInstance($request)]);
 
-        Block::assignInstanceToBlock($request->input('block_id'), $instanceId);
-
-        return redirect()->back();
+        return Redirect::back();
     }
 
 
@@ -46,7 +46,7 @@ class PluginInstanceController extends Controller
 
         $plugin->updateInstance($instanceId, $request);
 
-        return redirect()->back();
+        return Redirect::back();
     }
 
 }
