@@ -42,9 +42,8 @@ class PluginInstanceController extends Controller
      */
     public function update(Request $request, int $instanceId)
     {
-        $plugin = PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin));
-
-        $plugin->updateInstance($instanceId, $request);
+        PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin))
+            ->updateInstance($instanceId, $request);
 
         return Redirect::back();
     }
