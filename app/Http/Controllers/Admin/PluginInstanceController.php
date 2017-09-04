@@ -24,10 +24,11 @@ class PluginInstanceController extends Controller
      */
     public function store(Request $request)
     {
-        $plugin = PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin));
+        $instanceId = PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin))
+            ->saveInstance($request);
 
         Block::whereId($request->input('block_id'))
-            ->update(['instance_id' => $plugin->saveInstance($request)]);
+            ->update(['instance_id' => $instanceId]);
 
         return Redirect::back();
     }
