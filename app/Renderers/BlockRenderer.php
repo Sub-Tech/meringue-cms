@@ -13,6 +13,7 @@ use App\Exceptions\RenderInactivePluginException;
  */
 class BlockRenderer
 {
+    use RendersPlugins;
 
     /**
      * @var PluginInitialiser
@@ -40,7 +41,7 @@ class BlockRenderer
     public function render(Block $block)
     {
         if ($this->isTryingToRenderAnInactivePlugin($block)) {
-            throw new RenderInactivePluginException;
+            throw new RenderInactivePluginException("Inactive Plugin trying to be rendered", 500);
         }
 
         $plugin = $this->pluginInitialiser->getPlugin($block->plugin_class);
@@ -52,20 +53,6 @@ class BlockRenderer
         return "<div class='block col-md-{$block->width}'>" .
             $plugin->render($block->instance_id) .
             "</div>";
-    }
-
-
-    /**
-     * Checks the plugins array for inactive plugins
-     *
-     * @param Block $block
-     * @return bool
-     */
-    private function isTryingToRenderAnInactivePlugin(Block $block)
-    {
-        $currentPlugin = get_plugin_short_name($block->plugin_class);
-
-        return !$this->pluginInitialiser->plugins->has($currentPlugin);
     }
 
 }

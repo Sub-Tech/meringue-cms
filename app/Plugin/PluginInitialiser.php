@@ -112,7 +112,7 @@ class PluginInitialiser
         $pluginModel = Plugin::findOrFail($classPath);
 
         if ($pluginModel->active) {
-            $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
+            $this->plugins[$classPath] = (object)array_merge([
                 'class' => $classPath,
                 'file' => file_path($vendor, $plugin),
                 'vendor' => $vendor
