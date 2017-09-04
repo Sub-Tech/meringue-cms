@@ -108,11 +108,16 @@ class PluginInitialiser
     {
         $classPath = class_path($vendor, $plugin);
 
-        $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
-            'class' => $classPath,
-            'file' => file_path($vendor, $plugin),
-            'vendor' => $vendor
-        ], Plugin::findOrFail($classPath)->toArray());
+        /** @var Plugin $pluginModel */
+        $pluginModel = Plugin::findOrFail($classPath);
+
+        if ($pluginModel->active) {
+            $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
+                'class' => $classPath,
+                'file' => file_path($vendor, $plugin),
+                'vendor' => $vendor
+            ], $pluginModel->toArray());
+        }
     }
 
 

@@ -3,7 +3,9 @@
 namespace App\Renderers;
 
 use App\Block;
+use App\Exceptions\RenderInactivePluginException;
 use App\Section;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class SectionRenderer
@@ -38,13 +40,17 @@ class SectionRenderer
     {
         $blocks = "<div class='container'><div class='row'>";
 
-        $section->blocks->each(function (Block $block) use (&$blocks) {
-            $blocks .= $this->blockRenderer->render($block);
-        });
+        try {
+            $section->blocks->each(function (Block $block) use (&$blocks) {
+                $blocks .= $this->blockRenderer->render($block);
+            });
+        } catch (RenderInactivePluginException $exception) {
+            return abort(500, "Inactive Plugin on Page");
+        }
 
         $blocks .= "</div></div>";
 
-        return view('section', [
+        return View::make('section', [
             'blocks' => $blocks
         ]);
     }

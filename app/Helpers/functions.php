@@ -67,3 +67,18 @@ if (!function_exists('convert_label_to_name')) {
         return preg_replace("/[^a-zA-Z_]+/", "", $snaked);
     }
 }
+
+
+/**
+ * Converts a form label to name
+ * "What is your age?" becomes "what_is_your_age"
+ * For rendering the form
+ */
+if (!function_exists('get_plugin_short_name')) {
+    function get_plugin_short_name($className)
+    {
+        $pieces = explode('\\', $className);
+
+        return "{$pieces[1]}/{$pieces[2]}";
+    }
+}
