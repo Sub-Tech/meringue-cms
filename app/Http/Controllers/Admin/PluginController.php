@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Plugin\PluginInitialiser;
+use App\Plugin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 
@@ -16,13 +16,12 @@ class PluginController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @param PluginInitialiser $pluginInitialiser
      * @return \Illuminate\Http\Response
      */
-    public function index(PluginInitialiser $pluginInitialiser)
+    public function index()
     {
         return View::make('admin.plugin.manage', [
-            'plugins' => $pluginInitialiser->plugins
+            'plugins' => Plugin::all()
         ]);
     }
 

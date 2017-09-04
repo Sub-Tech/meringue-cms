@@ -57,11 +57,11 @@ class Image extends PluginBase implements InstanceInterface
      * Runs any method that need to be ran upon installation of the Plugin
      * Return false if not necessary
      *
-     * @return bool
+     * @return bool|void
      */
     public function install()
     {
-        return false;
+        $this->runMigrations();
     }
 
 
