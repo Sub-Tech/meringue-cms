@@ -53,9 +53,12 @@
                                                 <li><a href="{{ route('admin.page.edit', ['page' => $page->id]) }}">Edit
                                                         Page</a></li>
                                                 <li><a href="{{ url($page->slug) }}">View Page</a></li>
-                                                <li><a href="{{ route('homepage.update', ['page' => $page->id]) }}">Assign as Homepage</a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="#" style="color:red;">Delete</a></li>
+                                                <li><a href="{{ route('homepage.update', ['page' => $page->id]) }}">Assign
+                                                        as Homepage</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ route('admin.page.delete', ['page' => $page->id]) }}"
+                                                       style="color:red;">Delete</a></li>
                                             </ul>
                                         </li>
                                     </ul>
