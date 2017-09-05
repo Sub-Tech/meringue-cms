@@ -37,8 +37,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('instances', 'Admin\PluginInstanceController@store')->name('instance.store');
     Route::patch('instances/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');
 
-    Route::post('blocks', 'Admin\BlockController@store')->name('block.store');
-    Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+    Route::post('section/{section}/blocks', 'Admin\BlockController@store')->name('block.store');
+    Route::post('section/{section}/blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+
+    // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
     Route::get('blocks/{block}/modal/{instance?}', 'Admin\PluginModalController@show')->name('modal.show');

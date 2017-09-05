@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\Section;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlock;
 use App\Http\Requests\UpdateBlock;
@@ -21,11 +22,15 @@ class BlockController extends Controller
      * Create a new Block
      *
      * @param CreateBlock $request
+     * @param Section $section
      * @return RedirectResponse
      */
-    public function store(CreateBlock $request)
+    public function store(CreateBlock $request, Section $section)
     {
-        Block::create($request->all());
+        Block::create(array_merge(
+            $request->all(), [
+            'order' => $section->getHighestPosition() + 1
+        ]));
 
         return Redirect::back();
     }
