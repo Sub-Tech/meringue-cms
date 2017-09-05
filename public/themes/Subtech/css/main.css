@@ -6,21 +6,33 @@ body {
     margin:0;
     font-family: 'Source Sans Pro', sans-serif;
 }
-
-
-
+.logo {
+    width:230px;
+    height:25px;
+    background-image: url('../images/logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.wide-container {
+    width:1400px;
+}
 .main-menu {
     position: fixed;
     top:0;
     width:100%;
     color:white;
+    padding:15px 0;
     z-index: 99999;
+    background: darkgray;
+
 }
 .main-menu .menu {
     text-align: right;
 }
 .main-menu ul {
     list-style: none;
+    float:right;
 }
 .main-menu ul li {
     float:left;
@@ -29,6 +41,6 @@ body {
     color:white;
     font-weight: 200;
     font-size:18px;
-    padding:10px 10px;
+    padding:0px 10px;
     display: block;
 }
