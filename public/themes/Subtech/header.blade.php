@@ -17,9 +17,12 @@
 
 <body>
 <div class="main-menu">
-    <div class="container">
+    <div class="container wide-container">
         <div class="row">
-            <div class="col menu">
+            <div class="col-md-2">
+                <div class="logo"></div>
+            </div>
+            <div class="col-md-10 menu">
                 <ul>
                     <li><a href="">Home</a></li>
                     <li><a href="">About Us</a></li>
@@ -33,20 +36,12 @@
     </div>
 </div>
 <section class="hero is-fullheight is-primary">
-    <video autoplay>
-        <source src="{{ theme_asset('videos/header.mp4') }}" type="video/mp4">
+    <video autoplay loop>
+        <source src="{{ theme_asset('videos/header2.mp4') }}" type="video/mp4">
     </video>
     <div class="hero-body">
         <div class="container has-text-centered">
-            <h3 class="title is-2">
-            <span class="icon is-medium">
-              <i class="fa fa-arrows-v"></i>
-            </span>
-                <a href="http://bulma.io/documentation/layout/hero/">
-                    Easy <strong>vertical centering</strong> in <strong>fullscreen</strong>
-                </a>
-            </h3>
-            <h4 class="subtitle is-4">Include any content you want, it's always centered</h4>
+            Hello
         </div>
     </div>
 </section>
