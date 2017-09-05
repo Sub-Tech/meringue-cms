@@ -36,23 +36,18 @@ class PluginActivationController extends Controller
     }
 
 
-
+    /**
+     * Sets a plugin to Inactive
+     *
+     * @param Plugin $plugin
+     * @return AjaxResponse
+     */
     public function destroy(Plugin $plugin)
     {
-        // run rollbacks
-        // set active = 0;
-
-        try {
-            $this->uninstall($plugin);
-        } catch (\Exception $e) {
-            return new AjaxResponse($message = $e->getMessage(), $success = false);
-        }
-
-        $plugin->active = 0;
-        $plugin->save();
-
-        return new AjaxResponse($message = 'Activation successful', $success = true);
-
+        return new AjaxResponse(
+            $message = 'Deactivation successful',
+            $success = $plugin->update(['active' => 0])
+        );
     }
 
 }

@@ -36,18 +36,17 @@ class BlockRenderer
      *
      * @param Block $block
      * @return string (of HTML)
-     * @throws RenderInactivePluginException
      */
     public function render(Block $block)
     {
         if ($this->isTryingToRenderAnInactivePlugin($block)) {
-            throw new RenderInactivePluginException("Inactive Plugin trying to be rendered", 500);
+            return "";
         }
 
         $plugin = $this->pluginInitialiser->getPlugin($block->plugin_class);
 
         if ($plugin->implements(InstanceInterface::class) && is_null($block->instance_id)) {
-            return "<span style='color:red'>Content not set for block {$block->id}!</span>";
+            return "";
         }
 
         return "<div class='block col-md-{$block->width}'>" .

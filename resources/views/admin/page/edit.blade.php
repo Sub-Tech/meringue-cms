@@ -156,6 +156,9 @@
                                         @if (isset($block->instance_id))
                                             : {{ $plugin->getInstance($block->instance_id)->name }}
                                         @endif
+                                        @if(!$block->plugin->active)
+                                            <span style="color: red;"> INACTIVE</span>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -168,7 +171,8 @@
                                     <div class="panel panel-flat">
                                         <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
                                         <div class="panel-body">
-                                            <form method="POST" action="{{ route('block.store', ['section' => $section->id]) }}">
+                                            <form method="POST"
+                                                  action="{{ route('block.store', ['section' => $section->id]) }}">
                                                 <input type="hidden" name="plugin_class"
                                                        value="{{ class_path($plugin->getVendor(), $plugin->getName()) }}">
 
