@@ -11,10 +11,6 @@ class PluginSeeder extends Seeder
      */
     public function run()
     {
-        (new \App\Plugin([
-            'class_name' => 'Plugins\Meringue\Text\Text',
-            'file_name' => 'Plugins/Meringue/Text/Text.php',
-            'name' => 'Text'
-        ]))->save();
+        //
     }
 }

@@ -23,10 +23,6 @@ class PluginActivationController extends Controller
      */
     public function store(Plugin $plugin)
     {
-        if ($plugin->active) {
-            return new AjaxResponse($message = 'Plugin already activated', $success = false);
-        }
-
         try {
             $this->install($plugin);
         } catch (\Exception $e) {
@@ -40,10 +36,23 @@ class PluginActivationController extends Controller
     }
 
 
-    public function destroy()
+
+    public function destroy(Plugin $plugin)
     {
         // run rollbacks
         // set active = 0;
+
+        try {
+            $this->uninstall($plugin);
+        } catch (\Exception $e) {
+            return new AjaxResponse($message = $e->getMessage(), $success = false);
+        }
+
+        $plugin->active = 0;
+        $plugin->save();
+
+        return new AjaxResponse($message = 'Activation successful', $success = true);
+
     }
 
 }

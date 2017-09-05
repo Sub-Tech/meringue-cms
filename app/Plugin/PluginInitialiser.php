@@ -135,6 +135,7 @@ class PluginInitialiser
         Plugin::create([
             'class_name' => $classPath,
             'file_name' => $filePath,
+            'vendor' => $vendor,
             'name' => $plugin
         ])->update(
             $this->getPlugin($classPath)->details()
