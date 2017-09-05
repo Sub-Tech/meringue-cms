@@ -169,8 +169,6 @@
                                         <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
                                         <div class="panel-body">
                                             <form method="POST" action="{{ route('block.store', ['section' => $section->id]) }}">
-                                                <input type="hidden" name="section_id" value="{{ $section->id }}">
-
                                                 <input type="hidden" name="plugin_class"
                                                        value="{{ class_path($plugin->getVendor(), $plugin->getName()) }}">
 

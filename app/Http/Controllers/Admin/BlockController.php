@@ -29,7 +29,8 @@ class BlockController extends Controller
     {
         Block::create(array_merge(
             $request->all(), [
-            'order' => $section->getHighestPosition() + 1
+            'order' => $section->getHighestPosition() + 1,
+            'section_id' => $section->id
         ]));
 
         return Redirect::back();
