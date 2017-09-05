@@ -98,9 +98,9 @@
             margin-top: 26px;
             position: relative;
         }
-
     </style>
 
+    @include('admin.page.details')
 
     <div class="row">
         <div class="col-lg-12">
@@ -129,6 +129,7 @@
                             <h3>Section</h3>
                             @foreach ($section->blocks as $block)
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
+                                     data-instance_id="{{ $block->instance_id ?? "" }}"
                                      data-id="<?=$block->id;?>">
                                     <div class="blockInner">
                                         <div class="menu">
@@ -150,7 +151,7 @@
                                                 <li class="blockWidth"><?= $block->width; ?></li>
                                             </ul>
                                         </div>
-                                        @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($block->plugin_class) @endphp
+                                        @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
                                         <strong>{{ $plugin->getName() }}</strong>
                                         @if (isset($block->instance_id))
                                             : {{ $plugin->getInstance($block->instance_id)->name }}
@@ -162,7 +163,7 @@
                             {{-- PLUGIN DRAWER --}}
                             <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
                             @foreach($plugins as $plugin)
-                                @php $plugin = \App\Helpers\PluginInitialiser::getPlugin($plugin->class) @endphp
+                                @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
                                 <div class="col-md-2">
                                     <div class="panel panel-flat">
                                         <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
@@ -249,26 +250,51 @@
             changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
         });
 
+
+        /**
+         * Delete a block
+         */
         $('.deleteBlock').on('click', function () {
             var id = $(this).closest('.block').data('id');
 
             return $.ajax({
-                url: "/admin/block/" + id,
+                url: "/admin/blocks/" + id,
                 method: 'delete'
             }).success(function () {
                 $('.block[data-id=' + id + ']').html("");
             });
         });
 
+
+        /**
+         * Render the appropriate Modal popup when an Edit Block button is clicked
+         * Done by making an AJAX request to the ModalRenderer
+         */
         $('.editBlock').on('click', function () {
             var id = $(this).closest('.block').data('id');
+            var instance_id = $(this).closest('.block').data('instance_id');
+
+            var url = "/admin/blocks/" + id + "/modal";
+
+            if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
+                url += "/" + instance_id
+            }
 
             return $.ajax({
-                url: "/admin/block/" + id + "/modal",
+                url: url,
                 method: 'get'
             }).success(function (resp) {
                 $('.modal-body').html(resp);
             });
         });
+
+
+        /**
+         * Reset Modal Body upon close
+         */
+        $('#myModal').on('hidden.bs.modal', function () {
+            $('.modal-body').html("Loading...");
+        });
+
     </script>
 @endsection

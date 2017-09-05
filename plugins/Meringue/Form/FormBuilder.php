@@ -13,6 +13,8 @@ use Plugins\Meringue\Form\Requests\CreateInput;
 class FormBuilder
 {
 
+    use ValidatesInputs;
+
     /**
      * Display the form of which to create a new form.
      * Formception.
@@ -35,9 +37,9 @@ class FormBuilder
     {
         $form = Models\Form::create($request->all());
 
-        return redirect(route('Form.edit', [
+        return redirect()->route('Form.edit', [
             'form' => $form->fresh()->id
-        ]));
+        ]);
     }
 
 
@@ -69,7 +71,7 @@ class FormBuilder
             'name' => label_to_name($request->label),
             'position' => Models\Input::whereFormId($form->id)->count() + 1,
             'options' => json_encode(explode($delimiter = '|', $request->options)),
-            'validation' => $this->constructValidationRules($request)
+            'validation' => $this->constructRulesFrom($request)
         ]));
 
         $input->save();
@@ -79,38 +81,8 @@ class FormBuilder
 
 
     /**
-     * Returns the Laravel formatted validation string
-     *
-     * @param Request $request
-     * @return string
-     */
-    private function constructValidationRules(Request $request)
-    {
-        $rules = [];
-
-        $requireValue = [
-            'same'
-        ];
-
-        foreach ($request->all() as $input => $value) {
-            if (str_contains($input, 'validation_')) {
-                $trimmed_input = str_replace('validation_', '', $input);
-
-                if (in_array($trimmed_input, $requireValue)) {
-                    $rules[] = "{$trimmed_input}:{$value}";
-                    continue;
-                }
-
-                $rules[] = $trimmed_input;
-            }
-        }
-
-        return implode($glue = '|', $rules);
-    }
-
-
-    /**
      * Delete an Input
+     * The $form parameter is necessary but I don't remember why
      *
      * @param Models\Form $form
      * @param Models\Input $input

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeringueButtonButtonsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateMeringueButtonButtonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meringue_button_buttons', function (Blueprint $table) {
+        Schema::create('meringue_photogallery_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('text');
-            $table->string('link');
+            $table->string('url');
+            $table->unsignedInteger('gallery_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +30,6 @@ class CreateMeringueButtonButtonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meringue_button_buttons');
+        Schema::dropIfExists('images');
     }
 }

@@ -42,7 +42,14 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'user_id', 'meta_description', 'meta_title', 'redirect', 'active'
+        'name',
+        'slug',
+        'user_id',
+        'meta_description',
+        'meta_title',
+        'redirect',
+        'active',
+        'homepage'
     ];
 
 

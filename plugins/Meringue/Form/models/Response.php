@@ -31,4 +31,24 @@ class Response extends Model
         return $this->belongsTo(Form::class);
     }
 
+    public function getAnswersAttribute($value)
+    {
+        return collect(json_decode($value));
+    }
+
+    public function getEmailAttribute($value)
+    {
+        if (!is_null($value)) {
+            return $value;
+        }
+
+        $answers = json_decode($this->answers);
+
+        if (isset($answers->email)) {
+            return $answers->email;
+        }
+
+        return null;
+    }
+
 }

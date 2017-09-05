@@ -3,7 +3,7 @@
     @foreach($staff as $category => $members)
         <h2>{{ ucfirst($category) }}</h2>
         @foreach($members as $member)
-            <div style="width: 25%">
+            <div style="width: 25%; display: inline-block">
                 <strong>{{ $member->user }}</strong><br/>
                 <i>{{ $member->title }}</i><br/>
             </div>

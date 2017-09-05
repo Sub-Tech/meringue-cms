@@ -1,8 +1,9 @@
-<?php namespace Plugins\Meringue\Text;
+<?php
 
-use App\InstanceInterface;
-use App\PluginBase;
-use App\PluginInterface;
+namespace Plugins\Meringue\Text;
+
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -11,20 +12,8 @@ use Illuminate\Support\Facades\DB;
  * Class Text
  * @package Plugins\Meringue\Text
  */
-class Text extends PluginBase implements PluginInterface, InstanceInterface
+class Text extends PluginBase implements InstanceInterface
 {
-
-    /**
-     * Text constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
 
     /**
      * Set the Vendor of the Plugin
@@ -65,10 +54,10 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null)
+    public function render(int $instanceId = null)
     {
         $content = DB::table('meringue_text_text')->find($instanceId)->content;
 
@@ -93,11 +82,11 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * #TODO get ckeditor implemented
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'inputs' => [ // Inputs for the page editor
@@ -109,25 +98,6 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
                 ],
             ]
         ];
-    }
-
-
-    /* Disabled for now
-    public function cron(Schedule $schedule) {
-        $schedule->call(function () {
-            echo "efe";
-        })->everyMinute();
-    } */
-
-
-    /**
-     * Renders the admin panel
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
     }
 
 
@@ -149,8 +119,38 @@ class Text extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
-        return DB::table('meringue_text_text')->insertGetId($request->only(['name', 'content']));
+        return DB::table('meringue_text_text')
+            ->insertGetId($request->only(['name', 'content']));
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        return DB::table('meringue_text_text')
+            ->where('id', $instanceId)
+            ->update($request->only(['name', 'content']));
+    }
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return DB::table('meringue_text_text')->delete($instanceId);
+    }
+
 }

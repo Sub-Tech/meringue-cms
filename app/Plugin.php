@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\PluginInitialiser;
+use App\Plugin\PluginInitialiser;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -49,11 +49,13 @@ class Plugin extends Model
 
     protected $primaryKey = 'class_name';
 
+    public function getRouteKeyName()
+    {
+        return 'class_name';
+    }
+
     public $incrementing = false;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function blocks()
     {
         return $this->hasMany(Block::class, 'plugin_class', 'class_name');
@@ -66,6 +68,12 @@ class Plugin extends Model
     public static function routes()
     {
         app(PluginInitialiser::class)->initialiseRoutes();
+    }
+
+
+    public static function activePlugins()
+    {
+        return self::whereActive(1)->get();
     }
 
 }

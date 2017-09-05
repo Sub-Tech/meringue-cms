@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Plugin;
 
 use App\Plugin;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class PluginInitialiser
@@ -23,6 +25,7 @@ class PluginInitialiser
     {
         $this->plugins = $this->loadAll();
     }
+
 
     /**
      * Auto load plugins from the plugins directory.
@@ -84,21 +87,37 @@ class PluginInitialiser
     private function initialisePlugin(string $vendor, string $plugin)
     {
         $filePath = file_path($vendor, $plugin);
-        $classPath = class_path($vendor, $plugin);
 
         include_once(base_path($filePath));
 
-        $this->loadAutoload($vendor, $plugin);
-
-        if (!Plugin::whereClassName($classPath)->exists()) {
+        try {
+            $this->addPluginToArray($vendor, $plugin);
+        } catch (ModelNotFoundException $exception) {
             $this->registerPlugin($vendor, $plugin);
         }
+    }
 
-        $this->plugins[$vendor . '/' . $plugin] = (object)array_merge([
-            'class' => class_path($vendor, $plugin),
-            'file' => $filePath,
-            'vendor' => $vendor
-        ], Plugin::find($classPath)->toArray());
+
+    /**
+     * Add the current plugin to the array of plugins
+     *
+     * @param string $vendor
+     * @param string $plugin
+     */
+    private function addPluginToArray(string $vendor, string $plugin)
+    {
+        $classPath = class_path($vendor, $plugin);
+
+        /** @var Plugin $pluginModel */
+        $pluginModel = Plugin::findOrFail($classPath);
+
+        if ($pluginModel->active) {
+            $this->plugins[$classPath] = (object)array_merge([
+                'class' => $classPath,
+                'file' => file_path($vendor, $plugin),
+                'vendor' => $vendor
+            ], $pluginModel->toArray());
+        }
     }
 
 
@@ -110,32 +129,21 @@ class PluginInitialiser
      */
     private function registerPlugin(string $vendor, string $plugin)
     {
+        $filePath = file_path($vendor, $plugin);
         $classPath = class_path($vendor, $plugin);
 
-        $newPlugin = Plugin::create([
+        Plugin::create([
             'class_name' => $classPath,
-            'file_name' => file_path($vendor, $plugin),
+            'file_name' => $filePath,
             'name' => $plugin
-        ]);
+        ])->update(
+            $this->getPlugin($classPath)->details()
+        );
 
-        $newPlugin->update($this->getPlugin($classPath)->details());
-    }
-
-
-    /**
-     * Load the autoload file, if it finds one
-     * TODO update with composer autoloading
-     *
-     * @param string $vendor
-     * @param string $plugin
-     */
-    private function loadAutoload(string $vendor, string $plugin)
-    {
-        $autoloadFile = base_path("plugins/{$vendor}/{$plugin}/autoload.php");
-
-        if (file_exists($autoloadFile)) {
-            include_once($autoloadFile);
-        }
+        // This method failing is what calls this function in the first place
+        // Now that the plugin has been registered, we can continue adding
+        // this plugin to the global array that is called elsewhere...!
+        $this->addPluginToArray($vendor, $plugin);
     }
 
 
@@ -173,26 +181,11 @@ class PluginInitialiser
      * Plugins\Vendor\Plugin\Plugin
      *
      * @param string $class
-     * @return object
+     * @return PluginBase|PluginInterface|InstanceInterface|CronInterface
      */
     public static function getPlugin(string $class)
     {
-        return new $class();
-    }
-
-
-    public function getAllPlugins()
-    {
-        $x = [];
-
-        foreach ($this->getVendors() as $vendor) {
-            foreach ($this->getVendorsPlugins($vendor) as $plugin) {
-                $x[] = $plugin;
-            }
-        }
-
-        dd($x);
-        return $x;
+        return App::make($class);
     }
 
 }

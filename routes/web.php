@@ -1,6 +1,5 @@
 <?php
 
-use App\Block;
 use App\Plugin;
 
 /*
@@ -18,33 +17,32 @@ Plugin::routes();
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', 'Admin\PageController@index');
-    Route::get('/dashboard', 'Admin\PageController@index');
+    Route::get('/', 'Admin\PageController@index')->name('admin.index');
 
-    Route::get('page/manage', 'Admin\PageController@manage');
-    Route::get('page/edit/{page}', 'Admin\PageController@edit')->name('admin.page.edit');
+    Route::get('pages', 'Admin\PageController@index')->name('admin.page.index');
+    Route::post('pages', 'Admin\PageController@store')->name('admin.page.store');
+    Route::get('pages/add', 'Admin\PageController@create')->name('admin.page.create');
+    Route::get('pages/{page}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
+    Route::patch('pages/{page}', 'Admin\PageController@update')->name('admin.page.update');
+    Route::get('pages/{page}/delete', 'Admin\PageController@delete')->name('admin.page.delete');
 
-    Route::post('page/{page}/sections', 'Admin\SectionController@store')->name('section.store');
+    Route::get('homepage/{page}', 'Admin\HomepageController@update')->name('homepage.update');
 
-    Route::get('plugin/manage', 'Admin\PluginController@manage');
-    Route::post('plugin/activate', 'Admin\PluginController@activate');
-    Route::post('plugin/instance', 'Admin\PluginController@createInstance')->name('instance.store');
+    Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
-//    Route::get('block/refresh', 'Admin\BlockController@refreshRegistry')->name('block.refresh');
-    Route::post('block/new', 'Admin\BlockController@store')->name('block.store');
-    Route::post('block/{block}', 'Admin\BlockController@update')->name('block.update');
-    Route::delete('block/{block}', 'Admin\BlockController@delete')->name('block.delete');
+    Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
+    Route::post('plugins/{plugin}/activate', 'Admin\PluginActivationController@store')->name('plugin.activate');
 
-    Route::get('block/{block}/modal', 'Admin\PluginController@renderModal');
+    Route::post('instances', 'Admin\PluginInstanceController@store')->name('instance.store');
+    Route::patch('instances/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');
+
+    Route::post('blocks', 'Admin\BlockController@store')->name('block.store');
+    Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+    Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
+
+    Route::get('blocks/{block}/modal/{instance?}', 'Admin\PluginModalController@show')->name('modal.show');
 });
-
 
 // Route for all other pages to go via the CMS
-Route::get('{slug}', 'PageController@index');
+Route::get('{slug?}', 'PageController@index');

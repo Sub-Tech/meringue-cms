@@ -2,28 +2,21 @@
 
 namespace Plugins\SubTech\Staff;
 
-use App\PluginBase;
-use App\PluginInterface;
-use Illuminate\Support\Collection;
+use App\Plugin\CronInterface;
+use App\Plugin\PluginBase;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Http\RedirectResponse;
+use Plugins\SubTech\Staff\Libraries\Stamp;
+use stdClass;
 
 /**
  * Class Staff
  * @package Plugins\SubTech\Staff
  */
-class Staff extends PluginBase implements PluginInterface
+class Staff extends PluginBase implements CronInterface
 {
 
-    /**
-     * Staff constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
+    use WorksWithStamp;
 
     /**
      * Set the Vendor of the Plugin
@@ -52,10 +45,10 @@ class Staff extends PluginBase implements PluginInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null)
+    public function render(int $instanceId = null)
     {
         $staff = StampUser::all()->groupBy('category');
 
@@ -70,7 +63,7 @@ class Staff extends PluginBase implements PluginInterface
      *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
      */
-    public function admin()
+    public function manageStaff()
     {
         return view('SubTech/Staff/views/admin', [
             'staff' => StampUser::all()
@@ -106,11 +99,11 @@ class Staff extends PluginBase implements PluginInterface
 
 
     /**
-     * Register the block
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'name' => 'Staff',
@@ -121,14 +114,16 @@ class Staff extends PluginBase implements PluginInterface
 
     /**
      * Gets all users from STAMP and saves / updates them as appropriate
+     *
+     * @return RedirectResponse
      */
     public function refreshStaff()
     {
-        $stamp = new Libraries\Stamp();
+        $stamp = new Stamp();
 
         $users = $stamp->getUsers();
 
-        $users->each(function (\stdClass $user) {
+        $users->each(function (stdClass $user) {
             StampUser::findOrNew($user->userid)
                 ->fill((array)$user)
                 ->save();
@@ -137,57 +132,6 @@ class Staff extends PluginBase implements PluginInterface
         $this->checkForInactiveEmployees($users);
 
         return redirect('admin/plugin/manage/SubTech/Staff');
-    }
-
-
-    /**
-     * Checks for inactive employees and deletes any if found
-     *
-     * @param Collection $users
-     */
-    private function checkForInactiveEmployees(Collection $users)
-    {
-        $stampUsers = StampUser::all();
-
-        if ($this->thereAreInactiveEmployeesStillInTheDb($users, $stampUsers)) {
-            $this->deleteInactiveEmployees($users, $stampUsers);
-        }
-    }
-
-
-    /**
-     * Will delete any Users in the db that weren't in the STAMP API call
-     *
-     * @param Collection $users
-     * @param Collection $savedStampUsers
-     * @return bool
-     */
-    private function thereAreInactiveEmployeesStillInTheDb(Collection $users, Collection $savedStampUsers): bool
-    {
-        return $users->count() != $savedStampUsers->count();
-    }
-
-
-    /**
-     * Gathers Collections of saved employees and current employees
-     * and 'destroys' any that aren't in both. Brutal.
-     *
-     * @param Collection $currentEmployees
-     * @param Collection $savedStampUsers
-     */
-    private function deleteInactiveEmployees(Collection $currentEmployees, Collection $savedStampUsers)
-    {
-        $idsFromStamp = $currentEmployees->map(function ($user) {
-            return $user->userid;
-        });
-
-        $idsInDb = $savedStampUsers->map(function ($savedUser) {
-            return $savedUser->userid;
-        });
-
-        $idsInDb->diff($idsFromStamp)->each(function ($person) {
-            StampUser::destroy($person);
-        });
     }
 
 
@@ -205,6 +149,19 @@ class Staff extends PluginBase implements PluginInterface
                 ['href' => "/admin/plugin/manage/{$this->vendor}/{$this->name}", 'text' => 'Manage Staff']
             ]
         ];
+    }
+
+
+    /**
+     * A list of all crons to be run. Follows the same format as Laravel Scheduled Tasks.
+     *
+     * @param Schedule $schedule
+     */
+    public function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            $this->refreshStaff();
+        })->daily();
     }
 
 }

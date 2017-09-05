@@ -2,27 +2,18 @@
 
 namespace Plugins\Meringue\Image;
 
-use App\InstanceInterface;
-use App\PluginBase;
-use App\PluginInterface;
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class Image extends PluginBase implements PluginInterface, InstanceInterface
+/**
+ * Class Image
+ * @package Plugins\Meringue\Image
+ */
+class Image extends PluginBase implements InstanceInterface
 {
-
-    /**
-     * Image constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
 
     /**
      * Set any details necessary to the running of the Plugin
@@ -66,11 +57,11 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
      * Runs any method that need to be ran upon installation of the Plugin
      * Return false if not necessary
      *
-     * @return bool
+     * @return bool|void
      */
     public function install()
     {
-        return false;
+        $this->runMigrations();
     }
 
 
@@ -79,10 +70,10 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null)
+    public function render(int $instanceId = null)
     {
         return view('Meringue/Image/views/image')
             ->with('image', Models\Image::find($instanceId));
@@ -90,20 +81,11 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * Renders the admin panel
+     * Construct the Modal that appears in the Page Editor
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
-    }
-
-
-    /**
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'name' => 'Image',
@@ -131,14 +113,42 @@ class Image extends PluginBase implements PluginInterface, InstanceInterface
         return Models\Image::find($instanceId);
     }
 
+
     /**
      * Save an instance of the plugin to the db
      *
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Image::create($request->only(['url', 'alt']))->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        return Models\Image::find($instanceId)
+            ->update($request->only(['url', 'alt']));
+    }
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Image::find($instanceId)->delete();
+    }
+
 }

@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section" style="text-align: center">
 
     {!! $blocks !!}
 

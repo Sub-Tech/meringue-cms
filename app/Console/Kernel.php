@@ -2,8 +2,9 @@
 
 namespace App\Console;
 
+use App\Plugin\CronInterface;
+use App\Plugin\PluginInitialiser;
 use App\Plugin;
-use App\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+
     ];
 
     /**
@@ -25,8 +27,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//        $this->pluginCrons($schedule);
+        foreach (Plugin::activePlugins() as $activePlugin) {
+            $plugin = PluginInitialiser::getPlugin($activePlugin->class_name);
+
+            if ($plugin->implements(CronInterface::class)) {
+                $plugin->schedule($schedule);
+            }
+        }
     }
+
 
     /**
      * Register the Closure based commands for the application.
@@ -37,16 +46,5 @@ class Kernel extends ConsoleKernel
     {
         require base_path('routes/console.php');
     }
-
-
-    /* Disabled for now
-    public function pluginCrons(Schedule $schedule)
-    {
-        $plugins = Plugin::whereActive(1)->get();
-        foreach ($plugins as $plugin) {
-//            (new PluginBase())->initPlugin($plugin->class_name)->cron($schedule);
-
-        }
-    } */
 
 }

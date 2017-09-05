@@ -2,27 +2,18 @@
 
 namespace Plugins\Meringue\Button;
 
-use App\InstanceInterface;
-use App\PluginBase;
-use App\PluginInterface;
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class Button extends PluginBase implements PluginInterface, InstanceInterface
+/**
+ * Class Button
+ * @package Plugins\Meringue\Button
+ */
+class Button extends PluginBase implements InstanceInterface
 {
-
-    /**
-     * Button constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
 
     /**
      * Set any details necessary to the running of the Plugin
@@ -66,11 +57,11 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      * Runs any method that need to be ran upon installation of the Plugin
      * Return false if not necessary
      *
-     * @return bool
+     * @return void|bool
      */
     public function install()
     {
-        return false;
+        $this->runMigrations();
     }
 
 
@@ -79,10 +70,10 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null)
+    public function render(int $instanceId = null)
     {
         return view('Meringue/Button/views/button')
             ->with('button', Models\Button::find($instanceId));
@@ -90,20 +81,11 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * Renders the admin panel
+     * Construct the Modal that appears in the Page Editor
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
-    }
-
-
-    /**
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'name' => 'Button',
@@ -137,8 +119,36 @@ class Button extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Button::create($request->only(['text', 'link']))->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        return Models\Button::find($instanceId)
+            ->update($request->all());
+    }
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Button::findOrFail($instanceId)->delete();
+    }
+
 }

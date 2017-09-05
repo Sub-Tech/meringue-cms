@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Plugin;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -32,6 +32,26 @@ interface InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request);
+    public function saveInstance(Request $request): int;
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool;
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool;
 
 }

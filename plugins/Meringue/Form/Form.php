@@ -2,33 +2,19 @@
 
 namespace Plugins\Meringue\Form;
 
-use App\InstanceInterface;
-use App\PluginBase;
-use App\PluginInterface;
+use App\Plugin\InstanceInterface;
+use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Validator;
 
 /**
  * Class Form
  * @package Plugins\Meringue\Form
  */
-class Form extends PluginBase implements PluginInterface, InstanceInterface
+class Form extends PluginBase implements InstanceInterface
 {
-
-    /**
-     * Form constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->setVendor();
-        $this->setName();
-    }
-
 
     /**
      * Set the plugin details
@@ -69,67 +55,18 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * Handle form submission
-     * Tries to find the model, validates the request and saves the given data
-     *
-     * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function handleResponse(Request $request)
-    {
-        try {
-            /** @var \Plugins\Meringue\Form\Models\Form $form */
-            $form = Models\Form::findOrFail($request->form_id);
-        } catch (ModelNotFoundException $exception) {
-            return response()->json([
-                'message' => 'Request Failed'
-            ], 500);
-        }
-
-        Validator::validate($request->all(), $this->validationArray($form));
-
-        $success = (new Models\Response())->fill(array_merge(
-            $request->all(), [
-            'answers' => json_encode($request->except(['vendor', 'plugin']))
-        ]))->save();
-
-        return response()->json([
-            'success' => $success
-        ], $success ? 200 : 500);
-    }
-
-
-    /**
-     * Constructs an array of validation rules based on the Form's Inputs validation
-     *
-     * @param Models\Form $form
-     * @return array
-     */
-    private function validationArray(Models\Form $form)
-    {
-        $rules = [];
-
-        $form->inputs->each(function (Models\Input $input) use (&$rules) {
-            $rules[$input->name] = $input->validation;
-        });
-
-        return $rules;
-    }
-
-
-    /**
      * Route begins from the plugins/ folder
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
      *
-     * @param null $instanceId
+     * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function render($instanceId = null)
+    public function render(int $instanceId = null)
     {
         try {
             return view('Meringue/Form/views/form')
-                ->with('form', Models\Form::findOrFail($instanceId));
+                ->with('form', $this->getInstance($instanceId));
         } catch (ModelNotFoundException $exception) {
             return false;
         }
@@ -145,17 +82,6 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
     public function install()
     {
         $this->runMigrations();
-    }
-
-
-    /**
-     * Renders the admin panel
-     *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|bool
-     */
-    public function admin()
-    {
-        return false;
     }
 
 
@@ -189,11 +115,11 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
 
 
     /**
-     * #TODO if this array has 'instances' show a dropdown of... well the instances
+     * Construct the Modal that appears in the Page Editor
      *
      * @return array
      */
-    public function registerBlock()
+    public function constructEditorModal(): array
     {
         return [
             'instances' => Models\Form::all()
@@ -219,8 +145,36 @@ class Form extends PluginBase implements PluginInterface, InstanceInterface
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request)
+    public function saveInstance(Request $request): int
     {
         return Models\Form::create($request->all())->id;
     }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        return Models\Form::find($instanceId)
+            ->update($request->all());
+    }
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        return Models\Form::findOrFail($instanceId)->delete();
+    }
+
 }

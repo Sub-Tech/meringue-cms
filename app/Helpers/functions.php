@@ -8,7 +8,7 @@
 if (!function_exists('theme_asset')) {
     function theme_asset($asset)
     {
-        return URL::to('/themes/' . env('THEME') . '/' . $asset);
+        return URL::to('/themes/' . config('theme.default') . '/' . $asset);
     }
 }
 
@@ -67,3 +67,4 @@ if (!function_exists('convert_label_to_name')) {
         return preg_replace("/[^a-zA-Z_]+/", "", $snaked);
     }
 }
+

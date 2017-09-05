@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="{{ theme_asset('css/bootstrap-grid.css') }}">
     <link rel="stylesheet" href="{{ theme_asset('css/cover.css') }}">
     <link rel="stylesheet" href="{{ theme_asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ theme_asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ theme_asset('css/owl.theme.default.min.css') }}">
+
+    <script src="{{ theme_asset('js/jquery.js') }}"></script>
+
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700" rel="stylesheet">
