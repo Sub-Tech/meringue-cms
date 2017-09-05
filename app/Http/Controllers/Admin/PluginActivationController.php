@@ -39,4 +39,11 @@ class PluginActivationController extends Controller
         return new AjaxResponse($message = 'Activation successful', $success = true);
     }
 
+
+    public function destroy()
+    {
+        // run rollbacks
+        // set active = 0;
+    }
+
 }

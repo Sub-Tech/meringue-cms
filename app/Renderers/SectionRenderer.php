@@ -50,7 +50,7 @@ class SectionRenderer
 
         $blocks .= "</div></div>";
 
-        return View::make('section', [
+        return view('section', [
             'blocks' => $blocks
         ]);
     }

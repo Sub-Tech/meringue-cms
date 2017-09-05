@@ -12,11 +12,11 @@ class HeaderRenderer
     /**
      * Render the header
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function render()
     {
-        return view(env('THEME') . '/header');
+        return view(config('theme.default') . '/header');
     }
 
 }

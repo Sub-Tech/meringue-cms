@@ -16,7 +16,7 @@ class FooterRenderer
      */
     public function render()
     {
-        return view(env('THEME') . '/footer');
+        return view(config('theme.default') . '/footer');
     }
 
 }

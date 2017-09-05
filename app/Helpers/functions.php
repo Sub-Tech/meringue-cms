@@ -8,7 +8,7 @@
 if (!function_exists('theme_asset')) {
     function theme_asset($asset)
     {
-        return URL::to('/themes/' . env('THEME') . '/' . $asset);
+        return URL::to('/themes/' . config('theme.default') . '/' . $asset);
     }
 }
 
