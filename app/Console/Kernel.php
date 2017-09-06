@@ -27,13 +27,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//        foreach (Plugin::activePlugins() as $activePlugin) {
-//            $plugin = PluginInitialiser::getPlugin($activePlugin->class_name);
-//
-//            if ($plugin->implements(CronInterface::class)) {
-//                $plugin->schedule($schedule);
-//            }
-//        }
+        try {
+            foreach (Plugin::activePlugins() as $activePlugin) {
+                $plugin = PluginInitialiser::getPlugin($activePlugin->class_name);
+
+                if ($plugin->implements(CronInterface::class)) {
+                    $plugin->schedule($schedule);
+                }
+            }
+        } catch (\Exception $exception) {
+            // Notify Dev that cron has failed
+        }
     }
 
 
