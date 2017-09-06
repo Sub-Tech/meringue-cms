@@ -5,14 +5,22 @@
     <link rel="stylesheet" href="{{ theme_asset('css/bootstrap-grid.css') }}">
     <link rel="stylesheet" href="{{ theme_asset('css/cover.css') }}">
     <link rel="stylesheet" href="{{ theme_asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ theme_asset('css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ theme_asset('css/owl.theme.default.min.css') }}">
+{{--    <link rel="stylesheet" href="{{ theme_asset('css/owl.carousel.min.css') }}">--}}
+{{--    <link rel="stylesheet" href="{{ theme_asset('css/owl.theme.default.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ theme_asset('css/buttons.css') }}">
+
 
     <script src="{{ theme_asset('js/jquery.js') }}"></script>
 
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700" rel="stylesheet">
+
+    <link href="{{ theme_asset('fonts/lovelo-fontface.css') }}" rel="stylesheet">
+    <link href="{{ theme_asset('fonts/FontAwesome.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -35,13 +43,16 @@
         </div>
     </div>
 </div>
-<section class="hero is-fullheight is-primary">
+<section class="hero is-fullheight is-primary homePageHeader">
     <video autoplay loop>
-        <source src="{{ theme_asset('videos/header2.mp4') }}" type="video/mp4">
+        <source src="{{ theme_asset('videos/header3.mp4') }}" type="video/mp4">
     </video>
     <div class="hero-body">
         <div class="container has-text-centered">
-            Hello
+            <h1>We Understand Your Leads</h1>
+            <p>Our first class lead generation delivered results instantly</p>
+            <a href="/" class="btn btn-lg btn-orange">Coreg Leads</a>
+            <a href="/" class="btn btn-lg btn-clear">Affiliate Network</a>
         </div>
     </div>
 </section>

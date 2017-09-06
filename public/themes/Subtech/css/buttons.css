@@ -1,0 +1,13 @@
+.btn {
+    color:white;
+    border-width:2px;
+    font-family: "Lovelo Black", sans-serif;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+.btn.btn-orange {
+    background: #ff990f;
+}
+.btn.btn-clear {
+    border-color: white;
+}

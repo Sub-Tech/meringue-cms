@@ -1,46 +1,152 @@
 * {
     box-sizing: border-box;
 }
+
 body {
-    padding:0;
-    margin:0;
-    font-family: 'Source Sans Pro', sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size:16px;
+    font-family: 'Lato', sans-serif;
 }
+.container {
+    width:1300px;
+}
+a, a:hover {
+    color:inherit;
+}
+p {
+    font-size:16px;
+}
+
+h1, h2, h3, h4, h5, h6, .main-menu a {
+    font-family: "Lovelo Black", sans-serif;
+}
+
 .logo {
-    width:230px;
-    height:25px;
+    width: 230px;
+    height: 25px;
     background-image: url('../images/logo.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-}
-.wide-container {
-    width:1400px;
-}
-.main-menu {
-    position: fixed;
-    top:0;
-    width:100%;
-    color:white;
-    padding:15px 0;
-    z-index: 99999;
-    background: darkgray;
 
 }
+
+.homePageHeader {
+    background: #414853;
+    text-align: center;
+}
+.homePageHeader .btn {
+    margin:0 8px;
+}
+.homePageHeader h1 {
+    text-transform: uppercase;
+    font-size: 70px;
+    font-weight: 600;
+    margin-bottom:0px;
+    text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.55);
+}
+
+.homePageHeader p {
+    font-weight: 100;
+    font-size:28px;
+    margin-bottom:25px;
+    text-shadow: 0px 0px 14px rgba(0, 0, 0, 0.55);
+
+}
+
+.homePageHeader .container {
+    z-index: 9;
+}
+
+.homePageHeader:after {
+    background-image: url('../images/grid.png');
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(29, 35, 45, 0.7);
+}
+
+.wide-container {
+    width: 1400px;
+}
+
+.main-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    color: white;
+    padding: 30px 0;
+    z-index: 99999;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.80);
+
+}
+
 .main-menu .menu {
     text-align: right;
 }
+
 .main-menu ul {
     list-style: none;
-    float:right;
+    float: right;
+    padding: 0;
+    margin: 0;
 }
+
 .main-menu ul li {
-    float:left;
+    float: left;
 }
+
 .main-menu ul li a {
-    color:white;
+    color: white;
     font-weight: 200;
-    font-size:18px;
-    padding:0px 10px;
+    padding: 0px 10px;
     display: block;
+    text-transform: uppercase;
+    opacity: 0.80;
+    font-size: 12px;
+}
+
+footer {
+    padding:50px 0 30px 0;
+    color:white;
+    background:#333333;
+    text-align: center;
+}
+
+footer ul {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+footer ul li {
+    line-height: 14px;
+}
+footer ul li a {
+    color:white;
+    font-size:14px;
+    font-weight: 100;
+    line-height: 14px;
+    padding:3px 0;
+    display: block;
+}
+footer .legal {
+    font-weight: 100;
+    text-align: center;
+    font-size: 11px;
+    margin-top:40px;
+    border-top:1px solid rgba(255,255,255,0.55);
+    padding-top:30px;
+}
+footer .socialButtons {
+    text-align: right;
+}
+footer .socialButtons a {
+    display: inline-block;
+    padding:0 5px;
 }
