@@ -1,4 +1,4 @@
-<script src="{{ route('assets.isotope') }}"></script>
+<script src="{{ route('assets.js.isotope') }}"></script>
 
 <div class="grid">
     @foreach($images as $image)
