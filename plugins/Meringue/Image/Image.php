@@ -140,6 +140,7 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
             ->update($request->only(['url', 'alt']));
     }
 
+    
     /**
      * Delete the Instance from the DB
      * Return success state
@@ -151,6 +152,7 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
     {
         return Models\Image::find($instanceId)->delete();
     }
+
 
     /**
      * Return a link to the block preview file

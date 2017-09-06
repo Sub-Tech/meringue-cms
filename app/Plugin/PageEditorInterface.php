@@ -3,17 +3,15 @@
 namespace App\Plugin;
 
 /**
- * Interface PluginInterface
- * To be implemented when a Plugin can have unique instances
- * Forms, Text Blocks for Example. Not STAMP coz that's static
- *
- * @package App
+ * Interface PageEditorInterface
+ * @package App\Plugin
  */
 interface PageEditorInterface
 {
 
     /**
-     * Return a link to the block preview file
+     * Return a path to the block preview file
+     * Starts in the plugins/ folder
      *
      * @return string
      */
