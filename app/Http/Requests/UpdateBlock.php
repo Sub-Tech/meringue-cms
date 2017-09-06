@@ -30,7 +30,7 @@ class UpdateBlock extends FormRequest
     public function rules()
     {
         return [
-            'instance_id' => 'required|int'
+            'instance_id' => 'int'
         ];
     }
 

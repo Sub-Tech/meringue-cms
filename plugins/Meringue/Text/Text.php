@@ -3,6 +3,7 @@
 namespace Plugins\Meringue\Text;
 
 use App\Plugin\InstanceInterface;
+use App\Plugin\OverridesBlockEditor;
 use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Text extends PluginBase implements InstanceInterface
 {
+    use OverridesBlockEditor;
 
     /**
      * Set the Vendor of the Plugin
