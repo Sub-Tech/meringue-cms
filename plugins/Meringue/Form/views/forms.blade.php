@@ -24,8 +24,7 @@
             <div class="alert alert-warning alert-bordered">
                 <button type="button" class="close" data-dismiss="alert"><span>×</span><span
                             class="sr-only">Close</span></button>
-                <span class="text-semibold">Warning!</span> Better <a href="#" class="alert-link">check yourself</a>,
-                you're not looking too good.
+                <span class="text-semibold">No Forms Created Yet!</span> You probably should think about creating a form
             </div>
             <?php } ?>
 

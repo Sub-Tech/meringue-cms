@@ -9,17 +9,25 @@
             </div>
 
             <div class="panel-body">
-                @forelse($form->inputs as $input)
-                    <div class="form-group">
-                        <label for="{{ $input->form_input_id }}">{{ $input->label }}</label>
+                <form>
+                    @forelse($form->inputs as $input)
 
-                        <a href="{{ route('Form.input.delete', ['form' => $form->id,'input' => $input->id]) }}">Delete</a>
+                        <div class="form-group">
+                            <label for="{{ $input->form_input_id }}">{{ $input->label }}</label>
 
-                        @include('Meringue/Form/views/inputs/' . $input->type)
-                    </div>
-                @empty
-                    <i>No inputs yet</i>
-                @endforelse
+                            <a href="{{ route('Form.input.delete', ['form' => $form->id,'input' => $input->id]) }}">Delete</a>
+
+                            @include('Meringue/Form/views/inputs/' . $input->type)
+                        </div>
+                    @empty
+                        <div class="alert alert-warning alert-bordered">
+                            <button type="button" class="close" data-dismiss="alert"><span>×</span><span
+                                        class="sr-only">Close</span></button>
+                            <span class="text-semibold">No Inputs Have Been Created Yet!</span> You probably should
+                            think about adding a input
+                        </div>
+                    @endforelse
+                </form>
             </div>
 
         </div>
@@ -33,6 +41,14 @@
             </div>
 
             <div class="panel-body">
+
+                @foreach($inputTypes as $inputType)
+
+
+
+
+                @endforeach
+
                 <form action="{{ route('Form.input.create', ['form' => $form->id]) }}" method="POST">
 
                     <div class="form-group">

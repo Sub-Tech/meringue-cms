@@ -11,6 +11,6 @@ class PluginSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }
