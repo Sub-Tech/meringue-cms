@@ -4,6 +4,21 @@
     font-family: "Lovelo Black", sans-serif;
     text-transform: uppercase;
     border-radius: 2px;
+    position: relative;
+}
+.btn:after {
+    content:'';
+    background:rgba(255,255,255,0.2);
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:100%;
+    transition: 0.1s all ease-in-out;
+    display: block;
+}
+.btn:hover:after {
+    right:0%;
 }
 .btn.btn-orange {
     background: #ff990f;
@@ -11,3 +26,4 @@
 .btn.btn-clear {
     border-color: white;
 }
+
