@@ -126,6 +126,7 @@
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
+
                             <h3>Section</h3>
                             @foreach ($section->blocks as $block)
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
@@ -134,7 +135,6 @@
                                     <div class="blockInner">
                                         <div class="menu">
                                             <ul>
-
                                                 <li class="image"
                                                     style="background-image:url({{ $block->plugin->icon }});"></li>
 
@@ -151,17 +151,50 @@
                                                 <li class="blockWidth"><?= $block->width; ?></li>
                                             </ul>
                                         </div>
+
                                         @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
                                         <strong>{{ $plugin->getName() }}</strong>
                                         @if (isset($block->instance_id))
-                                            : {{ $plugin->getInstance($block->instance_id)->name }}
+                                            : {{ $plugin->getInstance($block->instance_id)->name ?? '' }}
                                         @endif
+
                                         @if(!$block->plugin->active)
                                             <span style="color: red;"> INACTIVE</span>
+                                        @endif
+
+                                        @php $blockPlugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
+
+                                        @if($blockPlugin->implements(\App\Plugin\PageEditorInterface::class))
+                                            @include($blockPlugin->renderBlockPreview($block))
                                         @endif
                                     </div>
                                 </div>
                             @endforeach
+
+                            <script>
+
+                                /**
+                                 * Render the appropriate Modal popup when an Edit Block button is clicked
+                                 * Done by making an AJAX request to the ModalRenderer
+                                 */
+                                $('.editBlock').on('click', function () {
+                                    var id = $(this).closest('.block').data('id');
+                                    var instance_id = $(this).closest('.block').data('instance_id');
+
+                                    var url = "/admin/blocks/" + id + "/modal";
+
+                                    if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
+                                        url += "/" + instance_id
+                                    }
+
+                                    return $.ajax({
+                                        url: url,
+                                        method: 'get'
+                                    }).success(function (resp) {
+                                        $('.modal-body').html(resp);
+                                    });
+                                });
+                            </script>
 
                             {{-- PLUGIN DRAWER --}}
                             <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
@@ -219,7 +252,7 @@
     <script>
         function updateBlock(id, data) {
             return $.ajax({
-                url: '/admin/block/' + id,
+                url: '/admin/blocks/' + id,
                 method: 'post',
                 data: data
             });
@@ -266,30 +299,6 @@
                 $('.block[data-id=' + id + ']').html("");
             });
         });
-
-
-        /**
-         * Render the appropriate Modal popup when an Edit Block button is clicked
-         * Done by making an AJAX request to the ModalRenderer
-         */
-        $('.editBlock').on('click', function () {
-            var id = $(this).closest('.block').data('id');
-            var instance_id = $(this).closest('.block').data('instance_id');
-
-            var url = "/admin/blocks/" + id + "/modal";
-
-            if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
-                url += "/" + instance_id
-            }
-
-            return $.ajax({
-                url: url,
-                method: 'get'
-            }).success(function (resp) {
-                $('.modal-body').html(resp);
-            });
-        });
-
 
         /**
          * Reset Modal Body upon close

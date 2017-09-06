@@ -40,7 +40,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('instances/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');
 
     Route::post('sections/{section}/blocks', 'Admin\BlockController@store')->name('block.store');
-    Route::post('sections/{section}/blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+    Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
 
     // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');

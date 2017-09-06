@@ -16,7 +16,6 @@ class CreateMeringueFormFormsTable extends Migration
         Schema::create('meringue_form_forms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->required();
-            $table->string('validation');
 
             $table->timestamps();
             $table->softDeletes();
