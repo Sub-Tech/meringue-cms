@@ -49,15 +49,22 @@ class Section extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function page() {
+    public function page()
+    {
         return $this->belongsTo(Page::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function blocks() {
+    public function blocks()
+    {
         return $this->hasMany(Block::class);
+    }
+
+    public function getHighestPosition()
+    {
+        return Block::whereSectionId($this->id)->max('order');
     }
 
 }

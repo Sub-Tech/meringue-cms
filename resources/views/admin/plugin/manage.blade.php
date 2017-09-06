@@ -23,37 +23,46 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($plugins as $plugin) { ?>
-                        <tr>
-                            <td><?= $plugin->name;?></td>
-                            <td><?= $plugin->description;?></td>
-                            <td><?= $plugin->author;?></td>
-                            <td>
-                                <?php if ($plugin->active) {
-                                    echo "<span class='label bg-success'>Active</span>";
-                                } else {
-                                    echo "<span class='label bg-danger'>Inactive</span>";
-                                } ?>
-                            </td>
-                            <td class="text-center">
-                                <ul class="icons-list">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                                    class="icon-menu7"></i></a>
-                                        <ul class="dropdown-menu dropdown-menu-right text-center">
-                                            <li>
-                                                <a class="activePlugin" data-plugin='{{ $plugin->class_name }}'>
-                                                    Activate Plugin
-                                                </a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li><a href="#" style="color:red;">Delete</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <?php } ?>
+                        @foreach($plugins as $plugin)
+                            <tr>
+                                <td>{{ $plugin->name }}</td>
+                                <td>{{ $plugin->description }}</td>
+                                <td>{{ $plugin->author }}</td>
+                                <td>
+                                    @if ($plugin->active)
+                                        <span class='label bg-success'>Active</span>
+                                    @else
+                                        <span class='label bg-danger'>Inactive</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                                        class="icon-menu7"></i></a>
+                                            <ul class="dropdown-menu dropdown-menu-right text-center">
+                                                @if($plugin->active)
+                                                    <li>
+                                                        <a class="deactivatePlugin"
+                                                           data-plugin='{{ $plugin->class_name }}'>
+                                                            Deactivate Plugin
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a class="activePlugin" data-plugin='{{ $plugin->class_name }}'>
+                                                            Activate Plugin
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                                <li class="divider"></li>
+                                                <li><a href="#" style="color:red;">Delete</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -67,6 +76,26 @@
             $.ajax({
                 'url': '/admin/plugins/' + encodeURI(plugin) + '/activate',
                 'method': 'post'
+            }).success(function (res) {
+                if (!res.success) {
+                    new PNotify({
+                        title: 'Error',
+                        text: res.message,
+                        icon: 'icon-warning22',
+                        type: 'error',
+                        addclass: 'bg-danger'
+                    });
+                } else {
+                    location.reload();
+                }
+            });
+        });
+
+        $('.deactivatePlugin').on('click', function () {
+            var plugin = $(this).data('plugin');
+            $.ajax({
+                'url': '/admin/plugins/' + encodeURI(plugin) + '/deactivate',
+                'method': 'delete'
             }).success(function (res) {
                 if (!res.success) {
                     new PNotify({

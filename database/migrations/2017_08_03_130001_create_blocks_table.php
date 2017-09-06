@@ -18,7 +18,7 @@ class CreateBlocksTable extends Migration
             $table->integer('section_id');
             $table->integer('instance_id')->nullable();
             $table->string('plugin_class');
-            $table->string('order');
+            $table->string('order')->default(1);
             $table->string('background_color')->nullable();
             $table->string('width')->nullable()->default("12");
             $table->string('padding')->nullable();

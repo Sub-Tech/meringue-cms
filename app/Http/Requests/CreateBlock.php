@@ -30,7 +30,6 @@ class CreateBlock extends FormRequest
     public function rules()
     {
         return [
-            'section_id' => 'required|int',
             'plugin_class' => 'required|string'
         ];
     }

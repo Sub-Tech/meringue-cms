@@ -32,13 +32,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
+
     Route::post('plugins/{plugin}/activate', 'Admin\PluginActivationController@store')->name('plugin.activate');
+    Route::delete('plugins/{plugin}/deactivate', 'Admin\PluginActivationController@destroy')->name('plugin.unactivate');
 
     Route::post('instances', 'Admin\PluginInstanceController@store')->name('instance.store');
     Route::patch('instances/{instanceId}', 'Admin\PluginInstanceController@update')->name('instance.update');
 
-    Route::post('blocks', 'Admin\BlockController@store')->name('block.store');
-    Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+    Route::post('sections/{section}/blocks', 'Admin\BlockController@store')->name('block.store');
+    Route::post('sections/{section}/blocks/{block}', 'Admin\BlockController@update')->name('block.update');
+
+    // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
     Route::get('blocks/{block}/modal/{instance?}', 'Admin\PluginModalController@show')->name('modal.show');
