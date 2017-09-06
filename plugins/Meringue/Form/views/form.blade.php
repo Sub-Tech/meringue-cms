@@ -1,4 +1,4 @@
-<form id="form-{{ $form->id }}" action="/{{ $form->uri }}" method="POST">
+<form id="form-{{ $form->id }}" action="/form/submit" method="POST">
 
     <input type="hidden" name="form_id" value="{{ $form->id }}">
 
