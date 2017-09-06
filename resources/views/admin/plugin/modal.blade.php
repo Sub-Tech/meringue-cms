@@ -1,7 +1,7 @@
 {{-- If the Plugin relies on premade Instances --}}
 @if (array_key_exists('instances', $editSettings))
 
-    <form action="{{ route('block.update', ['section' => $section_id, 'block' => $block]) }}" method="post">
+    <form action="{{ route('block.update', ['section' => $block->section_id, 'block' => $block]) }}" method="post">
 
         <div class="form-group">
             <select name="instance_id" class="form-control">
