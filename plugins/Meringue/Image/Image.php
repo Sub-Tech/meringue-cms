@@ -3,6 +3,7 @@
 namespace Plugins\Meringue\Image;
 
 use App\Plugin\InstanceInterface;
+use App\Plugin\PageEditorInterface;
 use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
  * Class Image
  * @package Plugins\Meringue\Image
  */
-class Image extends PluginBase implements InstanceInterface
+class Image extends PluginBase implements InstanceInterface, PageEditorInterface
 {
 
     /**
@@ -149,6 +150,16 @@ class Image extends PluginBase implements InstanceInterface
     public function deleteInstance(int $instanceId): bool
     {
         return Models\Image::find($instanceId)->delete();
+    }
+
+    /**
+     * Return a link to the block preview file
+     *
+     * @return string
+     */
+    public function renderBlockPreview(): string
+    {
+        return '/Meringue/Image/views/admin/page/block';
     }
 
 }

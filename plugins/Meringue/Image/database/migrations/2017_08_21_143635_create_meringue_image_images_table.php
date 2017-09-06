@@ -16,7 +16,7 @@ class CreateMeringueImageImagesTable extends Migration
         Schema::create('meringue_image_images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
-            $table->string('alt');
+            $table->string('alt')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

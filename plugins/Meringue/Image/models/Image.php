@@ -9,6 +9,7 @@ class Image extends Model
     protected $table = 'meringue_image_images';
 
     protected $fillable = [
-        'url'
+        'url',
+        'alt'
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\Http\Responses\AjaxResponse;
 use App\Plugin\PluginInitialiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -39,12 +40,16 @@ class PluginInstanceController extends Controller
      *
      * @param Request $request
      * @param int $instanceId
-     * @return \Illuminate\Http\RedirectResponse
+     * @return AjaxResponse|\Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, int $instanceId)
     {
         PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin))
             ->updateInstance($instanceId, $request);
+
+        if ($request->ajax()) {
+            return new AjaxResponse('Instance updated', true);
+        }
 
         return Redirect::back();
     }

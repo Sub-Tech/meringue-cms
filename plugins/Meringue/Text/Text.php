@@ -3,7 +3,7 @@
 namespace Plugins\Meringue\Text;
 
 use App\Plugin\InstanceInterface;
-use App\Plugin\OverridesBlockEditor;
+use App\Plugin\PageEditorInterface;
 use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\DB;
  * Class Text
  * @package Plugins\Meringue\Text
  */
-class Text extends PluginBase implements InstanceInterface
+class Text extends PluginBase implements InstanceInterface, PageEditorInterface
 {
-    use OverridesBlockEditor;
 
     /**
      * Set the Vendor of the Plugin
@@ -153,6 +152,16 @@ class Text extends PluginBase implements InstanceInterface
     public function deleteInstance(int $instanceId): bool
     {
         return DB::table('meringue_text_text')->delete($instanceId);
+    }
+
+    /**
+     * Return a link to the block preview file
+     *
+     * @return string
+     */
+    public function renderBlockPreview(): string
+    {
+        return 'Meringue/Text/views/admin/page/block';
     }
 
 }
