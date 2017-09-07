@@ -16,6 +16,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 // Assets
-Route::asset('PhotoGallery/isotope', __DIR__ . "/assets/js/isotope.js", 'assets.js.isotope');
-Route::asset('PhotoGallery/js/slick', __DIR__ . "/assets/js/slick.min.js", 'assets.js.slick');
-Route::asset('PhotoGallery/css/slick', __DIR__ . "/assets/css/slick.css", 'assets.css.isotope');
+Route::asset('PhotoGallery/isotope', __DIR__ . "/assets/js/isotope.js")->name('assets.js.isotope');
+Route::asset('PhotoGallery/js/slick', __DIR__ . "/assets/js/slick.min.js")->name('assets.js.slick');
+Route::asset('PhotoGallery/css/slick', __DIR__ . "/assets/css/slick.css")->name('assets.css.isotope');

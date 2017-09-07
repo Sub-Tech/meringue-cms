@@ -16,19 +16,15 @@ class Route extends \Illuminate\Support\Facades\Route
      *
      * @param string $uri
      * @param string $filePath
-     * @param string|null $name
+     * @return \Illuminate\Routing\Route
      */
-    public static function asset(string $uri, string $filePath, string $name = null)
+    public static function asset(string $uri, string $filePath)
     {
-        $route = parent::get($uri, function () use ($filePath) {
+        return parent::get($uri, function () use ($filePath) {
             return Response::make(
                 file_get_contents($filePath)
             )->header('Content-Type', get_content_type($filePath));
         });
-
-        if ($name) {
-            $route->name($name);
-        }
     }
 
 }
