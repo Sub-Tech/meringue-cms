@@ -1,5 +1,5 @@
-<script src="{{ route('assets.js.slick') }}"></script>
-<link rel="stylesheet" href="{{ route('assets.css.slick') }}">
+<script src="/assets/plugins/Meringue/PhotoGallery/assets/js/slick.min.js"></script>
+<link rel="stylesheet" href="/assets/plugins/Meringue/PhotoGallery/assets/css/slick.css">
 
 <div class="owl-carousel">
     @foreach($images as $image)

@@ -1,7 +1,5 @@
 <?php
 
-use App\Helpers\Route;
-
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/Meringue/PhotoGallery/galleries', '\Plugins\Meringue\PhotoGallery\GalleryController@index')->name('PhotoGallery.index');
     Route::get('/Meringue/PhotoGallery/galleries/new', '\Plugins\Meringue\PhotoGallery\GalleryController@create')->name('PhotoGallery.create');
@@ -14,8 +12,3 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/Meringue/PhotoGallery/galleries/{gallery}/images', '\Plugins\Meringue\PhotoGallery\ImageController@create')->name('PhotoGallery.image.create');
     Route::delete('/Meringue/PhotoGallery/galleries/{gallery}/images/{image}', '\Plugins\Meringue\PhotoGallery\ImageController@delete')->name('PhotoGallery.image.delete');
 });
-
-// Assets
-Route::asset('PhotoGallery/isotope', __DIR__ . "/assets/js/isotope.js")->name('assets.js.isotope');
-Route::asset('PhotoGallery/js/slick', __DIR__ . "/assets/js/slick.min.js")->name('assets.js.slick');
-Route::asset('PhotoGallery/css/slick', __DIR__ . "/assets/css/slick.css")->name('assets.css.isotope');

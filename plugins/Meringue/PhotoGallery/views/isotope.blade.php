@@ -1,4 +1,4 @@
-<script src="{{ route('assets.js.isotope') }}"></script>
+<script src="/assets/plugins/Meringue/PhotoGallery/assets/js/isotope.js"></script>
 
 <div class="grid">
     @foreach($images as $image)

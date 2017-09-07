@@ -48,5 +48,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('blocks/{block}/modal/{instance?}', 'Admin\PluginModalController@show')->name('modal.show');
 });
 
+// Get asset according to file path
+Route::get('assets/{filePath?}', 'AssetController@show')
+    ->where('filePath', '(.*)');
+
 // Route for all other pages to go via the CMS
 Route::get('{slug?}', 'PageController@index');
