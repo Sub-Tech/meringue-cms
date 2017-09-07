@@ -1,10 +1,9 @@
 .btn {
     color:white;
     border-width:2px;
-    font-family: "Lovelo Black", sans-serif;
-    text-transform: uppercase;
     border-radius: 2px;
     position: relative;
+    font-weight: 400;
 }
 .btn:after {
     content:'';
@@ -22,6 +21,10 @@
 }
 .btn.btn-orange {
     background: #ff990f;
+}
+.btn.btn-white {
+    background: #ffffff;
+    color:rgb(39, 91, 138);
 }
 .btn.btn-clear {
     border-color: white;
