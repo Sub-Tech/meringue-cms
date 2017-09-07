@@ -2,12 +2,19 @@
 
 @section('content')
 
+    <style>
+        .panel-body img {
+            max-width: 25%;
+            height: auto;
+        }
+    </style>
+
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-flat">
 
                 <div class="panel-heading">
-                    <h3>Gallery {{ $gallery->name }}</h3>
+                    <h3>{{ $gallery->name }}</h3>
                 </div>
 
                 <div class="panel-body">

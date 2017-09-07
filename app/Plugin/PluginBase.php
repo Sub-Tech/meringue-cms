@@ -73,6 +73,7 @@ abstract class PluginBase implements PluginInterface
         $pluginFile = base_path('plugins/' . $this->vendor . '/' . $this->name . '/assets/images/block-logo.png');
         $tmpFileName = '/tmp/' . md5($pluginFile);
         $tmpFile = public_path($tmpFileName);
+
         if (!file_exists($tmpFile) || (time() - filemtime($tmpFile)) > 300) {
             copy($pluginFile, $tmpFile);
         }
