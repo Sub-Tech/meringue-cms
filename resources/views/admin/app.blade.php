@@ -29,7 +29,7 @@
     <!-- /core JS files -->
 
     <!-- CKEditor -->
-    <script src="https://cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+    <script src="/assets/resources/assets/js/ckeditor/ckeditor.js"></script>
 
     <!-- Theme JS files -->
     <script type="text/javascript"
