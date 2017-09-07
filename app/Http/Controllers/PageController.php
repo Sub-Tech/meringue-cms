@@ -7,7 +7,6 @@ use App\Page;
 
 class PageController extends Controller
 {
-
     /**
      * Render Page via passed slug
      *
@@ -15,14 +14,11 @@ class PageController extends Controller
      * @param string $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|null
      */
-    public function index(PageRenderer $renderer, string $slug = null)
+    public function index(PageRenderer $renderer, string $slug = '/')
     {
         try {
-            return $renderer->page((
-            $slug ?
-                Page::whereSlug($slug) :
-                Page::whereHomepage(1)
-            )->firstOrFail());
+            $page = Page::whereSlug($slug);
+            return $renderer->page($page->firstOrFail());
         } catch (\Exception $exception) {
             return abort(404);
         }
