@@ -27,19 +27,6 @@ class GalleryController extends Controller
 
 
     /**
-     * @param Gallery $gallery
-     * @return View
-     */
-    public function show(Gallery $gallery)
-    {
-//        return view('Meringue.PhotoGallery.views.gallery.show')
-//            ->with('gallery', $gallery);
-
-        return null;
-    }
-
-
-    /**
      *
      */
     public function create()
