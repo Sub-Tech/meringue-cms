@@ -7,7 +7,6 @@ use App\Plugin\PluginBase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Plugins\Meringue\PhotoGallery\Models\Gallery;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -75,20 +74,19 @@ class Slider extends PluginBase implements InstanceInterface
      * Route begins from the plugins/ folder
      * Must return view('merchant/plugin/views/viewName) or equivalent
      * Return false if plugin doesn't need to render anything on the front end
+     * TODO check counts?
      *
      * @param int|null $instanceId
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function render(int $instanceId = null)
     {
-        // slick thing?
-        // check counts
-
+        /** @var GalleryLink $link */
         $link = GalleryLink::findOrFail($instanceId);
 
         return View::make('Meringue/Slider/views/slider')
-            ->with('navGallery', Gallery::findOrFail($link->nav_gallery_id))
-            ->with('mainGallery', Gallery::findOrFail($link->main_gallery_id));
+            ->with('mainGallery', $link->mainGallery())
+            ->with('navGallery', $link->navigationGallery());
     }
 
 
@@ -99,7 +97,9 @@ class Slider extends PluginBase implements InstanceInterface
      */
     public function constructEditorModal(): array
     {
-        // TODO: Implement constructEditorModal() method.
+        return [
+            'instances' => GalleryLink::all()
+        ];
     }
 
 
@@ -111,11 +111,11 @@ class Slider extends PluginBase implements InstanceInterface
      */
     public function getInstance(int $instanceId)
     {
-        // TODO: Implement getInstance() method.
+        return GalleryLink::findOrFail($instanceId);
     }
 
 
-    /**
+    /**s
      * Save an instance of the plugin to the db
      * Return the inserted ID
      *
@@ -124,7 +124,7 @@ class Slider extends PluginBase implements InstanceInterface
      */
     public function saveInstance(Request $request): int
     {
-        // TODO: Implement saveInstance() method.
+        return GalleryLink::create($request->all())->id;
     }
 
 
@@ -137,7 +137,7 @@ class Slider extends PluginBase implements InstanceInterface
      */
     public function updateInstance(int $instanceId, Request $request): bool
     {
-        // TODO: Implement updateInstance() method.
+        return GalleryLink::findOrFail($instanceId)->update($request->all());
     }
 
 
@@ -150,7 +150,7 @@ class Slider extends PluginBase implements InstanceInterface
      */
     public function deleteInstance(int $instanceId): bool
     {
-        // TODO: Implement deleteInstance() method.
+        return GalleryLink::findOrFail($instanceId)->delete();
     }
 
 }

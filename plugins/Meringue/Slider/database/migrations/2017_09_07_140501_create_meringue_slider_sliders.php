@@ -16,6 +16,7 @@ class CreateMeringueSliderSliders extends Migration
     {
         Schema::create('meringue_slider_sliders', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->unsignedInteger('nav_gallery_id');
             $table->unsignedInteger('main_gallery_id');
 
