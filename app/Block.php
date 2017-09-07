@@ -77,7 +77,7 @@ class Block extends Model
      *
      * @return Plugin\CronInterface|Plugin\InstanceInterface|Plugin\PluginBase|Plugin\PluginInterface
      */
-    public function getPluginAttribute()
+    public function getPlugin()
     {
         return PluginInitialiser::getPlugin($this->plugin_class);
     }

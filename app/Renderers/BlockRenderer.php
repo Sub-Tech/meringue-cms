@@ -25,13 +25,13 @@ class BlockRenderer
             return "";
         }
 
-        if ($block->plugin->implements(InstanceInterface::class) && is_null($block->instance_id)) {
+        if ($block->getPlugin()->implements(InstanceInterface::class) && is_null($block->instance_id)) {
             return "";
         }
 
         return
             "<div class='block col-md-{$block->width}'>"
-            . $block->plugin->render($block->instance_id) .
+            . $block->getPlugin()->render($block->instance_id) .
             "</div>";
     }
 
