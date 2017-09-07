@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Block;
 use App\Plugin\PluginInitialiser;
 
 /**
@@ -31,11 +32,10 @@ trait RendersPlugins
      */
     public function pluginDependsOnAnInactivePlugin()
     {
-        $plugin = PluginInitialiser::getPlugin($this->plugin_class);
-
-        if (isset($plugin->requires)) {
+        /** @var Block $this */
+        if (isset($this->getPlugin()->requires)) {
             try {
-                $plugin->requires($plugin->requires);
+                $this->getPlugin()->requires($this->getPlugin()->requires);
             } catch (\Exception $exception) {
                 return true;
             }
