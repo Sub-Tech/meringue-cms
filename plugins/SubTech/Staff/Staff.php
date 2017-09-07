@@ -120,9 +120,7 @@ class Staff extends PluginBase implements CronInterface
      */
     public function refreshStaff()
     {
-        $stamp = new Stamp();
-
-        $users = $stamp->getUsers();
+        $users = app(Stamp::class)->getUsers();
 
         $users->each(function (stdClass $user) {
             StampUser::findOrNew($user->userid)
