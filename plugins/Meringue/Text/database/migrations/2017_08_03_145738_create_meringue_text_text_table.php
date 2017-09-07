@@ -15,7 +15,7 @@ class CreateMeringueTextTextTable extends Migration
     {
         Schema::create('meringue_text_text', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('content');
         });
     }
