@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class PageController
@@ -21,8 +22,10 @@ class PageController extends Controller
     {
         try {
             return Page::render($slug);
-        } catch (\Exception $exception) {
+        } catch (ModelNotFoundException $exception) {
             return abort(404);
+        } catch (\Exception $exception) {
+            return abort(500);
         }
     }
 
