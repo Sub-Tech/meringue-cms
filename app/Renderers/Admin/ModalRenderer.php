@@ -3,7 +3,6 @@
 namespace App\Renderers\Admin;
 
 use App\Block;
-use App\Plugin\PluginInitialiser;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -22,7 +21,8 @@ class ModalRenderer
      */
     public static function render(Block $block, int $instanceId = null)
     {
-        $plugin = $block->getPlugin();
+        // Called once to speed up rendering
+        $plugin = $block->plugin;
 
         return View::make('admin.plugin.modal')
             ->with('block', $block)

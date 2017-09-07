@@ -33,9 +33,9 @@ trait RendersPlugins
     public function pluginDependsOnAnInactivePlugin()
     {
         /** @var Block $this */
-        if (isset($this->getPlugin()->requires)) {
+        if (isset($this->plugin->requires)) {
             try {
-                $this->getPlugin()->requires($this->getPlugin()->requires);
+                $this->plugin->requires($this->plugin->requires);
             } catch (\Exception $exception) {
                 return true;
             }

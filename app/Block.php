@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Helpers\RendersPlugins;
+use App\Plugin\InstanceInterface;
 use App\Plugin\PluginBase;
 use App\Plugin\PluginInitialiser;
 use App\Renderers\BlockRenderer;
@@ -26,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $active
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read PluginBase $plugin
+ * @property-read PluginBase|InstanceInterface $plugin
  * @property-read \App\Section $section
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereBackgroundColor($value)
@@ -79,23 +80,11 @@ class Block extends Model
 
 
     /**
-     * Return the Plugin Model associated with the Block
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function plugin()
-    {
-        return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
-    }
-
-
-    /**
      * Get the associated Plugin Class with this Block
-     * TODO find a good way to merge this and the above
      *
      * @return Plugin\CronInterface|Plugin\InstanceInterface|Plugin\PluginBase|Plugin\PluginInterface
      */
-    public function getPlugin()
+    public function getPluginAttribute()
     {
         return PluginInitialiser::getPlugin($this->plugin_class);
     }

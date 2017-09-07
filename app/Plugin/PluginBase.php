@@ -2,6 +2,7 @@
 
 namespace App\Plugin;
 
+use App\Plugin;
 use Artisan;
 
 /**
@@ -108,6 +109,25 @@ abstract class PluginBase implements PluginInterface
         Artisan::call('migrate:reset', [
             '--path' => $path ?? "plugins/{$this->vendor}/{$this->name}/database/migrations"
         ]);
+    }
+
+
+    /**
+     * If the Developer requires a field from the database via the Block model
+     * through ->plugin, use this to get ->active, ->installed, ->icon etc
+     *
+     * @param string $columnName
+     * @return mixed
+     * @internal param $name
+     */
+    public function __get(string $columnName)
+    {
+        try {
+            $plugin = Plugin::findOrFail(class_path($this->vendor, $this->name));
+            return $plugin->$columnName;
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 
 }
