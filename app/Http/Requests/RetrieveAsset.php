@@ -14,6 +14,7 @@ class RetrieveAsset extends FormRequest
 
     /**
      * Determine if the user is authorized to make this request.
+     * Checks the file type and if it's not in the array, reject it
      *
      * @param Request $request
      * @return bool
