@@ -12,6 +12,7 @@ if (!function_exists('theme_asset')) {
     }
 }
 
+
 /**
  * Removes the '.' and '..' from the directory path
  *
@@ -87,4 +88,3 @@ if (!function_exists('get_content_type')) {
         }
     }
 }
-

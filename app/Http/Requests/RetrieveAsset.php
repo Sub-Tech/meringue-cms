@@ -23,7 +23,7 @@ class RetrieveAsset extends FormRequest
     {
         $pieces = explode('.', $request->path());
 
-        return in_array(last($pieces), [
+        return in_array($fileExtension = last($pieces), [
             'js',
             'css'
         ]);

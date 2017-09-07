@@ -10,7 +10,12 @@ use Artisan;
  */
 abstract class PluginBase implements PluginInterface
 {
-    use ImplementsInterfaces;
+    /**
+     * Each Plugin may have behaviour outside of methods provided via interfaces
+     * Dependency on other Plugins being installed, for example
+     */
+    use ImplementsInterfaces,
+        RequiresPlugins;
 
     /**
      * @var string The name of the Vendor
@@ -103,28 +108,6 @@ abstract class PluginBase implements PluginInterface
         Artisan::call('migrate:reset', [
             '--path' => $path ?? "plugins/{$this->vendor}/{$this->name}/database/migrations"
         ]);
-    }
-
-
-    /**
-     * Check to see if a required plugin exists
-     * Vendor/Plugin or separately.
-     *
-     * @param string $vendor
-     * @param string $plugin
-     * @throws \Exception
-     */
-    public function requires(string $vendor, string $plugin = null)
-    {
-        if (str_contains($vendor, '/')) {
-            $pieces = explode('/', $vendor);
-            $vendor = $pieces[0];
-            $plugin = $pieces[1];
-        }
-
-        if (!$this->pluginInitialiser->plugins->has(class_path($vendor, $plugin))) {
-            throw new \Exception("Required Plugin {$vendor}/{$plugin} doesn't exist or is not activated");
-        }
     }
 
 }

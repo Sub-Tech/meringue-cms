@@ -21,7 +21,7 @@ class PageController extends Controller
     /**
      * Manage pages
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -62,7 +62,7 @@ class PageController extends Controller
      * Edit a Page / Sections / Blocks
      *
      * @param Page $page
-     * @return $this
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Page $page)
     {
