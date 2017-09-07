@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Renderers\RendersPlugins;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -45,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Block extends Model
 {
+    use RendersPlugins;
+
     protected $fillable = [
         'section_id',
         'plugin_class',

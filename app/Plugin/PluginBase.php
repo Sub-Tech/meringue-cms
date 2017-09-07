@@ -105,4 +105,26 @@ abstract class PluginBase implements PluginInterface
         ]);
     }
 
+
+    /**
+     * Check to see if a required plugin exists
+     * Vendor/Plugin or separately.
+     *
+     * @param string $vendor
+     * @param string $plugin
+     * @throws \Exception
+     */
+    public function requires(string $vendor, string $plugin = null)
+    {
+        if (str_contains($vendor, '/')) {
+            $pieces = explode('/', $vendor);
+            $vendor = $pieces[0];
+            $plugin = $pieces[1];
+        }
+
+        if (!$this->pluginInitialiser->plugins->has(class_path($vendor, $plugin))) {
+            throw new \Exception("Required Plugin {$vendor}/{$plugin} doesn't exist or is not activated");
+        }
+    }
+
 }
