@@ -1,8 +1,6 @@
 @extends('admin.app')
 
 @section('content')
-    <button class="btn btn-primary">Refresh Users</button>
-
     <table>
         <tbody>
         @foreach($staff as $member)
@@ -17,4 +15,6 @@
         @endforeach
         </tbody>
     </table>
+
+    <a href="{{ route('staff.refresh') }}" class="btn btn-primary">Refresh Staff</a>
 @endsection

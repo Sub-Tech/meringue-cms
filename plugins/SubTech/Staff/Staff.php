@@ -6,6 +6,7 @@ use App\Plugin\CronInterface;
 use App\Plugin\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Plugins\SubTech\Staff\Libraries\Stamp;
 use stdClass;
 
@@ -131,7 +132,7 @@ class Staff extends PluginBase implements CronInterface
 
         $this->checkForInactiveEmployees($users);
 
-        return redirect('admin/plugin/manage/SubTech/Staff');
+        return Redirect::route('staff.manage');
     }
 
 
