@@ -2,15 +2,20 @@
 
 namespace Plugins\Meringue\Slider;
 
+use App\Plugin\InstanceInterface;
 use App\Plugin\PluginBase;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Plugins\Meringue\PhotoGallery\Models\Gallery;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class Slider
  * @package Plugins\Meringue\Slider
  */
-class Slider extends PluginBase
+class Slider extends PluginBase implements InstanceInterface
 {
-
     /**
      * @var string
      */
@@ -76,7 +81,14 @@ class Slider extends PluginBase
      */
     public function render(int $instanceId = null)
     {
-        return false;
+        // slick thing?
+        // check counts
+
+        $link = GalleryLink::findOrFail($instanceId);
+
+        return View::make('Meringue/Slider/views/slider')
+            ->with('navGallery', Gallery::findOrFail($link->nav_gallery_id))
+            ->with('mainGallery', Gallery::findOrFail($link->main_gallery_id));
     }
 
 
@@ -88,6 +100,57 @@ class Slider extends PluginBase
     public function constructEditorModal(): array
     {
         // TODO: Implement constructEditorModal() method.
+    }
+
+
+    /**
+     * Get the specified Instance of the Plugin
+     *
+     * @param int $instanceId
+     * @return Collection|\stdClass|Model
+     */
+    public function getInstance(int $instanceId)
+    {
+        // TODO: Implement getInstance() method.
+    }
+
+
+    /**
+     * Save an instance of the plugin to the db
+     * Return the inserted ID
+     *
+     * @param Request $request
+     * @return int $instanceId
+     */
+    public function saveInstance(Request $request): int
+    {
+        // TODO: Implement saveInstance() method.
+    }
+
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        // TODO: Implement updateInstance() method.
+    }
+
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        // TODO: Implement deleteInstance() method.
     }
 
 }

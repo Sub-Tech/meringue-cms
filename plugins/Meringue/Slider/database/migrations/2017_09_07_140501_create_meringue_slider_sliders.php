@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagesTable extends Migration
+class CreateMeringueSliderSliders extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,10 +14,10 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('meringue_photogallery_images', function (Blueprint $table) {
+        Schema::create('meringue_slider_sliders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
-            $table->unsignedInteger('gallery_id');
+            $table->unsignedInteger('nav_gallery_id');
+            $table->unsignedInteger('main_gallery_id');
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +31,7 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meringue_photogallery_images');
+        Schema::dropIfExists('meringue_slider_sliders');
     }
+
 }
