@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Renderers\PageRenderer;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -67,5 +68,19 @@ class Page extends Model
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+
+    /**
+     * Render the page by its slug
+     *
+     * @param string $slug
+     * @return mixed
+     */
+    public static function render(string $slug)
+    {
+        $page = self::whereSlug($slug)->firstOrFail();
+
+        return PageRenderer::render($page);
     }
 }
