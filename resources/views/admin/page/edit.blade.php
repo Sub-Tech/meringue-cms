@@ -128,6 +128,11 @@
                             </div>
 
                             <h3>Section</h3>
+                            <?php if(!$section->blocks->count()) {?>
+                            <div class="alert alert-warning alert-bordered">
+                                <b>No Blocks have been found, </b> we suggest you add some
+                            </div>
+                           <?php }?>
                             @foreach ($section->blocks as $block)
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
                                      data-instance_id="{{ $block->instance_id ?? "" }}"
