@@ -23,7 +23,7 @@ class PageRenderer
         $view = HeaderRenderer::render();
 
         $page->sections->each(function (Section $section) use (&$view) {
-            $view .= SectionRenderer::render($section);
+            $view .= $section->render();
         });
 
         $view .= FooterRenderer::render();

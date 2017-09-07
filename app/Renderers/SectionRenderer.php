@@ -23,7 +23,7 @@ class SectionRenderer
         $blocks = "";
 
         $section->blocks->each(function (Block $block) use (&$blocks) {
-            $blocks .= BlockRenderer::render($block);
+            $blocks .= $block->render();
         });
 
         return view('section', [

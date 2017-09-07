@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Renderers\SectionRenderer;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -38,15 +39,34 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Section wherePageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Section whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @package App
  */
 class Section extends Model
 {
 
+    /**
+     * Mass-assignable attributes
+     *
+     * @var array
+     */
     protected $fillable = [
-        'page_id', 'order', 'background_color', 'foreground_color', 'border_top', 'border_right', 'border_left', 'border_bottom', 'custom_css', 'container', 'active'
+        'page_id',
+        'order',
+        'background_color',
+        'foreground_color',
+        'border_top',
+        'border_right',
+        'border_left',
+        'border_bottom',
+        'custom_css',
+        'container',
+        'active'
     ];
 
+
     /**
+     * Get the Page that this Section belongs to
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function page()
@@ -54,7 +74,10 @@ class Section extends Model
         return $this->belongsTo(Page::class);
     }
 
+
     /**
+     * Return all Blocks in this section
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function blocks()
@@ -62,9 +85,26 @@ class Section extends Model
         return $this->hasMany(Block::class);
     }
 
+
+    /**
+     * Return the number of blocks in this section so that the new position can be applied
+     *
+     * @return mixed
+     */
     public function getHighestPosition()
     {
-        return Block::whereSectionId($this->id)->max('order');
+        return Block::whereSectionId($this->id)->count();
+    }
+
+
+    /**
+     * Render the section
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function render()
+    {
+        return SectionRenderer::render($this);
     }
 
 }

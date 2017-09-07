@@ -22,13 +22,11 @@ class ModalRenderer
      */
     public static function render(Block $block, int $instanceId = null)
     {
-        $plugin = PluginInitialiser::getPlugin($block->plugin->class_name);
-
         return View::make('admin.plugin.modal')
             ->with('block', $block)
-            ->with('plugin', $plugin)
-            ->with('editSettings', $plugin->constructEditorModal())
-            ->with('instance', $instanceId ? $plugin->getInstance($instanceId) : null);
+            ->with('plugin', $block->plugin)
+            ->with('editSettings', $block->plugin->constructEditorModal())
+            ->with('instance', $instanceId ? $block-.plugin->getInstance($instanceId) : null);
     }
 
 }
