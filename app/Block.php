@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Renderers\RendersPlugins;
+use App\Helpers\RendersPlugins;
 use Illuminate\Database\Eloquent\Model;
 
 /**

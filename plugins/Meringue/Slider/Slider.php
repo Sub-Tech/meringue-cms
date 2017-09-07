@@ -76,8 +76,6 @@ class Slider extends PluginBase
      */
     public function render(int $instanceId = null)
     {
-//        $this->requires('Meringue/PhotoGallery');
-
         return false;
     }
 

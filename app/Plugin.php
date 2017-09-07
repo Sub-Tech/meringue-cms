@@ -49,12 +49,12 @@ class Plugin extends Model
 
     protected $primaryKey = 'class_name';
 
+    public $incrementing = false;
+
     public function getRouteKeyName()
     {
         return 'class_name';
     }
-
-    public $incrementing = false;
 
     public function blocks()
     {
@@ -71,9 +71,20 @@ class Plugin extends Model
     }
 
 
+    /**
+     * Only return active plugins
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public static function activePlugins()
     {
         return self::whereActive(1)->get();
+    }
+
+
+    public function __toString()
+    {
+        return PluginInitialiser::getPlugin($this->class_name);
     }
 
 }

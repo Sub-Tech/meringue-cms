@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Renderers;
+namespace App\Helpers;
 
 use App\Plugin\PluginInitialiser;
 
 /**
  * Trait RendersPlugins
- * @package App\Renderers
+ * @package App\Helpers
  */
 trait RendersPlugins
 {
@@ -40,6 +40,7 @@ trait RendersPlugins
                 return true;
             }
         }
+
         return false;
     }
 
