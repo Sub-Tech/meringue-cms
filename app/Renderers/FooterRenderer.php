@@ -14,7 +14,7 @@ class FooterRenderer
      *
      * @return \Illuminate\View\View
      */
-    public function render()
+    public static function render()
     {
         return view(config('theme.default') . '/footer');
     }

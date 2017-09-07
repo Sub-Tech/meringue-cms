@@ -14,7 +14,7 @@ class HeaderRenderer
      *
      * @return View
      */
-    public function render()
+    public static function render()
     {
         return view(config('theme.default') . '/header');
     }
