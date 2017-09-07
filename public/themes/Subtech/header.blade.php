@@ -47,9 +47,14 @@
         <div class="container has-text-centered">
             <h1>We Understand Your Leads</h1>
             <p>Our first class lead generation delivered results instantly</p>
-            <a href="/" class="btn btn-lg btn-orange">Coreg Leads</a>
+            <a href="/" class="btn btn-lg btn-white">Pure Lead Generation</a>
             <a href="/" class="btn btn-lg btn-clear">Affiliate Network</a>
         </div>
     </div>
 </section>
 </body>
+
+Traffic Volumes
+Bespoke Tools
+Account Manager
+Validation 
