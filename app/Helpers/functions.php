@@ -68,3 +68,23 @@ if (!function_exists('convert_label_to_name')) {
     }
 }
 
+
+/**
+ * Gets the file type and returns the correct content type
+ */
+if (!function_exists('get_content_type')) {
+    function get_content_type(string $filePath): string
+    {
+        $pieces = explode('.', $filePath);
+
+        switch (last($pieces)) {
+            case 'js':
+                return 'text/javascript';
+            case 'css':
+                return 'text/css';
+            default:
+                throw new Exception("Unknown file type", 500);
+        }
+    }
+}
+

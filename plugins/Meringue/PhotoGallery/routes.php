@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\Route;
+
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/Meringue/PhotoGallery/galleries', '\Plugins\Meringue\PhotoGallery\GalleryController@index')->name('PhotoGallery.index');
     Route::get('/Meringue/PhotoGallery/galleries/new', '\Plugins\Meringue\PhotoGallery\GalleryController@create')->name('PhotoGallery.create');
@@ -13,29 +15,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/Meringue/PhotoGallery/galleries/{gallery}/images/{image}', '\Plugins\Meringue\PhotoGallery\ImageController@delete')->name('PhotoGallery.image.delete');
 });
 
-
-
 // Assets
-
-use Illuminate\Support\Facades\Response;
-
-Route::get('PhotoGallery/isotope', function () {
-    return Response::make(
-        file_get_contents(__DIR__ . "/assets/js/isotope.js"),
-        $status = 200
-    )->header('Content-Type', 'text/javascript');
-})->name('assets.js.isotope');
-
-Route::get('PhotoGallery/js/slick', function () {
-    return Response::make(
-        file_get_contents(__DIR__ . "/assets/js/slick.min.js"),
-        $status = 200
-    )->header('Content-Type', 'text/javascript');
-})->name('assets.js.slick');
-
-Route::get('PhotoGallery/css/slick', function () {
-    return Response::make(
-        file_get_contents(__DIR__ . "/assets/css/slick.css"),
-        $status = 200
-    )->header('Content-Type', 'text/css');
-})->name('assets.css.slick');
+Route::asset('PhotoGallery/isotope', __DIR__ . "/assets/js/isotope.js", 'assets.js.isotope');
+Route::asset('PhotoGallery/js/slick', __DIR__ . "/assets/js/slick.min.js", 'assets.js.slick');
+Route::asset('PhotoGallery/css/slick', __DIR__ . "/assets/css/slick.css", 'assets.css.isotope');
