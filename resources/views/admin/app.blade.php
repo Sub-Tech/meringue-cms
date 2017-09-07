@@ -28,9 +28,6 @@
             src="{{ URL::asset('/limitless/assets/js/plugins/loaders')}}/blockui.min.js"></script>
     <!-- /core JS files -->
 
-    <!-- CKEditor -->
-    <script src="https://cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-
     <!-- Theme JS files -->
     <script type="text/javascript"
             src="{{ URL::asset('/limitless/assets/js/plugins/visualization')}}/d3/d3.min.js"></script>

@@ -1,4 +1,4 @@
-<div class="section" style="text-align: center">
+<div class="section">
     <div class='container'>
         <div class='row'>
 
