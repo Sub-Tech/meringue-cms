@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMenuOption;
 use App\Http\Requests\UpdateMenuOption;
 use App\MenuOption;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
  * Class MenuOptionsController
  * @package App\Http\Controllers
  */
-class MenuOptionsController extends Controller
+class MenuOptionController extends Controller
 {
 
     /**

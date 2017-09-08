@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Page whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Page whereUserId($value)
  * @mixin \Eloquent
+ * @property int $homepage
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Page whereHomepage($value)
  */
 class Page extends Model
 {

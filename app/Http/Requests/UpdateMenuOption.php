@@ -31,7 +31,8 @@ class UpdateMenuOption extends FormRequest
     {
         return [
             'parent_id' => ['int', new ParentMustHaveNoParent],
-            'href' => ['string']
+            'href' => ['string'],
+            'text' => ['string'],
         ];
     }
 

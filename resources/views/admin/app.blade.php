@@ -434,6 +434,13 @@
                                     <li><a href="{{ route('plugin.index') }}">Manage Plugins</a></li>
                                 </ul>
                             </li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-plug"></i> <span>Menu</span></a>
+                                <ul>
+                                    <li><a href="{{ route('admin.menu.edit') }}">Edit Menu</a></li>
+                                </ul>
+                            </li>
                             <!-- /page kits -->
 
                         </ul>
