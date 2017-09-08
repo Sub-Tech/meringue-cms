@@ -13,7 +13,6 @@
         }
 
         .section {
-            text-align: center;
             background: #F5F5F5;
             padding: 20px 20px 0px 20px;
             border-radius: 5px 0 5px 5px;
@@ -126,14 +125,15 @@
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
-
-                            <h3>Section</h3>
                             <?php if(!$section->blocks->count()) {?>
                             <div class="alert alert-warning alert-bordered">
                                 <b>No Blocks have been found, </b> we suggest you add some
                             </div>
                            <?php }?>
                             @foreach ($section->blocks as $block)
+
+                                <?php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class); ?>
+
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
                                      data-instance_id="{{ $block->instance_id ?? "" }}"
                                      data-id="<?=$block->id;?>">
@@ -141,7 +141,7 @@
                                         <div class="menu">
                                             <ul>
                                                 <li class="image"
-                                                    style="background-image:url({{ $block->plugin->icon }});"></li>
+                                                    style="background-image:url({{ $plugin->getLogo() }});"></li>
 
                                                 <li><i class="fa fa-pencil editBlock" data-toggle="modal"
                                                        data-target="#myModal" aria-hidden="true"></i></li>
@@ -157,11 +157,6 @@
                                             </ul>
                                         </div>
 
-                                        @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
-                                        <strong>{{ $plugin->getName() }}</strong>
-                                        @if (isset($block->instance_id))
-                                            : {{ $plugin->getInstance($block->instance_id)->name ?? '' }}
-                                        @endif
 
                                         @if(!$block->plugin->active)
                                             <span style="color: red;"> INACTIVE</span>
