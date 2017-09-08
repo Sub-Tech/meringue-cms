@@ -21,6 +21,10 @@ class ParentMustHaveNoParent implements Rule
      */
     public function passes($attribute, $value)
     {
+        if ($value == "") {
+            return true;
+        }
+
         return MenuOption::findOrFail($value)->parent_id == null;
     }
 

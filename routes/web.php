@@ -1,6 +1,7 @@
 <?php
 
 use App\Plugin;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('pages/{page}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
     Route::patch('pages/{page}', 'Admin\PageController@update')->name('admin.page.update');
     Route::get('pages/{page}/delete', 'Admin\PageController@delete')->name('admin.page.delete');
+
+    Route::get('menu/edit', 'Admin\MenuController@edit')->name('admin.menu.edit');
+    Route::post('menu/option', 'Admin\MenuOptionController@store')->name('menu.option.store');
+    Route::patch('menu/option/{menuOption}', 'Admin\MenuOptionController@update')->name('menu.option.update');
+    Route::delete('menu/option/{menuOption}', 'Admin\MenuOptionController@destroy')->name('menu.option.destroy');
 
     Route::get('homepage/{page}', 'Admin\HomepageController@update')->name('homepage.update');
 

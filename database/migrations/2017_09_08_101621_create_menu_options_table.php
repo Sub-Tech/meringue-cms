@@ -16,7 +16,8 @@ class CreateMenuOptionsTable extends Migration
         Schema::create('menu_options', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('href')->default('#');
+            $table->string('text');
+            $table->string('href')->nullable()->default('#');
             $table->unsignedInteger('page')->nullable();
             $table->unsignedInteger('parent_id')->nullable();
 

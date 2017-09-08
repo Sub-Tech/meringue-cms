@@ -31,8 +31,9 @@ class CreateMenuOption extends FormRequest
     public function rules()
     {
         return [
-            'parent_id' => ['int', new ParentMustHaveNoParent],
-            'href' => ['string', 'required']
+            'parent_id' => ['nullable', new ParentMustHaveNoParent],
+            'href' => ['string'],
+            'text' => ['string', 'required']
         ];
     }
 
