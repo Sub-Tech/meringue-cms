@@ -16,6 +16,7 @@
 
     <link href="{{ theme_asset('fonts/lovelo-fontface.css') }}" rel="stylesheet">
     <link href="{{ theme_asset('fonts/FontAwesome.css') }}" rel="stylesheet">
+    <link href="{{ theme_asset('fonts/ionicons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 </head>
 
