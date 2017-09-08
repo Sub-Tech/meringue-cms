@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $menuBuilder = new MenuBuilder();
+        $menuBuilder = new MenuBuilder;
         View::share('menu', $menuBuilder->build());
     }
 
