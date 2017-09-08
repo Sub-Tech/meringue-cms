@@ -7,7 +7,22 @@ use Illuminate\Support\Collection;
 
 /**
  * Class MenuOption
+ *
  * @package App
+ * @property int $id
+ * @property string $href
+ * @property int|null $page
+ * @property int|null $parent_id
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Collection $children
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereHref($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption wherePage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class MenuOption extends Model
 {
@@ -18,6 +33,11 @@ class MenuOption extends Model
      * @var array
      */
     protected $guarded = [];
+
+
+    protected $appends = [
+        'children'
+    ];
 
 
     /**
@@ -39,6 +59,17 @@ class MenuOption extends Model
     public function getChildrenAttribute(): Collection
     {
         return MenuOption::whereParentId($this->id)->get();
+    }
+
+
+    /**
+     * Get only Parent options
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function getParents()
+    {
+        return self::whereParentId(null)->get();
     }
 
 }
