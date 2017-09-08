@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Helpers\MenuBuilder;
+use App\MenuOption;
 use App\Plugin\PluginInitialiser;
-use Doctrine\DBAL\Driver\PDOException;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -23,8 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            $menuBuilder = new MenuBuilder;
-            View::share('menu', $menuBuilder->build());
+            View::share('menu', MenuOption::getParents());
         } catch (\Exception $exception) {
             // Catch `artisan` commands failing here
         }
