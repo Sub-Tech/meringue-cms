@@ -18,9 +18,8 @@ class MenuBuilder
      */
     private $menuOptions = [];
 
-
     /**
-     * Render the
+     * Return the Menu Array
      *
      * @return MenuOption[]
      */
