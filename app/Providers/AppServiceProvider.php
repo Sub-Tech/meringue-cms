@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Helpers\MenuBuilder;
 use App\Plugin\PluginInitialiser;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\View;
 /**
  * Class AppServiceProvider
  * @package App\Providers

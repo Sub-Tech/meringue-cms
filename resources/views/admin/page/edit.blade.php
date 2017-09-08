@@ -132,7 +132,6 @@
                            <?php }?>
                             @foreach ($section->blocks as $block)
 
-                                <?php $plugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class); ?>
 
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
                                      data-instance_id="{{ $block->instance_id ?? "" }}"
@@ -141,7 +140,7 @@
                                         <div class="menu">
                                             <ul>
                                                 <li class="image"
-                                                    style="background-image:url({{ $plugin->getLogo() }});"></li>
+                                                    style="background-image:url({{ $block->plugin->icon }});"></li>
 
                                                 <li><i class="fa fa-pencil editBlock" data-toggle="modal"
                                                        data-target="#myModal" aria-hidden="true"></i></li>
@@ -162,10 +161,8 @@
                                             <span style="color: red;"> INACTIVE</span>
                                         @endif
 
-                                        @php $blockPlugin = \App\Plugin\PluginInitialiser::getPlugin($block->plugin_class) @endphp
-
-                                        @if($blockPlugin->implements(\App\Plugin\PageEditorInterface::class))
-                                            @include($blockPlugin->renderBlockPreview($block))
+                                        @if($block->plugin->implements(\App\Plugin\PageEditorInterface::class))
+                                            @include($block->plugin->renderBlockPreview($block))
                                         @endif
                                     </div>
                                 </div>
