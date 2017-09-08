@@ -80,11 +80,4 @@ class Plugin extends Model
     {
         return self::whereActive(1)->get();
     }
-
-
-    public function __toString()
-    {
-        return PluginInitialiser::getPlugin($this->class_name);
-    }
-
 }
