@@ -2,11 +2,17 @@
 
 namespace App\Providers;
 
+use App\Helpers\MenuBuilder;
 use App\Plugin\PluginInitialiser;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -14,8 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $menuBuilder = new MenuBuilder();
+        View::share('menu', $menuBuilder->build());
     }
+
 
     /**
      * Register any application services.
@@ -28,4 +36,5 @@ class AppServiceProvider extends ServiceProvider
             return new PluginInitialiser;
         });
     }
+
 }
