@@ -76,9 +76,7 @@ if (!function_exists('convert_label_to_name')) {
 if (!function_exists('get_content_type')) {
     function get_content_type(string $filePath): string
     {
-        $pieces = explode('.', $filePath);
-
-        switch (last($pieces)) {
+        switch (pathinfo($filePath, PATHINFO_EXTENSION)) {
             case 'js':
                 return 'text/javascript';
             case 'css':

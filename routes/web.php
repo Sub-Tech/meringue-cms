@@ -37,6 +37,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
+    Route::patch('blocks/order', 'Admin\BlockOrderController@update')->name('block.order.update');
+    Route::patch('sections/order', 'Admin\SectionOrderController@update')->name('section.order.update');
+
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
 
     Route::post('plugins/{plugin}/activate', 'Admin\PluginActivationController@store')->name('plugin.activate');
@@ -55,8 +58,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 // Get asset according to file path
-Route::get('assets/{filePath?}', 'AssetController@show')
-    ->where('filePath', '(.*)');
+Route::get('assets/{filePath?}', 'AssetController@show')->where('filePath', '(.*)');
 
 // Route for all other pages to go via the CMS
 Route::get('{slug?}', 'PageController@index');
