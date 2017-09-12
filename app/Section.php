@@ -51,7 +51,7 @@ class Section extends Model
      */
     protected $fillable = [
         'page_id',
-        'order',
+        'position',
         'background_color',
         'foreground_color',
         'border_top',

@@ -56,6 +56,7 @@ class Block extends Model
         'section_id',
         'plugin_class',
         'background_color',
+        'position',
         'width',
         'padding',
         'border_top',
