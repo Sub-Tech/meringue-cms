@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  * @property int|null $parent_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \Collection $children
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\MenuOption[] $children
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereHref($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereId($value)
@@ -77,6 +77,15 @@ class MenuOption extends Model
     public static function getParents()
     {
         return self::whereParentId(null)->get();
+    }
+
+
+    /**
+     * Delete all Children
+     */
+    public function deleteChildren()
+    {
+        $this->children->each->delete();
     }
 
 }

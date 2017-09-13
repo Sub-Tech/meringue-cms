@@ -16,19 +16,18 @@ class ModalRenderer
      * Render the Modal
      *
      * @param Block $block
-     * @param int|null $instanceId
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public static function render(Block $block, int $instanceId = null)
+    public static function render(Block $block)
     {
         // Called once to speed up rendering
-        $plugin = $block->plugin;
+        $plugin = $block->plugin->class();
 
         return View::make('admin.plugin.modal')
             ->with('block', $block)
             ->with('plugin', $plugin)
             ->with('editSettings', $plugin->constructEditorModal())
-            ->with('instance', $instanceId ? $plugin->getInstance($instanceId) : null);
+            ->with('instance', $block->instance_id ? $plugin->getInstance($block->instance_id) : null);
     }
 
 }
