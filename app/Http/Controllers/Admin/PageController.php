@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Plugin\PluginInitialiser;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePage;
 use App\Page;
 use Illuminate\Http\Request;
+use App\Plugin\PluginInitialiser;
+use App\Http\Requests\UpdatePage;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class PageController

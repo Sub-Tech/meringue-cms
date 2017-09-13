@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Responses\AjaxResponse;
 use App\Plugin;
+use App\Http\Responses\AjaxResponse;
+use App\Http\Controllers\Controller;
 
 /**
- * Class PluginController
+ * Class PluginActivationController
  * @package App\Http\Controllers\Admin
  */
 class PluginActivationController extends Controller

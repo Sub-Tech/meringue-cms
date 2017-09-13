@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\Http\Responses\AjaxResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateBlockOrder;
-use App\Http\Responses\AjaxResponse;
-use App\Section;
 
 /**
  * Class BlockOrderController
@@ -25,7 +24,7 @@ class BlockOrderController extends Controller
     {
         $position = 1;
 
-        /** @var int[$block->id] $request->item */
+        /** @var int[] $request->block */
         foreach ($request->block as $itemId) {
             Block::whereId($itemId)->update([
                 'position' => $position

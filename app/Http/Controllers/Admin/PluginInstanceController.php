@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
-use App\Http\Responses\AjaxResponse;
-use App\Plugin\PluginInitialiser;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Plugin\PluginInitialiser;
+use App\Http\Responses\AjaxResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
 /**
- * Class PluginController
+ * Class PluginInstanceController
  * @package App\Http\Controllers\Admin
  */
 class PluginInstanceController extends Controller

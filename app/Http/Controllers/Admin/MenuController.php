@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\MenuOption;
 use App\Page;
+use App\MenuOption;
+use App\Http\Controllers\Controller;
 
 /**
  * Class MenuController

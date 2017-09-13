@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Renderers\Admin\ModalRenderer;
 
 /**
- * Class PluginController
+ * Class PluginModalController
  * @package App\Http\Controllers\Admin
  */
 class PluginModalController extends Controller

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\MenuOption;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMenuOption;
 use App\Http\Requests\UpdateMenuOption;
-use App\MenuOption;
 use Illuminate\Support\Facades\Redirect;
 
 /**
- * Class MenuOptionsController
+ * Class MenuOptionController
  * @package App\Http\Controllers
  */
 class MenuOptionController extends Controller

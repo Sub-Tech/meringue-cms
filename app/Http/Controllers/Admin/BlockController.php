@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Block;
 use App\Section;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBlock;
 use App\Http\Requests\UpdateBlock;
 use App\Http\Responses\AjaxResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
