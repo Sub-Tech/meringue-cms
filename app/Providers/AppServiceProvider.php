@@ -49,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
                 class_path($request->vendor, $request->plugin)
             );
         });
+
+        $this->app->bind('PluginInitialiser', PluginInitialiser::class);
     }
 
 }
