@@ -3,6 +3,7 @@
 namespace App\Plugin;
 
 use Artisan;
+use App\Facades\PluginInitialiser;
 
 /**
  * Class PluginBase
@@ -41,8 +42,6 @@ abstract class PluginBase implements PluginInterface
      */
     public function __construct()
     {
-        $this->pluginInitialiser = app(PluginInitialiser::class);
-
         $this->setName();
         $this->setVendor();
     }

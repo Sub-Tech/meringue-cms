@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
             return new PluginInitialiser;
         });
 
+        $this->app->bind('PluginInitialiser', PluginInitialiser::class);
+
+
         $this->app->bind(PluginBase::class, function () {
             $request = app(Request::class);
 
@@ -49,8 +52,6 @@ class AppServiceProvider extends ServiceProvider
                 class_path($request->vendor, $request->plugin)
             );
         });
-
-        $this->app->bind('PluginInitialiser', PluginInitialiser::class);
     }
 
 }
