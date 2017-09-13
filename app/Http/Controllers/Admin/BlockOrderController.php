@@ -25,7 +25,7 @@ class BlockOrderController extends Controller
         $position = 1;
 
         /** @var int[] $request->block */
-        foreach ($request->block as $itemId) {
+        foreach ($request->input('block') as $itemId) {
             Block::whereId($itemId)->update([
                 'position' => $position
             ]);

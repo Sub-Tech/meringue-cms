@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\Plugin\InstanceInterface;
-use App\Plugin\PluginBase;
-use App\Plugin\PluginInitialiser;
+use App\Facades\PluginInitialiser;
 use App\Renderers\BlockRenderer;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $active
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read PluginBase|InstanceInterface $plugin
  * @property-read \App\Section $section
+ * @property-read \App\Plugin $plugin
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereBackgroundColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Block whereBorderBottom($value)
@@ -83,14 +81,9 @@ class Block extends Model
     }
 
 
-    /**
-     * Get the associated Plugin Class with this Block
-     *
-     * @return Plugin\CronInterface|Plugin\InstanceInterface|Plugin\PluginBase|Plugin\PluginInterface
-     */
-    public function getPluginAttribute()
+    public function plugin()
     {
-        return PluginInitialiser::getPlugin($this->plugin_class);
+        return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
     }
 
 
@@ -111,9 +104,7 @@ class Block extends Model
      */
     public function isTryingToRenderAnInactivePlugin()
     {
-        $pluginInitialiser = app(PluginInitialiser::class);
-
-        return !$pluginInitialiser->plugins->has($this->plugin_class);
+        return !PluginInitialiser::plugins()->has($this->plugin_class);
     }
 
 

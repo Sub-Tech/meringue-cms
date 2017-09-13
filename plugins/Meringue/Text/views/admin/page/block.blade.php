@@ -1,6 +1,6 @@
 @if (isset($block->instance_id))
     <div id="editor1" contenteditable="true">
-        {!! $block->plugin->getInstance($block->instance_id)->content !!}
+        {!! $block->plugin->class()->getInstance($block->instance_id)->content !!}
     </div>
 @endif
 
@@ -12,8 +12,8 @@
                 url: '/admin/instances/{{ $block->instance_id }}',
                 data: {
                     content: CKEDITOR.instances.editor1.getData(),
-                    vendor: '{{ $block->plugin->getVendor() }}',
-                    plugin: '{{ $block->plugin->getName() }}'
+                    vendor: '{{ $block->plugin->class()->getVendor() }}',
+                    plugin: '{{ $block->plugin->class()->getName() }}'
                 }
             });
         }
