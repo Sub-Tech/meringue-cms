@@ -27,10 +27,9 @@ class BlockController extends Controller
      */
     public function store(CreateBlock $request, Section $section)
     {
-        Block::create(array_merge(
+        $section->blocks()->create(array_merge(
             $request->all(), [
-            'order' => $section->getHighestPosition() + 1,
-            'section_id' => $section->id
+            'position' => $section->getHighestPosition() + 1
         ]));
 
         return Redirect::back();

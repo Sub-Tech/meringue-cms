@@ -107,4 +107,13 @@ class Section extends Model
         return SectionRenderer::render($this);
     }
 
+
+    /**
+     * Blocks to come ordered by position by default
+     */
+    public function getBlocksAttribute()
+    {
+        return $this->blocks()->orderBy('position')->get();
+    }
+
 }

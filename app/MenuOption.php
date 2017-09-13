@@ -37,6 +37,11 @@ class MenuOption extends Model
     protected $guarded = [];
 
 
+    /**
+     * Custom attribute to append to the base models
+     *
+     * @var array
+     */
     protected $appends = [
         'children'
     ];

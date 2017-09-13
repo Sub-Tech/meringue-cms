@@ -64,12 +64,22 @@ class Page extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+
+    /**
+     * Sections to come ordered by position by default
+     */
+    public function getSectionsAttribute()
+    {
+        return $this->sections()->orderBy('position')->get();
     }
 
 

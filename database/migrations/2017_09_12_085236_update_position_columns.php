@@ -20,7 +20,7 @@ class UpdatePositionColumns extends Migration
 
         Schema::table('blocks', function (Blueprint $table) {
             $table->dropColumn('order');
-            $table->unsignedInteger('position')->nullable();
+            $table->unsignedInteger('position')->default(0);
         });
     }
 

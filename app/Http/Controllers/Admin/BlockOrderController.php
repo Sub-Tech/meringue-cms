@@ -6,6 +6,7 @@ use App\Block;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateBlockOrder;
 use App\Http\Responses\AjaxResponse;
+use App\Section;
 
 /**
  * Class BlockOrderController
@@ -22,10 +23,10 @@ class BlockOrderController extends Controller
      */
     public function update(UpdateBlockOrder $request)
     {
-        $position = 0;
+        $position = 1;
 
         /** @var int[$block->id] $request->item */
-        foreach ($request->item as $itemId) {
+        foreach ($request->block as $itemId) {
             Block::whereId($itemId)->update([
                 'position' => $position
             ]);

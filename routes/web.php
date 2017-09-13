@@ -38,7 +38,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
 
     Route::patch('blocks/order', 'Admin\BlockOrderController@update')->name('block.order.update');
-    Route::patch('sections/order', 'Admin\SectionOrderController@update')->name('section.order.update');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
 

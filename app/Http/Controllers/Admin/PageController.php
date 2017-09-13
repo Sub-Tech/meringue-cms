@@ -31,7 +31,7 @@ class PageController extends Controller
 
 
     /**
-     * Display the form to create the shit
+     * Display the form to create the page
      */
     public function create()
     {
@@ -66,6 +66,8 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
+        $page->load(['sections', 'sections.blocks']);
+
         return View::make('admin.page.edit')
             ->with('page', $page)
             ->with('plugins', app(PluginInitialiser::class)->plugins);
