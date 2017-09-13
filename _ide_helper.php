@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.2 on 2017-09-05.
+ * Generated for Laravel 5.5.0 on 2017-09-12.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1873,7 +1873,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the session store used by the guard.
          *
-         * @return \Illuminate\Contracts\Session\Session. 
+         * @return \Illuminate\Session\Store 
          * @static 
          */ 
         public static function getSession()
@@ -12788,7 +12788,7 @@ namespace  {
             /**
              * Find multiple models by their primary keys.
              *
-             * @param \Illuminate\Contracts\Support\Arrayable|array $ids
+             * @param array $ids
              * @param array $columns
              * @return \Illuminate\Database\Eloquent\Collection 
              * @static 
