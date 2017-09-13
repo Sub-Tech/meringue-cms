@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Helpers\RendersPlugins;
 use App\Plugin\InstanceInterface;
 use App\Plugin\PluginBase;
 use App\Plugin\PluginInitialiser;
@@ -50,8 +49,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Block extends Model
 {
-    use RendersPlugins;
 
+    /**
+     * Fillable attributes
+     *
+     * @var array
+     */
     protected $fillable = [
         'section_id',
         'plugin_class',
@@ -99,6 +102,39 @@ class Block extends Model
     public function render()
     {
         return BlockRenderer::render($this);
+    }
+
+
+    /**
+     * Checks the plugins array for inactive plugins
+     * @return bool
+     */
+    public function isTryingToRenderAnInactivePlugin()
+    {
+        $pluginInitialiser = app(PluginInitialiser::class);
+
+        return !$pluginInitialiser->plugins->has($this->plugin_class);
+    }
+
+
+    /**
+     * Checks to see whether the Plugin being rendered has any dependencies
+     * If it does and the dependency is unavailable, render nothing
+     *
+     * @return bool
+     */
+    public function pluginDependsOnAnInactivePlugin()
+    {
+        /** @var Block $this */
+        if (isset($this->plugin->requires)) {
+            try {
+                $this->plugin->requires($this->plugin->requires);
+            } catch (\Exception $exception) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
