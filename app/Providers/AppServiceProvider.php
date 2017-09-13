@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Helpers\MenuBuilder;
 use App\MenuOption;
+use App\Plugin\PluginBase;
 use App\Plugin\PluginInitialiser;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -39,6 +40,14 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(PluginInitialiser::class, function ($app) {
             return new PluginInitialiser;
+        });
+
+        $this->app->bind(PluginBase::class, function () {
+            $request = app(Request::class);
+
+            return PluginInitialiser::getPlugin(
+                class_path($request->vendor, $request->plugin)
+            );
         });
     }
 
