@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\InstallsPlugins;
-use App\Http\Controllers\Controller;
-use App\Http\Responses\AjaxResponse;
 use App\Plugin;
+use App\Http\Responses\AjaxResponse;
+use App\Http\Controllers\Controller;
 
 /**
- * Class PluginController
+ * Class PluginActivationController
  * @package App\Http\Controllers\Admin
  */
 class PluginActivationController extends Controller
 {
-    use InstallsPlugins;
 
     /**
      * Activates the Plugin
@@ -24,7 +22,7 @@ class PluginActivationController extends Controller
     public function store(Plugin $plugin)
     {
         try {
-            $this->install($plugin);
+            $plugin->install();
         } catch (\Exception $e) {
             return new AjaxResponse($message = $e->getMessage(), $success = false);
         }

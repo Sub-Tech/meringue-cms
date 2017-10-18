@@ -26,6 +26,8 @@
             src="{{ URL::asset('/limitless/assets/js/core/libraries')}}/bootstrap.min.js"></script>
     <script type="text/javascript"
             src="{{ URL::asset('/limitless/assets/js/plugins/loaders')}}/blockui.min.js"></script>
+    <script type="text/javascript" src="/assets/resources/assets/js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/assets/resources/assets/js/jquery-ui.min.js"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->

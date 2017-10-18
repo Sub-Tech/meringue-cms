@@ -33,9 +33,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('menu/option/{menuOption}', 'Admin\MenuOptionController@update')->name('menu.option.update');
     Route::delete('menu/option/{menuOption}', 'Admin\MenuOptionController@destroy')->name('menu.option.destroy');
 
-    Route::get('homepage/{page}', 'Admin\HomepageController@update')->name('homepage.update');
-
     Route::post('pages/{page}/sections', 'Admin\SectionController@store')->name('section.store');
+
+    Route::patch('blocks/order', 'Admin\BlockOrderController@update')->name('block.order.update');
 
     Route::get('plugins', 'Admin\PluginController@index')->name('plugin.index');
 
@@ -55,8 +55,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 // Get asset according to file path
-Route::get('assets/{filePath?}', 'AssetController@show')
-    ->where('filePath', '(.*)');
+Route::get('assets/{filePath?}', 'AssetController@show')->where('filePath', '(.*)');
 
 // Route for all other pages to go via the CMS
 Route::get('{slug?}', 'PageController@index');

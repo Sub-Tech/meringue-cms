@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Plugin\PluginInitialiser;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePage;
 use App\Page;
 use Illuminate\Http\Request;
+use App\Plugin\PluginInitialiser;
+use App\Http\Requests\UpdatePage;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class PageController
@@ -31,7 +31,7 @@ class PageController extends Controller
 
 
     /**
-     * Display the form to create the shit
+     * Display the form to create the page
      */
     public function create()
     {
@@ -66,6 +66,8 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
+        $page->load(['sections', 'sections.blocks']);
+
         return View::make('admin.page.edit')
             ->with('page', $page)
             ->with('plugins', app(PluginInitialiser::class)->plugins);

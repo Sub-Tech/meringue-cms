@@ -4,7 +4,6 @@ namespace App\Renderers;
 
 use App\Block;
 use App\Plugin\InstanceInterface;
-use App\Plugin\PluginInitialiser;
 
 /**
  * Class BlockRenderer

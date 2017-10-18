@@ -51,7 +51,7 @@ class Section extends Model
      */
     protected $fillable = [
         'page_id',
-        'order',
+        'position',
         'background_color',
         'foreground_color',
         'border_top',
@@ -105,6 +105,15 @@ class Section extends Model
     public function render()
     {
         return SectionRenderer::render($this);
+    }
+
+
+    /**
+     * Blocks to come ordered by position by default
+     */
+    public function getBlocksAttribute()
+    {
+        return $this->blocks()->orderBy('position')->get();
     }
 
 }

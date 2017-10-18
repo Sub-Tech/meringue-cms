@@ -23,6 +23,8 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $text
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\MenuOption whereText($value)
  */
 class MenuOption extends Model
 {
@@ -35,6 +37,11 @@ class MenuOption extends Model
     protected $guarded = [];
 
 
+    /**
+     * Custom attribute to append to the base models
+     *
+     * @var array
+     */
     protected $appends = [
         'children'
     ];

@@ -80,4 +80,17 @@ class Plugin extends Model
     {
         return self::whereActive(1)->get();
     }
+
+
+    /**
+     * Installs the Plugin
+     */
+    public function install()
+    {
+        if (!$this->installed) {
+            PluginInitialiser::getPlugin($this->class_name)->install();
+
+            $this->installed = 1;
+        }
+    }
 }
