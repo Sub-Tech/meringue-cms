@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Facades\PluginInitialiser;
 use App\Page;
 use Illuminate\Http\Request;
-use App\Plugin\PluginInitialiser;
 use App\Http\Requests\UpdatePage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -52,9 +52,8 @@ class PageController extends Controller
             'user_id' => Auth::check()
         ]));
 
-        return Redirect::route('admin.page.edit', [
-            'page' => $page
-        ]);
+        return Redirect::route('admin.page.edit')
+            ->with('page', $page);
     }
 
 
@@ -70,7 +69,7 @@ class PageController extends Controller
 
         return View::make('admin.page.edit')
             ->with('page', $page)
-            ->with('plugins', app(PluginInitialiser::class)->plugins);
+            ->with('plugins', PluginInitialiser::plugins());
     }
 
 

@@ -53,7 +53,7 @@ class MenuOptionController extends Controller
     public function destroy(MenuOption $menuOption)
     {
         if ($menuOption->isParent()) {
-            $menuOption->children->each->delete();
+            $menuOption->deleteChildren();
         }
 
         $menuOption->delete();

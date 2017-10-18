@@ -2,7 +2,7 @@
 
 namespace App\Renderers\Admin;
 
-use App\Plugin\PluginInitialiser;
+use App\Facades\PluginInitialiser;
 
 /**
  * Class BlockRenderer
@@ -20,7 +20,7 @@ class MenuRenderer
     {
         $menu = [];
 
-        app(PluginInitialiser::class)->plugins->each(function ($plugin) use (&$menu) {
+        PluginInitialiser::plugins()->each(function ($plugin) use (&$menu) {
             $pluginClass = PluginInitialiser::getPlugin($plugin->class);
 
             if (method_exists($pluginClass, 'registerSideBarMenuItem')) {

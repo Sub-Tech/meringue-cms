@@ -26,7 +26,7 @@ trait RequiresPlugins
         }
 
         /** @var PluginBase $this */
-        if (!$this->pluginInitialiser->plugins->has(class_path($vendor, $plugin))) {
+        if (!PluginInitialiser::plugins()->has(class_path($vendor, $plugin))) {
             throw new \Exception("Required Plugin {$vendor}/{$plugin} doesn't exist or is not activated");
         }
     }

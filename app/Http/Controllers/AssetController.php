@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Response;
 use App\Http\Requests\RetrieveAsset;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Class AssetController

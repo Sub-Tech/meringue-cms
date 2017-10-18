@@ -24,7 +24,7 @@ class BlockRenderer
             return "";
         }
 
-        if ($block->plugin->implements(InstanceInterface::class) && is_null($block->instance_id)) {
+        if ($block->plugin->class()->implements(InstanceInterface::class) && is_null($block->instance_id)) {
             return "";
         }
 

@@ -28,6 +28,17 @@ class PluginInitialiser
 
 
     /**
+     * Returns the Collection of active Plugins
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function plugins()
+    {
+        return $this->plugins;
+    }
+
+
+    /**
      * Auto load plugins from the plugins directory.
      *
      * @return \Illuminate\Support\Collection

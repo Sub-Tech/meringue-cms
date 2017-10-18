@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Plugin\PluginInitialiser;
+use App\Facades\PluginInitialiser;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -56,9 +56,13 @@ class Plugin extends Model
         return 'class_name';
     }
 
-    public function blocks()
+
+    /**
+     * A Plugin can belong to many Blocks
+     */
+    public function block()
     {
-        return $this->hasMany(Block::class, 'plugin_class', 'class_name');
+        return $this->belongsTo(Block::class, 'plugin_class', 'class_name');
     }
 
 
@@ -67,7 +71,7 @@ class Plugin extends Model
      */
     public static function routes()
     {
-        app(PluginInitialiser::class)->initialiseRoutes();
+        PluginInitialiser::initialiseRoutes();
     }
 
 
@@ -92,5 +96,11 @@ class Plugin extends Model
 
             $this->installed = 1;
         }
+    }
+
+
+    public function class()
+    {
+        return PluginInitialiser::getPlugin($this->class_name);
     }
 }

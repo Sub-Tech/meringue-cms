@@ -63,9 +63,11 @@ if (!function_exists('class_path')) {
 if (!function_exists('convert_label_to_name')) {
     function label_to_name($label)
     {
+        // Replace all spaces with underscores and make it all lower case
         $snaked = str_replace(' ', '_', strtolower($label));
 
-        return preg_replace("/[^a-zA-Z_]+/", "", $snaked);
+        // Remove anything not a-z
+        return preg_replace("/[^a-z_]+/", "", $snaked);
     }
 }
 

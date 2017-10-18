@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Block;
+use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
-use App\Plugin\PluginInitialiser;
 use App\Http\Responses\AjaxResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -20,16 +20,17 @@ class PluginInstanceController extends Controller
      * Create Instance of a Plugin and assign it to a Block
      *
      * @param Request $request
+     * @param PluginBase $plugin
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(Request $request, PluginBase $plugin)
     {
-        $instanceId = PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin))
-            ->saveInstance($request);
+        $instanceId = $plugin->saveInstance($request);
 
         Block::whereId($request->input('block_id'))
-            ->update(['instance_id' => $instanceId]);
+            ->update([
+                'instance_id' => $instanceId
+            ]);
 
         return Redirect::back();
     }
@@ -39,13 +40,13 @@ class PluginInstanceController extends Controller
      * Update the Instance of the Plugin
      *
      * @param Request $request
+     * @param PluginBase $plugin
      * @param int $instanceId
      * @return AjaxResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $instanceId)
+    public function update(Request $request, PluginBase $plugin, int $instanceId)
     {
-        PluginInitialiser::getPlugin(class_path($request->vendor, $request->plugin))
-            ->updateInstance($instanceId, $request);
+        $plugin->updateInstance($instanceId, $request);
 
         if ($request->ajax()) {
             return new AjaxResponse('Instance updated', true);

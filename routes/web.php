@@ -51,7 +51,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
-    Route::get('blocks/{block}/modal/{instance?}', 'Admin\PluginModalController@show')->name('modal.show');
+    Route::get('blocks/{block}/modal', 'Admin\PluginModalController@show')->name('modal.show');
 });
 
 // Get asset according to file path
