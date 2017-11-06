@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 /**
  * Class PluginActivationController
+ *
  * @package App\Http\Controllers\Admin
  */
 class PluginActivationController extends Controller

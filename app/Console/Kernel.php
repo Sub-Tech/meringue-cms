@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
             foreach (Plugin::activePlugins() as $activePlugin) {
                 $plugin = PluginInitialiser::getPlugin($activePlugin->class_name);
 
-                if ($plugin->implements(CronInterface::class)) {
+                if ($plugin instanceof CronInterface) {
                     $plugin->schedule($schedule);
                 }
             }

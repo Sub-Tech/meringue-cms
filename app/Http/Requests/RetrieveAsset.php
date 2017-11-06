@@ -21,14 +21,11 @@ class RetrieveAsset extends FormRequest
      */
     public function authorize(Request $request)
     {
-        $queryStartsAt = strpos($request->path(), "?");
-
-        $pieces = explode('.', $request->fullUrl());
+        $pieces = explode('.', $request->url());
 
         return in_array($fileExtension = last($pieces), [
             'js',
-            'css',
-            'png'
+            'css'
         ]);
     }
 

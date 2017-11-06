@@ -3,6 +3,7 @@
 namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 /**
@@ -24,6 +25,7 @@ class AjaxResponse implements Responsable
 
     /**
      * AjaxResponse constructor.
+     *
      * @param string $message
      * @param bool $success
      */
@@ -38,7 +40,7 @@ class AjaxResponse implements Responsable
      * Create an HTTP response that represents the object.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function toResponse($request)
     {
