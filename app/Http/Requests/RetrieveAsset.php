@@ -21,7 +21,7 @@ class RetrieveAsset extends FormRequest
      */
     public function authorize(Request $request)
     {
-        $pieces = explode('.', $request->path());
+        $pieces = explode('.', $request->url());
 
         return in_array($fileExtension = last($pieces), [
             'js',

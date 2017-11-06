@@ -83,6 +83,8 @@ if (!function_exists('get_content_type')) {
                 return 'text/javascript';
             case 'css':
                 return 'text/css';
+            case 'png':
+                return 'image/png';
             default:
                 throw new Exception("Unknown file type", 500);
         }
