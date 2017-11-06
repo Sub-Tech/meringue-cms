@@ -5,6 +5,7 @@ namespace App\Plugin;
 use App\Plugin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class PluginInitialiser
@@ -23,7 +24,9 @@ class PluginInitialiser
      */
     public function __construct()
     {
-        $this->plugins = $this->loadAll();
+        if (Schema::hasTable('plugins')) {
+            $this->plugins = $this->loadAll();
+        }
     }
 
 
