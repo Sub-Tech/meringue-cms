@@ -25,7 +25,8 @@ class RetrieveAsset extends FormRequest
 
         return in_array($fileExtension = last($pieces), [
             'js',
-            'css'
+            'css',
+            'png'
         ]);
     }
 
