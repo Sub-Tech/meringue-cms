@@ -13,7 +13,6 @@ class SectionSeeder extends Seeder
     {
         (new \App\Section([
             'page_id' => 1,
-            'order' => 1
         ]))->save();
     }
 }
