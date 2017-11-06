@@ -115,9 +115,9 @@
                         </ul>
                     </div>
                 </div>
-                <div class="panel-body" id="sections">
+                <div class="panel-body">
                     @foreach ($page->sections as $section)
-                        <div class="section row" style="margin-top: 50px" id="section-{{ $section->id }}">
+                        <div class="section row" style="margin-top: 50px">
                             <div class="menu">
                                 <ul>
                                     <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
@@ -125,56 +125,64 @@
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
-                            <div class="blocks">
-                                @forelse ($section->blocks as $block)
-                                    <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
-                                         data-instance_id="{{ $block->instance_id ?? "" }}"
-                                         data-id="<?=$block->id;?>" id="block-{{ $block->id }}">
-                                        <div class="blockInner">
-                                            <div class="menu">
-                                                <ul>
-                                                    <li class="image"></li>
-
-                                                    <li><i class="fa fa-pencil editBlock" data-toggle="modal"
-                                                           data-target="#myModal" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-clone" aria-hidden="true"></i></li>
-                                                    <li><i class="fa fa-trash-o deleteBlock" aria-hidden="true"></i>
-                                                    </li>
-                                                    <li class="changeBlockWidth" data-adjustment="-1">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </li>
-                                                    <li class="changeBlockWidth" data-adjustment="1">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                                    </li>
-                                                    <li class="blockWidth"><?= $block->width; ?></li>
-                                                </ul>
-                                            </div>
-
-
-                                            @if(!$block->plugin->active)
-                                                <span style="color: red;"> INACTIVE</span>
-                                            @endif
-
-                                            @if($block->plugin->class() instanceof \App\Plugin\PageEditorInterface)
-                                                @include($block->plugin->class()->renderBlockPreview($block))
-                                            @endif
-                                        </div>
-                                    </div>
-                                @empty
-                                    <div class="alert alert-warning alert-bordered">
-                                        <b>No Blocks have been found, </b> we suggest you add some
-                                    </div>
-                                @endforelse
+                            <?php if(!$section->blocks->count()) {?>
+                            <div class="alert alert-warning alert-bordered">
+                                <b>No Blocks have been found, </b> we suggest you add some
                             </div>
+                           <?php }?>
+                            @foreach ($section->blocks as $block)
+
+
+                                <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
+                                     data-instance_id="{{ $block->instance_id ?? "" }}"
+                                     data-id="<?=$block->id;?>">
+                                    <div class="blockInner">
+                                        <div class="menu">
+                                            <ul>
+                                                <li class="image"
+                                                    style="background-image:url({{ $block->plugin->icon }});"></li>
+
+                                                <li><i class="fa fa-pencil editBlock" data-toggle="modal"
+                                                       data-target="#myModal" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-clone" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-trash-o deleteBlock" aria-hidden="true"></i></li>
+                                                <li class="changeBlockWidth" data-adjustment="-1">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </li>
+                                                <li class="changeBlockWidth" data-adjustment="1">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </li>
+                                                <li class="blockWidth"><?= $block->width; ?></li>
+                                            </ul>
+                                        </div>
+
+
+                                        @if(!$block->plugin->active)
+                                            <span style="color: red;"> INACTIVE</span>
+                                        @endif
+
+                                        @if($block->plugin->implements(\App\Plugin\PageEditorInterface::class))
+                                            @include($block->plugin->renderBlockPreview($block))
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
 
                             <script>
+
                                 /**
                                  * Render the appropriate Modal popup when an Edit Block button is clicked
                                  * Done by making an AJAX request to the ModalRenderer
                                  */
                                 $('.editBlock').on('click', function () {
                                     var id = $(this).closest('.block').data('id');
+                                    var instance_id = $(this).closest('.block').data('instance_id');
+
                                     var url = "/admin/blocks/" + id + "/modal";
+
+                                    if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
+                                        url += "/" + instance_id
+                                    }
 
                                     return $.ajax({
                                         url: url,
@@ -188,9 +196,7 @@
                             {{-- PLUGIN DRAWER --}}
                             <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
                             @foreach($plugins as $plugin)
-
-                                @php $plugin = PluginInitialiser::getPlugin($plugin->class) @endphp
-
+                                @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
                                 <div class="col-md-2">
                                     <div class="panel panel-flat">
                                         <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
@@ -241,21 +247,6 @@
     </div>
 
     <script>
-
-
-        $('.blocks').sortable({
-            update: function (event, ui) {
-                var data = $(this).sortable('serialize');
-
-                $.ajax({
-                    data: data,
-                    type: 'PATCH',
-                    url: '/admin/blocks/order'
-                });
-            }
-        });
-
-
         function updateBlock(id, data) {
             return $.ajax({
                 url: '/admin/blocks/' + id,
