@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Section;
+use App\Http\Responses\AjaxResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateSectionOrder;
-use App\Http\Responses\AjaxResponse;
-use App\Section;
 
 /**
  * Class SectionOrderController
@@ -25,7 +25,7 @@ class SectionOrderController extends Controller
         $position = 0;
 
         // $request->item is an array of Block->ids in desired order
-        foreach ($request->item as $itemId) {
+        foreach ($request->section as $itemId) {
             Section::whereId($itemId)->update([
                 'position' => $position
             ]);

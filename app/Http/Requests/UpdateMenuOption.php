@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ParentMustHaveNoParent;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**

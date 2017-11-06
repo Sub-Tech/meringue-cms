@@ -4,6 +4,7 @@ namespace Plugins\Meringue\Form;
 
 use App\Http\Responses\AjaxResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -13,7 +14,6 @@ use Validator;
  */
 class Response
 {
-
     use ValidatesInputs;
 
     /**
@@ -49,7 +49,7 @@ class Response
      * @param Request $request
      * @return AjaxResponse|\Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request) : JsonResponse
     {
         try {
             /** @var \Plugins\Meringue\Form\Models\Form $form */
@@ -60,12 +60,13 @@ class Response
 
         Validator::validate($request->all(), $this->validationArray($form));
 
-        $success = (new Models\Response)->fill(array_merge(
-            $request->all(), [
-            'answers' => json_encode($request->except(['vendor', 'plugin', 'form_id']))
-        ]))->save();
-
-        return new AjaxResponse('Form submitted', $success);
+        return new AjaxResponse(
+            $message = 'Form submitted',
+            $success = (bool) Models\Response::create(array_merge(
+                $request->all(), [
+                'answers' => json_encode($request->except(['vendor', 'plugin', 'form_id']))
+            ]))
+        );
     }
 
 }

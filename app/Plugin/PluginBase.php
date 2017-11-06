@@ -17,8 +17,7 @@ abstract class PluginBase implements PluginInterface
      * Each Plugin may have behaviour outside of methods provided via interfaces
      * Dependency on other Plugins being installed, for example
      */
-    use ImplementsInterfaces,
-        RequiresPlugins;
+    use RequiresPlugins;
 
     /**
      * @var string The name of the Vendor

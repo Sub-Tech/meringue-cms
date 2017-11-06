@@ -5,6 +5,7 @@ namespace App\Plugin;
 use App\Plugin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class PluginInitialiser
@@ -23,7 +24,9 @@ class PluginInitialiser
      */
     public function __construct()
     {
-        $this->plugins = $this->loadAll();
+        if (Schema::hasTable('plugins')) {
+            $this->plugins = $this->loadAll();
+        }
     }
 
 
@@ -123,7 +126,7 @@ class PluginInitialiser
         $pluginModel = Plugin::findOrFail($classPath);
 
         if ($pluginModel->active) {
-            $this->plugins[$classPath] = (object)array_merge([
+            $this->plugins[$classPath] = (object) array_merge([
                 'class' => $classPath,
                 'file' => file_path($vendor, $plugin),
                 'vendor' => $vendor

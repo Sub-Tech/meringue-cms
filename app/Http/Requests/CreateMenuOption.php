@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Rules\ParentMustHaveNoParent;
-use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class CreateMenuOption
@@ -36,5 +35,7 @@ class CreateMenuOption extends FormRequest
             'text' => ['string', 'required']
         ];
     }
+
+
 
 }
