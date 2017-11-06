@@ -161,7 +161,7 @@
                                             <span style="color: red;"> INACTIVE</span>
                                         @endif
 
-                                        @if($block->plugin->implements(\App\Plugin\PageEditorInterface::class))
+                                        @if($block->plugin instanceof \App\Plugin\PageEditorInterface)
                                             @include($block->plugin->renderBlockPreview($block))
                                         @endif
                                     </div>
