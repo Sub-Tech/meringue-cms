@@ -30,7 +30,7 @@ class BlockRenderer
 
         return
             "<div class='block col-md-{$block->width}'>"
-            . $block->plugin->render($block->instance_id) .
+            . $block->plugin->class()->render($block->instance_id) .
             "</div>";
     }
 
