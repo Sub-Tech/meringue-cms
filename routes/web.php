@@ -49,6 +49,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
 
     Route::patch('sections/{section}/css', 'Admin\SectionCssController@update')->name('section.css');
+    Route::patch('pages/{page}/css', 'Admin\PageCssController@update')->name('page.css');
     Route::get('sections/{section}/modal', 'Admin\SectionCssController@show')->name('section.modal');
 
     // TODO update with Section
