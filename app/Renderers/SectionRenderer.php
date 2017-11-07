@@ -27,6 +27,7 @@ class SectionRenderer
         });
 
         return view('section', [
+            'section' => $section,
             'blocks' => $blocks
         ]);
     }
