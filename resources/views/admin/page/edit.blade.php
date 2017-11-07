@@ -122,6 +122,9 @@
                                 <ul>
                                     <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
                                     <li><i class="fa fa-clone" aria-hidden="true"></i></li>
+                                    <li data-toggle="modal" data-target="#cssModal" class="css-button"
+                                        data-section_id="{{ $section->id }}">C
+                                    </li>
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
@@ -129,10 +132,8 @@
                             <div class="alert alert-warning alert-bordered">
                                 <b>No Blocks have been found, </b> we suggest you add some
                             </div>
-                           <?php }?>
+                            <?php }?>
                             @foreach ($section->blocks as $block)
-
-
                                 <div class="block col-md-<?= $block->width;?>" data-width="<?= $block->width;?>"
                                      data-instance_id="{{ $block->instance_id ?? "" }}"
                                      data-id="<?=$block->id;?>">
@@ -188,7 +189,18 @@
                                         url: url,
                                         method: 'get'
                                     }).success(function (resp) {
-                                        $('.modal-body').html(resp);
+                                        $('#content-modal').html(resp);
+                                    });
+                                });
+                            </script>
+
+                            <script>
+                                $('.css-button').on('click', function () {
+                                    return $.ajax({
+                                        url: "/admin/sections/" + $(this).attr('data-section_id') + "/modal",
+                                        method: 'get'
+                                    }).success(function (resp) {
+                                        $('#css-modal-body').html(resp);
                                     });
                                 });
                             </script>
@@ -238,7 +250,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Select / Insert Content</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="content-modal">
                     <p>Loading...</p>
                 </div>
             </div>
@@ -246,7 +258,30 @@
         </div>
     </div>
 
+
+    <!-- Modal -->
+    <div id="cssModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Section CSS</h4>
+                </div>
+                <div class="modal-body" id="css-modal-body">
+                    Loading...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <script>
+
         function updateBlock(id, data) {
             return $.ajax({
                 url: '/admin/blocks/' + id,
@@ -271,10 +306,13 @@
         }
 
         function setBlockWidth(id, width) {
-            $('.block[data-id=' + id + ']').removeClass(function (index, className) {
+            var block = $('.block[data-id=' + id + ']');
+
+            block.removeClass(function (index, className) {
                 return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
             }).addClass('col-md-' + width).data('width', width);
-            $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
+
+            block.find('.blockWidth').html(width);
         }
 
         $('.changeBlockWidth').on('click', function () {
