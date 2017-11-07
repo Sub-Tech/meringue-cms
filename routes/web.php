@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
     Route::get('blocks/{block}/modal/{instanceId?}', 'Admin\PluginModalController@show')->name('modal.show');
+    Route::get('blocks/{block}/modal/{instanceId?}', 'Admin\PluginModalController@show')->name('modal.show');
 
     Route::get('media', 'Admin\MediaLibraryController@show')->name('admin.media');
     Route::post('media', 'Admin\MediaLibraryController@create')->name('admin.media.upload');

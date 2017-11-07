@@ -34,7 +34,7 @@ class MediaLibraryController extends Controller
     public function create(Request $request)
     {
         Media::query()->create([
-            'path' => "uploads/" . $request->file('media')->store(''),
+            'url' => "uploads/" . $request->file('media')->store(''),
         ]);
 
         return redirect()->route('admin.media');
