@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 class MediaLibraryController extends Controller
 {
 
+    /**
+     * Show the Media Library
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         return view('admin.media', [
@@ -20,12 +25,16 @@ class MediaLibraryController extends Controller
         ]);
     }
 
+    /**
+     * Store a File
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function create(Request $request)
     {
-        $path = $request->file('media')->store('');
-
         Media::query()->create([
-            'path' => $path,
+            'path' => "uploads/" . $request->file('media')->store(''),
         ]);
 
         return redirect()->route('admin.media');

@@ -6,7 +6,7 @@
         <input type="submit">
     </form>
 
-    @foreach($media as $mediaThing)
-        <p>uploads/{{ $mediaThing->path }}</p>
+    @foreach($media as $file)
+        <p>{{ $file->path }}</p>
     @endforeach
 @endsection
