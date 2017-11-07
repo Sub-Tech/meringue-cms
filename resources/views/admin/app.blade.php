@@ -437,6 +437,9 @@
                                 </ul>
                             </li>
 
+                            <li class="active"><a href="{{ route('admin.media') }}"><i class="icon-home4"></i>
+                                    <span>Media Library</span></a></li>
+
                             <li>
                                 <a href="#"><i class="fa fa-plug"></i> <span>Menu</span></a>
                                 <ul>
