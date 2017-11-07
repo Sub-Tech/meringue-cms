@@ -59,6 +59,7 @@ class Section extends Model
         'border_left',
         'border_bottom',
         'custom_css',
+        'padding',
         'container',
         'active'
     ];

@@ -48,10 +48,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('sections/{section}/blocks', 'Admin\BlockController@store')->name('block.store');
     Route::post('blocks/{block}', 'Admin\BlockController@update')->name('block.update');
 
+    Route::patch('sections/{section}/css', 'Admin\SectionCssController@update')->name('section.css');
+    Route::get('sections/{section}/modal', 'Admin\SectionCssController@show')->name('section.modal');
+
     // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
 
-    Route::get('blocks/{block}/modal', 'Admin\PluginModalController@show')->name('modal.show');
+    Route::get('blocks/{block}/modal/{instanceId?}', 'Admin\PluginModalController@show')->name('modal.show');
     Route::get('blocks/{block}/modal/{instanceId?}', 'Admin\PluginModalController@show')->name('modal.show');
 
     Route::get('media', 'Admin\MediaLibraryController@show')->name('admin.media');

@@ -51,6 +51,7 @@ class Page extends Model
         'meta_description',
         'meta_title',
         'redirect',
+        'custom_css',
         'active',
         'homepage'
     ];
