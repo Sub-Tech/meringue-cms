@@ -320,13 +320,10 @@
         }
 
         function setBlockWidth(id, width) {
-            var block = $('.block[data-id=' + id + ']');
-
-            block.removeClass(function (index, className) {
+            $('.block[data-id=' + id + ']').removeClass(function (index, className) {
                 return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
             }).addClass('col-md-' + width).data('width', width);
-
-            block.find('.blockWidth').html(width);
+            $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
         }
 
         $('.changeBlockWidth').on('click', function () {
