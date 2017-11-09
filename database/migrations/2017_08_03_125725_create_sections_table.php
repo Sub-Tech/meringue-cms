@@ -18,7 +18,6 @@ class CreateSectionsTable extends Migration
             $table->integer('page_id');
             $table->string('order');
             $table->string('background_color')->nullable();
-            $table->string('padding')->nullable();
             $table->string('foreground_color')->nullable();
             $table->string('border_top')->nullable();
             $table->string('border_right')->nullable();
