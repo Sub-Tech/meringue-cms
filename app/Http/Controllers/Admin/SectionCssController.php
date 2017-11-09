@@ -25,9 +25,7 @@ class SectionCssController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        $section->update($request->except('custom_css'));
-
-        $section->page->update($request->only('custom_css'));
+        $section->update($request->all());
 
         return Redirect::back();
     }

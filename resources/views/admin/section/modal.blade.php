@@ -27,15 +27,5 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h6>Custom CSS</h6>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <textarea class="form-control" id="custom-css" name="custom_css">{!! $section->page->custom_css !!}</textarea>
-            </div>
-        </div>
-    </div>
     <input type="submit" class="btn btn-primary">
 </form>

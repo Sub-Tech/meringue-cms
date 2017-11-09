@@ -120,11 +120,9 @@
                         <div class="section row" style="margin-top: 50px">
                             <div class="menu">
                                 <ul>
-                                    <li><i class="fa fa-pencil" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-pencil css-button" aria-hidden="true" data-toggle="modal"
+                                           data-target="#cssModal" data-section_id="{{ $section->id }}"></i></li>
                                     <li><i class="fa fa-clone" aria-hidden="true"></i></li>
-                                    <li data-toggle="modal" data-target="#cssModal" class="css-button"
-                                        data-section_id="{{ $section->id }}">C
-                                    </li>
                                     <li><i class="fa fa-trash-o" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
@@ -280,6 +278,22 @@
         </div>
     </div>
 
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h3>Custom CSS</h3>
+        </div>
+        <div class="panel-body">
+            <form action="{{ route('page.css', ['page' => $page]) }}" method="POST">
+                {{ method_field("PATCH") }}
+                <div class="form-group">
+                    <textarea class="form-control" id="custom-css"
+                              name="custom_css">{!! $page->custom_css !!}</textarea>
+                </div>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+
     <script>
 
         function updateBlock(id, data) {
@@ -306,13 +320,10 @@
         }
 
         function setBlockWidth(id, width) {
-            var block = $('.block[data-id=' + id + ']');
-
-            block.removeClass(function (index, className) {
+            $('.block[data-id=' + id + ']').removeClass(function (index, className) {
                 return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
             }).addClass('col-md-' + width).data('width', width);
-
-            block.find('.blockWidth').html(width);
+            $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
         }
 
         $('.changeBlockWidth').on('click', function () {
