@@ -45,9 +45,13 @@ class BlockController extends Controller
      */
     public function update(UpdateBlock $request, Block $block)
     {
-        $block->update($request->all());
+        $success = $block->update($request->all());
 
-        return Redirect::back();
+        if ($request->ajax()) {
+            return response()->json(["success" => $success], $success ? 200 : 500);
+        } else {
+            return Redirect::back();
+        }
     }
 
 
