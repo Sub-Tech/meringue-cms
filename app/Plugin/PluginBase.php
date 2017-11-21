@@ -8,8 +8,6 @@ use App\Facades\PluginInitialiser;
 /**
  * Class PluginBase
  * @package App
- *
- * @mixin InstanceInterface
  */
 abstract class PluginBase implements PluginInterface
 {
