@@ -1,9 +1,12 @@
 .btn {
     color:white;
-    border-width:2px;
-    border-radius: 2px;
+    border-width:1px;
+    border-radius: 3px;
     position: relative;
     font-weight: 400;
+    padding: 12px 28px;
+    margin:0 5px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
 }
 .btn:after {
     content:'';
@@ -22,9 +25,17 @@
 .btn.btn-orange {
     background: #ff990f;
 }
+.btn.btn-green {
+    background: #8BC699;
+    color: #FFFFFF;
+}
 .btn.btn-white {
     background: #ffffff;
     color:rgb(39, 91, 138);
+    border-color: #E9EDF1;
+}
+.btn.btn-no-shadow{
+    box-shadow: none;
 }
 .btn.btn-clear {
     border-color: white;
