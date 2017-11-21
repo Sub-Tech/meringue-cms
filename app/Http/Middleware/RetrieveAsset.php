@@ -14,6 +14,11 @@ class RetrieveAsset
 {
 
     /**
+     * The bit of the URL before the resource path
+     */
+    const RESOURCE_PLACEHOLDER = "assets/";
+
+    /**
      * Any allowed file types
      */
     const ALLOWED_FILE_TYPES = [
@@ -33,11 +38,11 @@ class RetrieveAsset
      */
     public function handle($request, Closure $next)
     {
-        if (!str_contains($request->url(), "assets/")) {
+        if (!str_contains($request->url(), self::RESOURCE_PLACEHOLDER)) {
             return $next($request);
         }
 
-        $requestedFileType = array_pop(explode('.', $request->url()));
+        $requestedFileType = last(explode('.', $request->url()));
 
         if (!in_array($requestedFileType, self::ALLOWED_FILE_TYPES)) {
             return $next($request);
@@ -59,9 +64,9 @@ class RetrieveAsset
      */
     private function removeFirstAssetsSubstring(Request $request)
     {
-        $path = explode('assets/', $request->url());
-        $path = array_shift($path);
-        return implode('', $path);
+        $startOfResourcePath = strpos($request->url(), self::RESOURCE_PLACEHOLDER) + strlen(self::RESOURCE_PLACEHOLDER);
+
+        return substr($request->url(), $startOfResourcePath);
     }
 
 }
