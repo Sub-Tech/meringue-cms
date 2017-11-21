@@ -37,6 +37,11 @@ h4 {
     font-size: 17px;
     line-height: 20px;
 }
+p{
+    color: rgba(110,127,144,0.8);
+    font-size: 15px;
+    line-height: 21px;
+}
 
 .logo {
     width: 230px;
@@ -66,6 +71,7 @@ h4 {
 .homePageHeader p {
     font-weight: 300;
     font-size:28px;
+    color:white;
     margin-bottom:25px;
     text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.55);
 
