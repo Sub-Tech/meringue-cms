@@ -204,7 +204,7 @@
                             </script>
 
                             {{-- PLUGIN DRAWER --}}
-                            <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
+                            <div class="pluginDrawer col-md-12"><h4>Blocks</h4></div>
                             @foreach($plugins as $plugin)
                                 @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
                                 <div class="col-md-2">
