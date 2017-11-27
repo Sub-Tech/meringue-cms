@@ -54,6 +54,12 @@
 
     <script type="text/javascript" src="{{ URL::asset('/limitless/assets/js/plugins/ui')}}/ripple.min.js"></script>
     <!-- /theme JS files -->
+    <style>
+        img {
+            max-width: 100%;
+            height:auto;
+        }
+    </style>
 
 </head>
 
