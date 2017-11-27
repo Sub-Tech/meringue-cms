@@ -90,7 +90,7 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
     {
         return [
             'name' => 'Image',
-            'description' => 'Choose an Image, nig!',
+            'description' => 'Choose an Image!',
             'inputs' => [
                 'url' => [
                     'type' => 'text'
