@@ -173,60 +173,60 @@
 
                             <script>
 
-                                /**
-                                 * Render the appropriate Modal popup when an Edit Block button is clicked
-                                 * Done by making an AJAX request to the ModalRenderer
-                                 */
-                                $('.editBlock').on('click', function () {
-                                    var id = $(this).closest('.block').data('id');
-                                    var instance_id = $(this).closest('.block').data('instance_id');
+                              /**
+                               * Render the appropriate Modal popup when an Edit Block button is clicked
+                               * Done by making an AJAX request to the ModalRenderer
+                               */
+                              $('.editBlock').on('click', function () {
+                                var id = $(this).closest('.block').data('id');
+                                var instance_id = $(this).closest('.block').data('instance_id');
 
-                                    var url = "/admin/blocks/" + id + "/modal";
+                                var url = "/admin/blocks/" + id + "/modal";
 
-                                    if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
-                                        url += "/" + instance_id
-                                    }
+                                if (typeof(instance_id) !== 'undefined' && instance_id !== "") {
+                                  url += "/" + instance_id
+                                }
 
-                                    return $.ajax({
-                                        url: url,
-                                        method: 'get'
-                                    }).success(function (resp) {
-                                        $('#content-modal').html(resp);
-                                    });
+                                return $.ajax({
+                                  url: url,
+                                  method: 'get'
+                                }).success(function (resp) {
+                                  $('#content-modal').html(resp);
                                 });
+                              });
                             </script>
 
                             <script>
-                                $('.css-button').on('click', function () {
-                                    return $.ajax({
-                                        url: "/admin/sections/" + $(this).attr('data-section_id') + "/modal",
-                                        method: 'get'
-                                    }).success(function (resp) {
-                                        $('#css-modal-body').html(resp);
-                                    });
+                              $('.css-button').on('click', function () {
+                                return $.ajax({
+                                  url: "/admin/sections/" + $(this).attr('data-section_id') + "/modal",
+                                  method: 'get'
+                                }).success(function (resp) {
+                                  $('#css-modal-body').html(resp);
                                 });
+                              });
                             </script>
 
                             {{-- PLUGIN DRAWER --}}
-                            <div class="pluginDrawer col-md-12"><h4>Plugins Drawer</h4></div>
-                            @foreach($plugins as $plugin)
-                                @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
-                                <div class="col-md-2">
-                                    <div class="panel panel-flat">
-                                        <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
-                                        <div class="panel-body">
-                                            <form method="POST"
-                                                  action="{{ route('block.store', ['section' => $section->id]) }}">
-                                                <input type="hidden" name="plugin_class"
-                                                       value="{{ class_path($plugin->getVendor(), $plugin->getName()) }}">
+                            <div class="pluginDrawer col-md-12" style="display: none;"><h4>Blocks</h4>
+                                @foreach($plugins as $plugin)
+                                    @php $plugin = \App\Plugin\PluginInitialiser::getPlugin($plugin->class) @endphp
+                                    <div class="col-md-2">
+                                        <div class="panel panel-flat">
+                                            <div class="panel-heading"><strong>{{ $plugin->getName() }}</strong></div>
+                                            <div class="panel-body">
+                                                <form method="POST"
+                                                      action="{{ route('block.store', ['section' => $section->id]) }}">
+                                                    <input type="hidden" name="plugin_class"
+                                                           value="{{ class_path($plugin->getVendor(), $plugin->getName()) }}">
 
-                                                <input type="submit" class="btn btn-primary" value="Insert">
-                                            </form>
+                                                    <input type="submit" class="btn btn-primary" value="Insert">
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-
+                                @endforeach
+                            </div>
                             <div class="addBlock col-md-12"><i class="fa fa-plus"></i></div>
 
                         </div>
@@ -300,62 +300,66 @@
 
     <script>
 
-        function updateBlock(id, data) {
-            return $.ajax({
-                url: '/admin/blocks/' + id,
-                method: 'post',
-                data: data
-            });
-        }
-
-        function changeBlockWidth(id, width) {
-            if (width <= 0 || width > 12) {
-                return false;
-            }
-            updateBlock(id, {
-                width: width
-            }).success(function () {
-                setBlockWidth(id, width);
-            });
-        }
-
-        function getBlockWidth(id) {
-            return $('.block[data-id=' + id + ']').data('width');
-        }
-
-        function setBlockWidth(id, width) {
-            $('.block[data-id=' + id + ']').removeClass(function (index, className) {
-                return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
-            }).addClass('col-md-' + width).data('width', width);
-            $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
-        }
-
-        $('.changeBlockWidth').on('click', function () {
-            var id = $(this).closest('.block').data('id');
-            changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
+      function updateBlock(id, data) {
+        return $.ajax({
+          url: '/admin/blocks/' + id,
+          method: 'post',
+          data: data
         });
+      }
 
-
-        /**
-         * Delete a block
-         */
-        $('.deleteBlock').on('click', function () {
-            var id = $(this).closest('.block').data('id');
-
-            return $.ajax({
-                url: "/admin/blocks/" + id,
-                method: 'delete'
-            }).success(function () {
-                $('.block[data-id=' + id + ']').html("");
-            });
+      function changeBlockWidth(id, width) {
+        if (width <= 0 || width > 12) {
+          return false;
+        }
+        updateBlock(id, {
+          width: width
+        }).success(function () {
+          setBlockWidth(id, width);
         });
+      }
 
-        /**
-         * Reset Modal Body upon close
-         */
-        $('#myModal').on('hidden.bs.modal', function () {
-            $('.modal-body').html("Loading...");
+      function getBlockWidth(id) {
+        return $('.block[data-id=' + id + ']').data('width');
+      }
+
+      function setBlockWidth(id, width) {
+        $('.block[data-id=' + id + ']').removeClass(function (index, className) {
+          return (className.match(/(^|\s)col-md-\S+/g) || []).join(' ');
+        }).addClass('col-md-' + width).data('width', width);
+        $('.block[data-id=' + id + ']').find('.blockWidth').html(width);
+      }
+
+      $('.changeBlockWidth').on('click', function () {
+        var id = $(this).closest('.block').data('id');
+        changeBlockWidth(id, getBlockWidth(id) + $(this).data('adjustment'));
+      });
+
+
+      /**
+       * Delete a block
+       */
+      $('.deleteBlock').on('click', function () {
+        var id = $(this).closest('.block').data('id');
+
+        return $.ajax({
+          url: "/admin/blocks/" + id,
+          method: 'delete'
+        }).success(function () {
+          $('.block[data-id=' + id + ']').html("");
         });
+      });
+
+      /**
+       * Reset Modal Body upon close
+       */
+      $('#myModal').on('hidden.bs.modal', function () {
+        $('.modal-body').html("Loading...");
+      });
+
+      $('.addBlock').on('click', function () {
+        $(this).closest('.section').find('.pluginDrawer').show();
+      })
 
     </script>
 @endsection

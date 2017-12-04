@@ -38,9 +38,15 @@ class RetrieveAsset
      */
     public function handle($request, Closure $next)
     {
-        if (!str_contains($request->url(), self::RESOURCE_PLACEHOLDER)) {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        $i = str_contains($request->url(), self::RESOURCE_PLACEHOLDER);
+
+        if (!$i) {
             return $next($request);
         }
+
 
         $requestedFileType = last(explode('.', $request->url()));
 
