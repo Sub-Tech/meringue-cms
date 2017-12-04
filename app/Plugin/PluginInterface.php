@@ -60,4 +60,10 @@ interface PluginInterface
      */
     public function constructEditorModal(): array;
 
+    /**
+     * Return whole HTML string i.e.
+     * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string;
 }

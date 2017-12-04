@@ -90,7 +90,7 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
     {
         return [
             'name' => 'Image',
-            'description' => 'Choose an Image, nig!',
+            'description' => 'Choose an Image!',
             'inputs' => [
                 'url' => [
                     'type' => 'text'
@@ -155,13 +155,22 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
 
 
     /**
-     * Return a link to the block preview file
-     *
-     * @return string
-     */
+ * Return a link to the block preview file
+ *
+ * @return string
+ */
     public function renderBlockPreview(): string
     {
         return '/Meringue/Image/views/admin/page/block';
     }
 
+    /**
+     * Display the block type icon
+     *
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
+    }
 }

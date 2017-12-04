@@ -151,4 +151,13 @@ class Button extends PluginBase implements InstanceInterface
         return Models\Button::findOrFail($instanceId)->delete();
     }
 
+    /**
+     * Return whole HTML string i.e.
+     * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-circle-o" aria-hidden="true"></i>';
+    }
 }

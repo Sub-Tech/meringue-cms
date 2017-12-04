@@ -163,4 +163,13 @@ class PhotoGallery extends PluginBase implements InstanceInterface
         ];
     }
 
+    /**
+     * Return whole HTML string i.e.
+     * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
+    }
 }

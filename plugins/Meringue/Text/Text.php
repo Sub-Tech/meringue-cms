@@ -164,4 +164,14 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
         return 'Meringue/Text/views/admin/page/block';
     }
 
+    /**
+     * Display the block type icon
+     *
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-font" aria-hidden="true"></i>';
+    }
+
 }
