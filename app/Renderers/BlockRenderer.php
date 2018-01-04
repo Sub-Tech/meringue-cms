@@ -18,7 +18,7 @@ class BlockRenderer
      * @param Block $block
      * @return string (of HTML)
      */
-    public static function render(Block $block)
+    public static function render(Block $block, $withContainer)
     {
         if ($block->isTryingToRenderAnInactivePlugin() || $block->pluginDependsOnAnInactivePlugin()) {
             return "";
@@ -27,11 +27,14 @@ class BlockRenderer
         if ($block->plugin->class() instanceof InstanceInterface && is_null($block->instance_id)) {
             return "";
         }
-
-        return
-            "<div class='block col-md-{$block->width}'>"
-            . $block->plugin->class()->render($block->instance_id) .
-            "</div>";
+        if($withContainer) {
+            return
+                "<div class='block col-md-{$block->width}'>"
+                . $block->plugin->class()->render($block->instance_id) .
+                "</div>";
+        } else {
+            return  $block->plugin->class()->render($block->instance_id);
+        }
     }
 
 }

@@ -42,7 +42,10 @@ p{
     font-size: 15px;
     line-height: 21px;
 }
-
+p.bigp {
+    font-size: 18px;
+    line-height: 24px;
+}
 .logo {
     width: 230px;
     height: 25px;
@@ -51,6 +54,12 @@ p{
     background-repeat: no-repeat;
     background-size: contain;
     display: block;
+}
+
+.small-header {
+    background:#333333;
+    padding:120px 0 60px;
+    color:white;
 }
 
 .homePageHeader {

@@ -86,15 +86,13 @@ class Block extends Model
         return $this->hasOne(Plugin::class, 'class_name', 'plugin_class');
     }
 
-
     /**
-     * Render the block
-     *
+     * @param bool $withContainer
      * @return string
      */
-    public function render()
+    public function render($withContainer = true)
     {
-        return BlockRenderer::render($this);
+        return BlockRenderer::render($this, $withContainer);
     }
 
 

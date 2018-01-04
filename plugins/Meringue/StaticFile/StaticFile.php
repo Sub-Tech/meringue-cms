@@ -8,6 +8,7 @@ use App\Plugin\PluginBase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use View;
 
 /**
  * Class StaticFile
@@ -87,6 +88,9 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      */
     public function render(int $instanceId = null)
     {
+
+        View::addLocation(__DIR__ . "/files/");
+
         $file = DB::table($this->table)
             ->find($instanceId)
             ->filename;
@@ -98,7 +102,7 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
         }
 
         try {
-            include $fullPath;
+            return view(basename($file, ".php"));
         } catch (\Throwable $throwable) {
             //
         }
