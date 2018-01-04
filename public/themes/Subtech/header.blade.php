@@ -25,7 +25,7 @@
     <div class="container wide-container">
         <div class="row">
             <div class="col-md-2">
-                <div class="logo"></div>
+                <a class="logo" href="/"></a>
             </div>
             <div class="col-md-10 menu">
                 <ul>
