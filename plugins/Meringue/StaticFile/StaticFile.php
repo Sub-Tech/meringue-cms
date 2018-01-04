@@ -91,17 +91,19 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
             ->find($instanceId)
             ->filename;
 
-        if (!file_exists(__DIR__ . "/files/{$file}")) {
+        $fullPath = __DIR__ . "/files/{$file}";
+
+        if (!file_exists($fullPath)) {
             return false;
         }
 
         try {
-            include_once $file;
+            include $fullPath;
         } catch (\Throwable $throwable) {
             //
         }
 
-        return true;
+        return false;
     }
 
 
