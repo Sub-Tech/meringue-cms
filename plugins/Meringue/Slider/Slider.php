@@ -153,4 +153,13 @@ class Slider extends PluginBase implements InstanceInterface
         return GalleryLink::findOrFail($instanceId)->delete();
     }
 
+    /**
+     * Return whole HTML string i.e.
+     * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-sliders" aria-hidden="true"></i>';
+    }
 }

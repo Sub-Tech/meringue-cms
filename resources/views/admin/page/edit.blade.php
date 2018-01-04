@@ -82,7 +82,7 @@
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
-            bottom: -13px;
+            bottom: -1px;
             position: relative;
         }
 
@@ -96,6 +96,11 @@
             padding: 10px;
             margin-top: 26px;
             position: relative;
+        }
+
+        .block .blockInner img {
+            width: 100%;
+            height: 100%;
         }
     </style>
 
@@ -138,9 +143,7 @@
                                     <div class="blockInner">
                                         <div class="menu">
                                             <ul>
-                                                <li class="image"
-                                                    style="background-image:url({{ $block->plugin->icon }});"></li>
-
+                                                <li class="image">{!! $block->plugin->class()->setFontAwesommeIcon() !!}</li>
                                                 <li><i class="fa fa-pencil editBlock" data-toggle="modal"
                                                        data-target="#myModal" aria-hidden="true"></i></li>
                                                 <li><i class="fa fa-clone" aria-hidden="true"></i></li>
@@ -152,6 +155,7 @@
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                                 </li>
                                                 <li class="blockWidth"><?= $block->width; ?></li>
+
                                             </ul>
                                         </div>
 

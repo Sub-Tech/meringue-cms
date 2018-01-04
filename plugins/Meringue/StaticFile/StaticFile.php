@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Meringue\Text;
+namespace Plugins\Meringue\StaticFile;
 
 use App\Plugin\InstanceInterface;
 use App\Plugin\PageEditorInterface;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
  * Class Text
  * @package Plugins\Meringue\Text
  */
-class Text extends PluginBase implements InstanceInterface, PageEditorInterface
+class StaticFile extends PluginBase implements InstanceInterface, PageEditorInterface
 {
 
     /**
@@ -34,7 +34,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      */
     public function setName(): void
     {
-        $this->name = 'Text';
+        $this->name = 'Static File';
     }
 
 
@@ -74,8 +74,8 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
     public function details(): array
     {
         return [
-            'name' => 'Text',
-            'description' => 'Allows you to easily create a text block',
+            'name' => 'Static File',
+            'description' => 'Allows you to include static php files',
             'author' => 'James Lewis',
             'icon' => './assets/images/block-icon.png',
         ];
@@ -110,7 +110,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      */
     public function getInstance(int $instanceId)
     {
-        return DB::table('meringue_text_text')->find($instanceId);
+        return DB::table('meringue_text_static_file')->find($instanceId);
     }
 
 
@@ -122,7 +122,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      */
     public function saveInstance(Request $request): int
     {
-        return DB::table('meringue_text_text')
+        return DB::table('meringue_text_static_file')
             ->insertGetId($request->only(['name', 'content']));
     }
 
@@ -136,7 +136,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      */
     public function updateInstance(int $instanceId, Request $request): bool
     {
-        return DB::table('meringue_text_text')
+        return DB::table('meringue_text_static_file')
             ->where('id', $instanceId)
             ->update($request->only(['name', 'content']));
     }
@@ -151,7 +151,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      */
     public function deleteInstance(int $instanceId): bool
     {
-        return DB::table('meringue_text_text')->delete($instanceId);
+        return DB::table('meringue_text_static_file')->delete($instanceId);
     }
 
     /**

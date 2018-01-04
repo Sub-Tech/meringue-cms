@@ -9,8 +9,8 @@
 {{--    <link rel="stylesheet" href="{{ theme_asset('css/owl.theme.default.min.css') }}">--}}
     <link rel="stylesheet" href="{{ theme_asset('css/buttons.css') }}">
 
-    <script src="{{ theme_asset('js/jquery.js') }}"></script>
-
+    <script src="{{ theme_asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ theme_asset('js/main.js') }}"></script>
 
     <!-- Fonts -->
 
@@ -29,17 +29,18 @@
             </div>
             <div class="col-md-10 menu">
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Lead Generation</a></li>
-                    <li><a href="">Meat The Team</a></li>
-                    <li><a href="">Affiliate Network</a></li>
-                    <li><a href="">Contact Us</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/gdpr">GDPR</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/team">Meet The Team</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+</body>
+<?php if($_SERVER['REQUEST_URI'] === '/') { ?>
 <section class="hero is-fullheight is-primary homePageHeader">
     <video autoplay loop>
         <source src="{{ theme_asset('videos/header3.mp4') }}" type="video/mp4">
@@ -53,5 +54,4 @@
         </div>
     </div>
 </section>
-</body>
-
+<?php } ?>

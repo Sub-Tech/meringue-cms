@@ -5,7 +5,10 @@ namespace Plugins\SubTech\Staff;
 use App\Plugin\CronInterface;
 use App\Plugin\PluginBase;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redirect;
 use Plugins\SubTech\Staff\Libraries\Stamp;
 use stdClass;
@@ -163,4 +166,60 @@ class Staff extends PluginBase implements CronInterface
         })->daily();
     }
 
+    /**
+     * Get the specified Instance of the Plugin
+     *
+     * @param int $instanceId
+     * @return Collection|\stdClass|Model
+     */
+    public function getInstance(int $instanceId)
+    {
+        // TODO: Implement getInstance() method.
+    }
+
+    /**
+     * Save an instance of the plugin to the db
+     * Return the inserted ID
+     *
+     * @param Request $request
+     * @return int $instanceId
+     */
+    public function saveInstance(Request $request): int
+    {
+        // TODO: Implement saveInstance() method.
+    }
+
+    /**
+     * Update the Instance in the DB and return success via bool
+     *
+     * @param int $instanceId
+     * @param Request $request
+     * @return bool
+     */
+    public function updateInstance(int $instanceId, Request $request): bool
+    {
+        // TODO: Implement updateInstance() method.
+    }
+
+    /**
+     * Delete the Instance from the DB
+     * Return success state
+     *
+     * @param int $instanceId
+     * @return bool
+     */
+    public function deleteInstance(int $instanceId): bool
+    {
+        // TODO: Implement deleteInstance() method.
+    }
+
+    /**
+     * Return whole HTML string i.e.
+     * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
+     * @return string
+     */
+    public function setFontAwesommeIcon(): string
+    {
+        return '<i class="fa fa-users" aria-hidden="true"></i>';
+    }
 }
