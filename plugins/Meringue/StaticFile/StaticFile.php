@@ -127,8 +127,14 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      */
     public function constructEditorModal() : array
     {
+        $instances = DB::table($this->table)->get();
+
+        $instances->each(function ($instance) {
+            $instance->name = $instance->filename;
+        });
+
         return [
-            "instances" => DB::table($this->table)->get()
+            "instances" => $instances
         ];
     }
 
