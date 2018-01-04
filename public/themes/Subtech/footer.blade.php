@@ -30,6 +30,7 @@
                 <p class="legal">Submission Technology Limited, Registered in England No. 4456811
                     © 2003 – 2017 Submission Technology Limited.
                     All rights reserved. Registered under the Data Protection Act. Registration No. PZ7981900</p>
+                <img src="{{ theme_asset('images/iip.png') }}">
             </div>
         </div>
     </div>

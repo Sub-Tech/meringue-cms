@@ -1,0 +1,10 @@
+{
+    "name": "meringue/text",
+    "description": "Text",
+    "require": {},
+    "autoload": {
+        "files": [
+            "./controllers/TextController.php"
+        ]
+    }
+}

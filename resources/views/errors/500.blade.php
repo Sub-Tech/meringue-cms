@@ -1,1 +1,1 @@
-<h3>500 you cunt</h3>
+<h3>Error 500</h3>
