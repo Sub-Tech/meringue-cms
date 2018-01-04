@@ -182,7 +182,7 @@ class Form extends PluginBase implements InstanceInterface
      * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
      * @return string
      */
-    public function setFontAwesommeIcon(): string
+    public function setFontAwesomeIcon(): string
     {
         return '<i class="fa fa-circle-o" aria-hidden="true"></i>';
     }

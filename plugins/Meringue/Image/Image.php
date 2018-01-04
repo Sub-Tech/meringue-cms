@@ -169,7 +169,7 @@ class Image extends PluginBase implements InstanceInterface, PageEditorInterface
      *
      * @return string
      */
-    public function setFontAwesommeIcon(): string
+    public function setFontAwesomeIcon(): string
     {
         return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
     }

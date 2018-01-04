@@ -168,7 +168,7 @@ class PhotoGallery extends PluginBase implements InstanceInterface
      * '<i class="fa fa-picture-o" aria-hidden="true"></i>'
      * @return string
      */
-    public function setFontAwesommeIcon(): string
+    public function setFontAwesomeIcon(): string
     {
         return '<i class="fa fa-picture-o" aria-hidden="true"></i>';
     }

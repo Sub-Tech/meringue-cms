@@ -169,7 +169,7 @@ class Text extends PluginBase implements InstanceInterface, PageEditorInterface
      *
      * @return string
      */
-    public function setFontAwesommeIcon(): string
+    public function setFontAwesomeIcon(): string
     {
         return '<i class="fa fa-font" aria-hidden="true"></i>';
     }

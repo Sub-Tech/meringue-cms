@@ -143,7 +143,7 @@
                                     <div class="blockInner">
                                         <div class="menu">
                                             <ul>
-                                                <li class="image">{!! $block->plugin->class()->setFontAwesommeIcon() !!}</li>
+                                                <li class="image">{!! $block->plugin->class()->setFontAwesomeIcon() !!}</li>
                                                 <li><i class="fa fa-pencil editBlock" data-toggle="modal"
                                                        data-target="#myModal" aria-hidden="true"></i></li>
                                                 <li><i class="fa fa-clone" aria-hidden="true"></i></li>
