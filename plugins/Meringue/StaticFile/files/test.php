@@ -1,1 +1,3 @@
-<?php echo "your mum"; ?>
+<?php
+
+die('efe');

@@ -101,7 +101,7 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
             //
         }
 
-        return true;
+        return false;
     }
 
 
