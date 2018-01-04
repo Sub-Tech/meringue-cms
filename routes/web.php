@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SectionController;
 use App\Plugin;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::patch('sections/{section}/css', 'Admin\SectionCssController@update')->name('section.css');
     Route::patch('pages/{page}/css', 'Admin\PageCssController@update')->name('page.css');
     Route::get('sections/{section}/modal', 'Admin\SectionCssController@show')->name('section.modal');
+    Route::delete('sections/{section}', 'Admin\SectionController@destroy')->name('section.delete');
 
     // TODO update with Section
     Route::delete('blocks/{block}', 'Admin\BlockController@delete')->name('block.delete');
