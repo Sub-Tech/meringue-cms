@@ -10,18 +10,45 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class Text
+ * Class StaticFile
+ *
  * @package Plugins\Meringue\Text
  */
 class StaticFile extends PluginBase implements InstanceInterface, PageEditorInterface
 {
 
     /**
+     * The table name
+     *
+     * @var string
+     */
+    private $table = "meringue_static_file";
+
+    /**
+     * StaticFile constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (\Schema::hasTable($this->table)) {
+            $savedFiles = DB::table($this->table)->get()->keyBy('filename');
+            $currentFiles = collect(trim_directory_path(scandir(__DIR__ . "/files")));
+
+            $currentFiles->each(function (string $file) use ($savedFiles) {
+                if (!$savedFiles->has($file)) {
+                    DB::table($this->table)->insert(["filename" => $file]);
+                }
+            });
+        }
+    }
+
+    /**
      * Set the Vendor of the Plugin
      *
      * @return void
      */
-    public function setVendor(): void
+    public function setVendor() : void
     {
         $this->vendor = 'Meringue';
     }
@@ -32,9 +59,9 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      *
      * @return void
      */
-    public function setName(): void
+    public function setName() : void
     {
-        $this->name = 'Static File';
+        $this->name = 'StaticFile';
     }
 
 
@@ -60,10 +87,21 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      */
     public function render(int $instanceId = null)
     {
-        $content = DB::table('meringue_text_text')->find($instanceId)->content;
+        $file = DB::table($this->table)
+            ->find($instanceId)
+            ->filename;
 
-        return view('Meringue/Text/views/text')
-            ->with('content', $content);
+        if (!file_exists(__DIR__ . "/files/{$file}")) {
+            return false;
+        }
+
+        try {
+            include_once $file;
+        } catch (\Throwable $throwable) {
+            //
+        }
+
+        return true;
     }
 
 
@@ -71,11 +109,11 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      * Details used for the plugin
      * @return array
      */
-    public function details(): array
+    public function details() : array
     {
         return [
             'name' => 'Static File',
-            'description' => 'Allows you to include static php files',
+            'description' => 'Allows you to include static PHP files',
             'author' => 'James Lewis',
             'icon' => './assets/images/block-icon.png',
         ];
@@ -87,17 +125,10 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      *
      * @return array
      */
-    public function constructEditorModal(): array
+    public function constructEditorModal() : array
     {
         return [
-            'inputs' => [ // Inputs for the page editor
-                'name' => [
-                    'type' => 'text'
-                ],
-                'content' => [ // Key must be same as database column
-                    'type' => 'textarea' // This will load a corresponding input in the page editor
-                ],
-            ]
+            "instances" => DB::table($this->table)->get()
         ];
     }
 
@@ -110,7 +141,12 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      */
     public function getInstance(int $instanceId)
     {
-        return DB::table('meringue_text_static_file')->find($instanceId);
+        $instance = DB::table($this->table)
+            ->find($instanceId);
+
+        $instance->name = $instance->filename;
+
+        return $instance;
     }
 
 
@@ -120,10 +156,10 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      * @param Request $request
      * @return int $instanceId
      */
-    public function saveInstance(Request $request): int
+    public function saveInstance(Request $request) : int
     {
-        return DB::table('meringue_text_static_file')
-            ->insertGetId($request->only(['name', 'content']));
+        return DB::table($this->table)
+            ->insertGetId($request->only(['name', 'filename']));
     }
 
 
@@ -134,11 +170,11 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      * @param Request $request
      * @return bool
      */
-    public function updateInstance(int $instanceId, Request $request): bool
+    public function updateInstance(int $instanceId, Request $request) : bool
     {
-        return DB::table('meringue_text_static_file')
+        return DB::table($this->table)
             ->where('id', $instanceId)
-            ->update($request->only(['name', 'content']));
+            ->update($request->only(['name', 'filename']));
     }
 
 
@@ -149,9 +185,10 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      * @param int $instanceId
      * @return bool
      */
-    public function deleteInstance(int $instanceId): bool
+    public function deleteInstance(int $instanceId) : bool
     {
-        return DB::table('meringue_text_static_file')->delete($instanceId);
+        return DB::table($this->table)
+            ->delete($instanceId);
     }
 
     /**
@@ -159,9 +196,9 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      *
      * @return string
      */
-    public function renderBlockPreview(): string
+    public function renderBlockPreview() : string
     {
-        return 'Meringue/Text/views/admin/page/block';
+        return 'Meringue/StaticFile/views/admin/page/block';
     }
 
     /**
@@ -169,7 +206,7 @@ class StaticFile extends PluginBase implements InstanceInterface, PageEditorInte
      *
      * @return string
      */
-    public function setFontAwesommeIcon(): string
+    public function setFontAwesomeIcon() : string
     {
         return '<i class="fa fa-font" aria-hidden="true"></i>';
     }

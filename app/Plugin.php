@@ -98,7 +98,9 @@ class Plugin extends Model
         }
     }
 
-
+    /**
+     * @return Plugin\CronInterface|Plugin\InstanceInterface|Plugin\PluginBase|Plugin\PluginInterface
+     */
     public function class()
     {
         return PluginInitialiser::getPlugin($this->class_name);

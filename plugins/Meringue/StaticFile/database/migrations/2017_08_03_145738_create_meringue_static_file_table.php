@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeringueTextTextTable extends Migration
+class CreateMeringueStaticFileTable extends Migration
 {
     /**
      * Run the migrations.
