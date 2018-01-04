@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Responses\AjaxResponse;
 use App\Page;
 use App\Section;
 use Illuminate\Http\Request;
@@ -34,13 +35,13 @@ class SectionController extends Controller
      * Delete a Section
      *
      * @param Section $section
-     * @return \Illuminate\Http\RedirectResponse
+     * @return AjaxResponse
      */
     public function destroy(Section $section)
     {
         $section->delete();
 
-        return Redirect::back();
+        return new AjaxResponse("success", true);
     }
 
 }
